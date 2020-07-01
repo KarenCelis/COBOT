@@ -8,11 +8,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="67dp"
-        android:layout_height="11dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="148dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="96dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,13 +33,33 @@
     <SeekBar
         android:id="@+id/seekBar2"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="203dp"
-        android:layout_height="105dp"
+        android:layout_width="254dp"
+        android:layout_height="119dp"
         android:max="10"
         android:progress="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintVertical_bias="0.655" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="135dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="56dp"
+        android:text="Titulo"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.288" />
+
+    <EditText
+        android:id="@+id/textView3"
+        android:layout_width="220dp"
+        android:layout_height="46dp"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="136dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
