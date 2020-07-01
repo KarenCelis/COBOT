@@ -5,19 +5,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConfigureAction">
+
     <com.google.android.material.slider.Slider
         android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="337dp"
-        android:contentDescription="jhj"
+        android:layout_width="288dp"
+        android:layout_height="50dp"
 
+        android:layout_marginTop="44dp"
+        android:contentDescription="jhj"
+        android:stepSize="0.1"
         android:valueFrom="-1"
         android:valueTo="1"
-
+        app:haloColor="#FF9800"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slider2"
+        app:layout_constraintVertical_bias="0.0"
+        app:thumbColor="#ECF321"
+        app:tickColorInactive="#E8ED54"
+        app:trackColorActive="#BBF37A"
+        app:trackColorInactive="#FF8837"
+        app:trackHeight="?attr/listPreferredItemPaddingRight" />
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="39dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.469"
+        app:srcCompat="@drawable/confused" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="39dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/slider2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.469"
+        app:srcCompat="@drawable/wink" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider2"
+        android:layout_width="288dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="240dp"
+
+        android:contentDescription="jhj"
+        android:stepSize="0.1"
+        android:valueFrom="-1"
+        android:valueTo="1"
+        app:haloColor="#FF9800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbColor="#ECF321"
+        app:tickColorInactive="#E8ED54"
+        app:trackColorActive="#BBF37A"
+        app:trackColorInactive="#FF8837"
+        app:trackHeight="?attr/listPreferredItemPaddingRight" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="39dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339"
+        app:srcCompat="@drawable/sad" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="39dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/slider2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339"
+        app:srcCompat="@drawable/smile" />
 </androidx.constraintlayout.widget.ConstraintLayout>
