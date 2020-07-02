@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">COBOT</string>
-    <string name="seleccionar_obra">Selecciona una obra de teatro</string>
+    <string name="seleccionar_obra">2. Selecciona una obra de teatro</string>
     <string name="seleccionar_obra_preview">Selecciona un archivo…</string>
     <string name="seleccionar_obra_boton">…</string>
     <string name="seleccionar_personaje">Selecciona un personaje de la obra</string>
