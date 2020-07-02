@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="135dp"
-        android:layout_height="26dp"
+        android:layout_width="182dp"
+        android:layout_height="34dp"
         android:layout_marginTop="88dp"
-        android:text="Elija a su robot"
+        android:text="1. Elija a su robot"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +45,9 @@
         android:id="@+id/imageView"
         android:layout_width="186dp"
         android:layout_height="177dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.728"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:srcCompat="@drawable/nao_36_jpgb2b7fa76_257c_4e8e_9913_8aac9a9e0af2large" />
@@ -56,15 +56,15 @@
         android:id="@+id/imageView2"
         android:layout_width="186dp"
         android:layout_height="170dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintHorizontal_bias="0.728"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:srcCompat="@drawable/robot_con_los_ojos_y_las_ruedas_en_un_fondo_blanco_internacional_artificial_113929772" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_continuar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"

@@ -9,16 +9,16 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button Continuar;
+    Button ContinuarM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Continuar = findViewById(R.id.BotonContinuarMainActivity);
-        Continuar.setOnClickListener(new View.OnClickListener() {
+        ContinuarM = findViewById(R.id.BotonContinuarMainActivity);
+        ContinuarM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent TrancisionConfigureAction = new Intent(Continuar.getContext(), RobotConection.class);
+                Intent TrancisionConfigureAction = new Intent(ContinuarM.getContext(), ConfigureAction.class);
                 startActivity(TrancisionConfigureAction);
             }
         });
