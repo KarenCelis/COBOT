@@ -1,1 +1,11 @@
-
+1 Caminar
+2 Hablar
+3 Saludar
+4 Correr
+5 Girar
+6 Mover Brazo izquierdo
+7 Mover Brazo derecho
+8 Patear
+9 Agachar
+10 Inclinar cabeza
+11 Temblar
