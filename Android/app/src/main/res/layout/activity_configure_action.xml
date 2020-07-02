@@ -141,8 +141,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="379dp"
-        android:layout_height="29dp"
+        android:layout_width="384dp"
+        android:layout_height="34dp"
         android:layout_marginTop="68dp"
         android:text="¿Cuál es el estado de ánimo de Caperucita?"
         android:textSize="18sp"
