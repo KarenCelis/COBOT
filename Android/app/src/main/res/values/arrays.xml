@@ -22,4 +22,10 @@
 </item>
         <item>¡Hola! ¿Cómo estáis? </item>
     </string-array>
+    <string-array name="spinnerCharacters">
+        <item>Caperucita</item>
+        <item>Lobo</item>
+        <item>Madre</item>
+        <item>Abuelita</item>
+    </string-array>
 </resources>
