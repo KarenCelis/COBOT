@@ -181,8 +181,8 @@
         android:id="@+id/textView8"
         android:layout_width="114dp"
         android:layout_height="31dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="36dp"
         android:text="Dialogo"
         android:textSize="18sp"
@@ -190,12 +190,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_mood"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.008" />
 
     <Spinner
         android:id="@+id/spinner_dialogo"
-        android:layout_width="159dp"
-        android:layout_height="31dp"
+        android:layout_width="244dp"
+        android:layout_height="26dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="36dp"
