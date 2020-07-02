@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ResultConfigureAction"></activity>
         <activity android:name=".RobotConection" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ConfigureAction">

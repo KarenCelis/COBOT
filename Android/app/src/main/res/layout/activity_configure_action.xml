@@ -52,7 +52,7 @@
         android:id="@+id/slider_mood"
         android:layout_width="288dp"
         android:layout_height="50dp"
-
+        android:value="0"
         android:layout_marginTop="36dp"
         android:contentDescription="jhj"
         android:stepSize="0.1"
@@ -99,7 +99,7 @@
         android:layout_width="288dp"
         android:layout_height="50dp"
         android:layout_marginTop="312dp"
-
+        android:value="0"
         android:contentDescription="jhj"
         android:stepSize="0.1"
         android:valueFrom="-1"
