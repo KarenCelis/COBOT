@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RobotConection"></activity>
+        <activity android:name=".ActionDecomposition"></activity>
+        <activity android:name=".RobotConection" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ConfigureAction">
             <intent-filter>
