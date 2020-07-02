@@ -88,17 +88,17 @@
 
     <TextView
         android:id="@+id/textView1111"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="222dp"
+        android:layout_height="76dp"
         android:text="TextView"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView111"
-        app:layout_constraintVertical_bias="0.167" />
+        app:layout_constraintVertical_bias="0.134" />
 
     <TextView
         android:id="@+id/textView111"
