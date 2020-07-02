@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="accion">
+    <item>Caminar</item>
+    <item>Saltar</item>
+    <item>Volar</item>
+    <item>Moverse</item>
+    <item>Avanzar</item>
+</string-array>
+    <string-array name="dialogo">
+        <item>Caminar</item>
+        <item>Saltar</item>
+        <item>Volar</item>
+        <item>Moverse</item>
+        <item>Avanzar</item>
+    </string-array>
+</resources>
