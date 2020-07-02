@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class RobotConection extends AppCompatActivity {
     Button continuar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_robot_conection);
