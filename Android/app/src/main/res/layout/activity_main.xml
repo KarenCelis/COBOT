@@ -76,8 +76,8 @@
 
     <Button
         android:id="@+id/BotonContinuarMainActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="173dp"
+        android:layout_height="64dp"
         android:text="@string/boton_continuar_main_activity"
         app:backgroundTint="#8BC34A"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/button_continuar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="139dp"
+        android:layout_height="72dp"
         android:text="Continuar"
         app:backgroundTint="#8BC34A"
         app:layout_constraintBottom_toBottomOf="parent"
