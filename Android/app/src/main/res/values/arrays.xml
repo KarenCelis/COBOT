@@ -2,16 +2,24 @@
 <resources>
     <string-array name="accion">
     <item>Caminar</item>
-    <item>Saltar</item>
-    <item>Volar</item>
+    <item>Sentarse</item>
+    <item>Saludar</item>
     <item>Moverse</item>
-    <item>Avanzar</item>
+    <item>Levantarse</item>
+        <item>Besar</item>
+        <item>Cantar</item>
+        <item>Despedirse</item>
 </string-array>
     <string-array name="dialogo">
-        <item>Caminar</item>
-        <item>Saltar</item>
-        <item>Volar</item>
-        <item>Moverse</item>
-        <item>Avanzar</item>
+         <item> Ninguno
+</item>
+        <item> ¿Qué me regalará?
+</item>
+        <item>¿Ya nos podemos comer la tarta?
+</item>
+        <item>Ay! ¡Qué nervios! ¡Qué capa tan bonita! </item>
+        <item>Adiós, abuelita.
+</item>
+        <item>¡Hola! ¿Cómo estáis? </item>
     </string-array>
 </resources>

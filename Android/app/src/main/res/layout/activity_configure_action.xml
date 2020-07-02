@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fox" />
+        app:srcCompat="@drawable/halloween" />
 
     <TextView
         android:id="@+id/textView7"
@@ -39,7 +39,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:entries="@array/items"
+        android:entries="@array/accion"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -86,7 +86,7 @@
         android:layout_width="267dp"
         android:layout_height="32dp"
         android:layout_marginBottom="12dp"
-        android:text="¿Comó se siente el Lobo?"
+        android:text="¿Comó se siente Caperucita?"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toTopOf="@+id/slider_emotion"
@@ -141,10 +141,10 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="336dp"
-        android:layout_height="25dp"
+        android:layout_width="384dp"
+        android:layout_height="34dp"
         android:layout_marginTop="68dp"
-        android:text="¿Cuál es el estado de ánimo del Lobo?"
+        android:text="¿Cuál es el estado de ánimo de Caperucita?"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintEnd_toEndOf="parent"
@@ -181,8 +181,8 @@
         android:id="@+id/textView8"
         android:layout_width="114dp"
         android:layout_height="31dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="36dp"
         android:text="Dialogo"
         android:textSize="18sp"
@@ -190,18 +190,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_mood"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.008" />
 
     <Spinner
         android:id="@+id/spinner_dialogo"
-        android:layout_width="159dp"
-        android:layout_height="31dp"
+        android:layout_width="244dp"
+        android:layout_height="26dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:entries="@array/items"
+        android:entries="@array/dialogo"
         android:textSize="18sp"
         app:fontFamily="@font/fredoka_one"
         app:layout_constraintEnd_toEndOf="parent"
