@@ -1,30 +1,35 @@
 {
     "Title":"Caperucita Roja",
+    "AvailableActions":"/MapeoAcciones/*",
     "Characters":
     [
         {
             "id":1,
             "name":"Caperucita",
             "initialMood":0.4,
-            "emotion":"Happiness"
+            "emotion":"Happiness",
+            "CharacterIcon":"/icons/Caperucita.png"
         },
         {
             "id":2,
             "name":"Lobo",
             "initialMood":0.3,
-            "emotion":"Anger"
+            "emotion":"Anger",
+            "CharacterIcon":"/icons/Lobo.png"
         },
         {
             "id":3,
             "name":"Madre",
             "initialMood":0.6,
-            "emotion":"Happiness"
+            "emotion":"Happiness",
+            "CharacterIcon":"/icons/Madre.png"
         },
         {
             "id":4,
             "name":"Abuela",
             "initialMood":0.3,
-            "emotion":"Sadness"
+            "emotion":"Sadness",
+            "CharacterIcon":"/icons/Abuela.png"
         }
     ],
     "sounds":
@@ -45,21 +50,45 @@
             "audioFile":"/audios/Scene1Abuela.mp3"
         }
     ],
-    "scenes":
+    "robots":
     [
         {
             "id":1,
-            "actions":
-            [
-                {
-                    "id":1,
-                    "idCharacter":1,
-                    "actionName":"Hablar",
-                    "isParentAction":true,
-                    "HasDialogue":true,
-                    "soundId":1
-                }
-            ]
+            "alias":"nao1",
+            "type":"nao"
+        },
+        {
+            "id":2,
+            "alias":"quemes1",
+            "type":"quemes"
+        }
+    ],
+    "nodeDistances":50,
+    "nodes":
+    [
+        {
+            "name":"n1",
+            "xposition":0,
+            "yposition":0,
+            "alias":"Casa_Madre"
+        },
+        {
+            "name":"n2",
+            "xposition":1,
+            "yposition":0,
+            "alias":"Bosque"
+        },
+        {
+            "name":"n3",
+            "xposition":0,
+            "yposition":1,
+            "alias":"Sendero"
+        },
+        {
+            "name":"n4",
+            "xposition":1,
+            "yposition":1,
+            "alias":"Casa_Abuela"
         }
     ]
 }
