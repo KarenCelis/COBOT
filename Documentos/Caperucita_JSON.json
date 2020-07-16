@@ -1,94 +1,256 @@
 {
-    "Title":"Caperucita Roja",
-    "AvailableActions":"/MapeoAcciones/*",
-    "Characters":
-    [
+    "Title": "Caperucita Roja",
+    "AvailableActions": "/MapeoAcciones/*",
+    "SceneAmmount": 4,
+    "Characters": [
         {
-            "id":1,
-            "name":"Caperucita",
-            "initialMood":0.4,
-            "emotion":"Happiness",
-            "CharacterIcon":"/icons/Caperucita.png"
+            "id": 1,
+            "name": "Caperucita",
+            "initialMood": 0.4,
+            "emotion": "Happiness",
+            "CharacterIcon": "/icons/Caperucita.png"
         },
         {
-            "id":2,
-            "name":"Lobo",
-            "initialMood":0.3,
-            "emotion":"Anger",
-            "CharacterIcon":"/icons/Lobo.png"
+            "id": 2,
+            "name": "Lobo",
+            "initialMood": 0.3,
+            "emotion": "Anger",
+            "CharacterIcon": "/icons/Lobo.png"
         },
         {
-            "id":3,
-            "name":"Madre",
-            "initialMood":0.6,
-            "emotion":"Happiness",
-            "CharacterIcon":"/icons/Madre.png"
+            "id": 3,
+            "name": "Madre",
+            "initialMood": 0.6,
+            "emotion": "Happiness",
+            "CharacterIcon": "/icons/Madre.png"
         },
         {
-            "id":4,
-            "name":"Abuela",
-            "initialMood":0.3,
-            "emotion":"Sadness",
-            "CharacterIcon":"/icons/Abuela.png"
+            "id": 4,
+            "name": "Abuela",
+            "initialMood": 0.3,
+            "emotion": "Sadness",
+            "CharacterIcon": "/icons/Abuela.png"
         }
     ],
-    "sounds":
-    [
+    "sounds": [
         {
-            "id":1,
-            "idCharacter":1,
-            "audioFile":"/audios/Scene1Caperucita.mp3"
+            "id": 1,
+            "idCharacter": 1,
+            "audioFile": "/audios/Scene1Caperucita.mp3"
         },
         {
-            "id":2,
-            "idCharacter":3,
-            "audioFile":"/audios/Scene1Madre.mp3"
+            "id": 2,
+            "idCharacter": 3,
+            "audioFile": "/audios/Scene1Madre.mp3"
         },
         {
-            "id":3,
-            "idCharacter":4,
-            "audioFile":"/audios/Scene1Abuela.mp3"
+            "id": 3,
+            "idCharacter": 4,
+            "audioFile": "/audios/Scene1Abuela.mp3"
         }
     ],
-    "robots":
-    [
+    "robots": [
         {
-            "id":1,
-            "alias":"nao1",
-            "type":"nao"
+            "id": 1,
+            "alias": "nao1",
+            "type": "nao"
         },
         {
-            "id":2,
-            "alias":"quemes1",
-            "type":"quemes"
+            "id": 2,
+            "alias": "quyca1",
+            "type": "quyca"
         }
     ],
-    "nodeDistances":50,
-    "nodes":
-    [
+    "comment": "Las escenas contienen fragmentos y estos contienen segmentos, cada segmento se ejecuta por un actor, las acciones de cada segmento no se ubican dentro del mismo debido a que eso se deja a disposición del usuario, el cual puede escoger entre las acciones disponibles en el fragmento",
+    "Scenes": [
         {
-            "name":"n1",
-            "xposition":0,
-            "yposition":0,
-            "alias":"Casa_Madre"
+            "name": "Scene1",
+            "id": 1,
+            "ActiveCharacterIds":[1,3],
+            "Fragments": [
+                {
+                    "name": "Fragment1",
+                    "Posiciones": "Las posiciones son libres para el usuario sin embargo deben ser acordes al escenario de la escena",
+                    "id": 1,
+                    "AvailableActions": [
+                        {
+                            "ActionId":1,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Caminar hacia el comedor",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"n1"
+                        },
+                        {
+                            "ActionId":2,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Sentarse en la mesa",
+                            "AvailableCharactersId":[1,3],
+                            "Comment2":"El valor DestinationId dice si la acción requiere desplazamiento a algún nodo que representa un lugar en el fragmento, si la acción no lo requiere se escribe 0",
+                            "DestinationId": "0"
+                        },
+                        {
+                            "ActionId":3,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":0,
+                            "ActionName":"Hacer sonido de que piensa algo",
+                            "soundFile":"/audios/pensativo/",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"0"
+                        }
+                    ],
+                    "Segments": [
+                        {
+                            "name": "Segment1",
+                            "id": 1,
+                            "idCharacter": 1
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 3
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Fragment2",
+                    "id": 2,
+                    "AvailableActions": [
+                        {
+                            "ActionId":1,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Caminar hacia el comedor",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"n1"
+                        },
+                        {
+                            "ActionId":2,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Sentarse en la mesa",
+                            "AvailableCharactersId":[1,3],
+                            "Comment2":"El valor DestinationId dice si la acción requiere desplazamiento a algún nodo que representa un lugar en el fragmento, si la acción no lo requiere se escribe 0",
+                            "DestinationId": "0"
+                        },
+                        {
+                            "ActionId":3,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":0,
+                            "ActionName":"Hacer sonido de que piensa algo",
+                            "soundFile":"/audios/pensativo/",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"0"
+                        }
+                    ],
+                    "Segments": [
+                        {
+                            "name": "Segment1",
+                            "id": 1,
+                            "idCharacter": 1
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 2
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 1
+                        }
+                    ]                  
+                },
+                {
+                    "name": "Fragment3",
+                    "id": 3,
+                    "AvailableActions": [
+                        {
+                            "ActionId":1,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Caminar hacia el comedor",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"n1"
+                        },
+                        {
+                            "ActionId":2,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Sentarse en la mesa",
+                            "AvailableCharactersId":[1,3],
+                            "Comment2":"El valor DestinationId dice si la acción requiere desplazamiento a algún nodo que representa un lugar en el fragmento, si la acción no lo requiere se escribe 0",
+                            "DestinationId": "0"
+                        },
+                        {
+                            "ActionId":3,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":0,
+                            "ActionName":"Hacer sonido de que piensa algo",
+                            "soundFile":"/audios/pensativo/",
+                            "AvailableCharactersId":[1,3],
+                            "DestinationId":"0"
+                        }
+                    ],
+                    "Segments": [
+                        {
+                            "name": "Segment1",
+                            "id": 1,
+                            "idCharacter": 1
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 2
+                        },
+                        {
+                            "name": "Segment2",
+                            "id": 2,
+                            "idCharacter": 1
+                        }
+                    ]                
+                }
+            ],
+            "SceneLocations": [
+                {
+                    "name": "n1",
+                    "xposition": 0,
+                    "yposition": 0,
+                    "alias": "Sala_Casa_Madre"
+                },
+                {
+                    "name": "n2",
+                    "xposition": 1,
+                    "yposition": 0,
+                    "alias": "Patio"
+                },
+                {
+                    "name": "n3",
+                    "xposition": 0,
+                    "yposition": 1,
+                    "alias": "Comedor"
+                },
+                {
+                    "name": "n4",
+                    "xposition": 1,
+                    "yposition": 1,
+                    "alias": "Fachada"
+                }
+            ]
         },
         {
-            "name":"n2",
-            "xposition":1,
-            "yposition":0,
-            "alias":"Bosque"
+            "name":"Scene2",
+            "id":2
         },
         {
-            "name":"n3",
-            "xposition":0,
-            "yposition":1,
-            "alias":"Sendero"
-        },
-        {
-            "name":"n4",
-            "xposition":1,
-            "yposition":1,
-            "alias":"Casa_Abuela"
+            "name":"Scene3",
+            "id":3
         }
     ]
 }
