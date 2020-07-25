@@ -2,50 +2,72 @@
     "Title": "Caperucita Roja",
     "AvailableActions": "/MapeoAcciones/*",
     "SceneAmmount": 4,
+    "ActionIcons":"/Icons/*",
     "Characters": [
         {
             "id": 1,
             "name": "Caperucita",
             "initialMood": 0.4,
             "emotion": "Happiness",
-            "CharacterIcon": "/icons/Caperucita.png"
+            "CharacterIcon": "/icons/Caperucita.png",
+            "InitialPosition":"n1",
+            "initialAlignment":0
         },
         {
             "id": 2,
             "name": "Lobo",
             "initialMood": 0.3,
             "emotion": "Anger",
-            "CharacterIcon": "/icons/Lobo.png"
+            "CharacterIcon": "/icons/Lobo.png",
+            "InitialPosition":"n1",
+            "initialAlignment":0
         },
         {
             "id": 3,
             "name": "Madre",
             "initialMood": 0.6,
             "emotion": "Happiness",
-            "CharacterIcon": "/icons/Madre.png"
+            "CharacterIcon": "/icons/Madre.png",
+            "InitialPosition":"n1",
+            "initialAlignment":0
         },
         {
             "id": 4,
             "name": "Abuela",
             "initialMood": 0.3,
             "emotion": "Sadness",
-            "CharacterIcon": "/icons/Abuela.png"
+            "CharacterIcon": "/icons/Abuela.png",
+            "InitialPosition":"n1",
+            "initialAlignment":0
         }
     ],
     "sounds": [
         {
             "id": 1,
             "idCharacter": 1,
+            "soundDescription":"Hola mamá",
+            "idScene":1,
             "audioFile": "/audios/Scene1Caperucita.mp3"
         },
         {
             "id": 2,
             "idCharacter": 3,
+            "idScene":1,
+            "soundDescription":"felicidades",
             "audioFile": "/audios/Scene1Madre.mp3"
         },
         {
             "id": 3,
             "idCharacter": 4,
+            "idScene":1,
+            "soundDescription":"No gracias",
+            "audioFile": "/audios/Scene1Abuela.mp3"
+        },
+        {
+            "id": 4,
+            "idCharacter": 4,
+            "comment":"los sonidos sin escena son sonidos, es decir, lalala o pensar o cantar o gritar, se pueden repetir",
+            "soundDescription":"cantar",
             "audioFile": "/audios/Scene1Abuela.mp3"
         }
     ],
@@ -77,15 +99,23 @@
                             "ActionId":1,
                             "Comment":"La duración es 0 si es indefinida y 1 si es definida",
                             "Duration":1,
-                            "ActionName":"Caminar hacia el comedor",
+                            "ActionName":"Caminar",
                             "AvailableCharactersId":[1,3],
-                            "DestinationId":"n1"
+                            "ActionMaping":"/MapeoAcciones/Caminar/"    
                         },
                         {
                             "ActionId":2,
                             "Comment":"La duración es 0 si es indefinida y 1 si es definida",
                             "Duration":1,
-                            "ActionName":"Sentarse en la mesa",
+                            "ActionName":"Correr",
+                            "AvailableCharactersId":[1,3],
+                            "ActionMaping":"/MapeoAcciones/Correr/"        
+                        },
+                        {
+                            "ActionId":2,
+                            "Comment":"La duración es 0 si es indefinida y 1 si es definida",
+                            "Duration":1,
+                            "ActionName":"Sentar",
                             "AvailableCharactersId":[1,3],
                             "Comment2":"El valor DestinationId dice si la acción requiere desplazamiento a algún nodo que representa un lugar en el fragmento, si la acción no lo requiere se escribe 0",
                             "DestinationId": "0"
@@ -94,8 +124,8 @@
                             "ActionId":3,
                             "Comment":"La duración es 0 si es indefinida y 1 si es definida",
                             "Duration":0,
-                            "ActionName":"Hacer sonido de que piensa algo",
-                            "soundFile":"/audios/pensativo/",
+                            "ActionName":"Sonido",
+                            "soundFile":"/audios/*",
                             "AvailableCharactersId":[1,3],
                             "DestinationId":"0"
                         }
