@@ -1,7 +1,7 @@
 {
     "Title": "Caperucita Roja",
     "AvailableActions": "/MapeoAcciones/*",
-    "SceneAmmount": 4,
+    "SceneAmount": 4,
     "ActionIcons":"/Icons/*",
     "Characters": [
         {
