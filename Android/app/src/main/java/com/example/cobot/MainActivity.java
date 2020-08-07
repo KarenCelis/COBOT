@@ -87,15 +87,31 @@ public class MainActivity extends AppCompatActivity {
     public void createContactDiaglogMirar() {
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopup = getLayoutInflater().inflate(R.layout.layout_mirar, null);
-        boton = contactPopup.findViewById(R.id.btn_opc);
-        save = contactPopup.findViewById(R.id.btn_save);
+        Button mirarDerecha = contactPopup.findViewById(R.id.btn_mirarDerec);
+        Button mirarIzquierda = contactPopup.findViewById(R.id.btn_mirarIzq);
+        Button mirarFrente = contactPopup.findViewById(R.id.btn_mirarFrente);
+
         dialogBuilder.setView(contactPopup);
         dialog = dialogBuilder.create();
         dialog.show();
-        save.setOnClickListener(new View.OnClickListener() {
+        mirarDerecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "mirarDerecha", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+        mirarIzquierda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "mirarIzquierda", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+        mirarFrente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "mirarFrente", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -105,18 +121,40 @@ public class MainActivity extends AppCompatActivity {
     public void createContactDiaglogGirar() {
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
-        boton = contactPopup.findViewById(R.id.btn_opc);
-        save = contactPopup.findViewById(R.id.btn_save);
+        Button girarDerecha = contactPopup.findViewById(R.id.btn_girarDerech);
+        Button girarIzquierda = contactPopup.findViewById(R.id.btn_girarIzq);
+        Button girarFrente = contactPopup.findViewById(R.id.btn_girarFrente);
+        Button girarDeEspaldas = contactPopup.findViewById(R.id.btn_girarDeEspaldas);
         dialogBuilder.setView(contactPopup);
         dialog = dialogBuilder.create();
         dialog.show();
-        save.setOnClickListener(new View.OnClickListener() {
+        girarDerecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "girarDerecha", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
-
+        girarIzquierda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "girarIzquierda", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+        girarFrente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "girarFrente", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+        girarDeEspaldas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "girarDeEspaldas", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
     }
 }
