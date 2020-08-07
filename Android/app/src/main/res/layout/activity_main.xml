@@ -7,82 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/SeleccionDeObra"
+    <Button
+        android:id="@+id/btn_mirar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:text="@string/seleccionar_obra"
-        android:textSize="18sp"
-        app:fontFamily="@font/fredoka_one"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/LayoutHorizontalObra"
-        android:layout_width="291dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SeleccionDeObra">
-
-        <TextView
-            android:id="@+id/TextoDeArchivoDeObra"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="@string/seleccionar_obra_preview" />
-
-        <Button
-            android:id="@+id/BuscarArchivoDeObra"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/seleccionar_obra_boton"
-            app:backgroundTint="#8BC34A" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LayoutVerticalPersonajes"
-        android:layout_width="307dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutHorizontalObra">
-
-        <TextView
-            android:id="@+id/TextoSeleccionDePersonaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:hint="@string/seleccionar_personaje"
-            android:textSize="18sp"
-            app:fontFamily="@font/fredoka_one" />
-
-        <Spinner
-            android:id="@+id/SpinnerSeleccionDePersonaje"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:entries="@array/spinnerCharacters" />
-    </LinearLayout>
+        android:text="mirar"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="181dp" />
 
     <Button
-        android:id="@+id/BotonContinuarMainActivity"
-        android:layout_width="173dp"
-        android:layout_height="64dp"
-        android:text="@string/boton_continuar_main_activity"
-        app:backgroundTint="#8BC34A"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutVerticalPersonajes" />
+        android:id="@+id/btn_sonido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sonido"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="181dp" />
 
+    <Button
+        android:id="@+id/btn_girar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="girar"
+        tools:layout_editor_absoluteX="459dp"
+        tools:layout_editor_absoluteY="181dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
