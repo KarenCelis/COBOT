@@ -7,82 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/SeleccionDeObra"
+    <Button
+        android:id="@+id/btn_mirar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:text="@string/seleccionar_obra"
-        android:textSize="18sp"
-        app:fontFamily="@font/fredoka_one"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:text="mirar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/LayoutHorizontalObra"
-        android:layout_width="291dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SeleccionDeObra">
-
-        <TextView
-            android:id="@+id/TextoDeArchivoDeObra"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="@string/seleccionar_obra_preview" />
-
-        <Button
-            android:id="@+id/BuscarArchivoDeObra"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/seleccionar_obra_boton"
-            app:backgroundTint="#8BC34A" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LayoutVerticalPersonajes"
-        android:layout_width="307dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutHorizontalObra">
-
-        <TextView
-            android:id="@+id/TextoSeleccionDePersonaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:hint="@string/seleccionar_personaje"
-            android:textSize="18sp"
-            app:fontFamily="@font/fredoka_one" />
-
-        <Spinner
-            android:id="@+id/SpinnerSeleccionDePersonaje"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:entries="@array/spinnerCharacters" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
 
     <Button
-        android:id="@+id/BotonContinuarMainActivity"
-        android:layout_width="173dp"
-        android:layout_height="64dp"
-        android:text="@string/boton_continuar_main_activity"
-        app:backgroundTint="#8BC34A"
+        android:id="@+id/btn_sonido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:text="sonido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_mirar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <Button
+        android:id="@+id/btn_girar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="girar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutVerticalPersonajes" />
-
+        app:layout_constraintStart_toEndOf="@+id/btn_sonido"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
