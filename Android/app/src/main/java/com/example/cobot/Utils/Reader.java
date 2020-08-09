@@ -1,5 +1,7 @@
 package com.example.cobot.Utils;
 
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.cobot.Classes.Action;
@@ -12,7 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSONReader {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class Reader {
     private static final String TAG = "UtilsJSONReader";
     public static Obra crearObraDesdeJSON(String archivoJSON) throws JSONException {
 
@@ -97,3 +104,4 @@ public class JSONReader {
         return obra;
     }
 }
+
