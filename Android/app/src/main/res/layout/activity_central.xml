@@ -14,9 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:layout_toStartOf="@id/TVPersonajeSeleccionado"
-        android:layout_toLeftOf="@id/TVPersonajeSeleccionado"
         android:contentDescription="@string/imagen_personaje"
         app:srcCompat="@android:drawable/screen_background_dark" />
 
@@ -25,10 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
-        android:layout_marginLeft="41dp"
         android:layout_marginTop="56dp"
         android:text="@string/seleccionar_escena" />
 
@@ -45,9 +41,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="300dp"
         android:layout_toStartOf="@id/IVCharacterIcon"
-        android:layout_toLeftOf="@id/IVCharacterIcon"
-        android:layout_toEndOf="@id/TVSeleccionEscena"
-        android:layout_toRightOf="@id/TVSeleccionEscena">
+        android:layout_toEndOf="@id/TVSeleccionEscena">
 
         <LinearLayout
             android:id="@+id/LLHEscenas"
@@ -62,7 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVSeleccionEscena"
         android:layout_marginStart="41dp"
-        android:layout_marginLeft="41dp"
         android:layout_marginTop="60dp"
         android:text="@string/seleccionar_acciones" />
 
@@ -71,10 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="41dp"
-        android:layout_marginRight="41dp"
         android:text="@string/personaje_seleccionado1" />
 
     <TextView
@@ -82,7 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVPersonajeSeleccionado"
-        android:layout_toRightOf="@id/IVCharacterIcon"
         android:text="@string/personaje_seleccionado2"
         android:layout_toEndOf="@id/IVCharacterIcon" />
 
@@ -92,12 +82,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/TVSeleccionAcciones"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="400dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="400dp">
@@ -115,12 +101,9 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/TVSeleccionAcciones"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="350dp"
-        android:layout_marginLeft="350dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="50dp" />
 
@@ -129,10 +112,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginBottom="5dp"
         android:text="@string/boton_ejecutar_central" />
 </RelativeLayout>

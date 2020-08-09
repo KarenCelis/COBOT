@@ -1,54 +1,53 @@
 {
     "Title":"Leccion de Bullying",
-    "SceneAmmount": 5,
-    "MapeoAcciones":"/mapeo/*",
+    "SceneAmount": 5,
     "Characters":[
         {
             "id":1,
             "Name":"Sarita",
-            "CharacterIcon":"/icons/Sarita.png",
+            "CharacterIcon":"https://imgur.com/XtbyiG1",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":2,
             "Name":"Camilo",
-            "CharacterIcon":"/icons/Camilo.png",
+            "CharacterIcon":"https://imgur.com/7WAHQ1A",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":3,
             "Name":"Jorge Alfonso",
-            "CharacterIcon":"/icons/JorgeAlfonso.png",
+            "CharacterIcon":"https://imgur.com/qTxSw4D",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":4,
             "Name":"Manuela",
-            "CharacterIcon":"/icons/Manuela.png",
+            "CharacterIcon":"https://imgur.com/4Laa2rQ",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":5,
             "Name":"Maria Fernanda",
-            "CharacterIcon":"/icons/MariaFernanda.png",
+            "CharacterIcon":"https://imgur.com/PQ575vR",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":6,
             "Name":"Martica",
-            "CharacterIcon":"/icons/Martica.png",
+            "CharacterIcon":"https://imgur.com/GONA0VR",
             "InitialPosition":0,
             "InitialAlignment":0
         },      
         {
             "id":7,
             "Name":"Esperanza",
-            "CharacterIcon":"/icons/Esperanza.png",
+            "CharacterIcon":"https://imgur.com/Oa4i38D",
             "InitialPosition":0,
             "InitialAlignment":0
         }
@@ -95,70 +94,79 @@
                     "ActionName":"hablar",
                     "Duration":1,
                     "DisplayText":["Disculpa Sara, ¿ya te vas a sentar? Es que no dejas ver el tablero con tu cuerpo. Y ya deja de comer, por eso estás así",
-                    "asdas","dasd","asdas"]                       
+                    "asdas","dasd","asdasw"]
                 },                        
                 {
                     "id":2,
-                    "CharacherId":6,
+                    "CharacterId":6,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"Camilo, no digas eso, discúlpate con tu compañera y por favor silencio que vamos a empezar la actividad. Hoy vamos a empezar un nuevo tema, por eso, necesito que conformen equipos para un juego donde vamos a correr. "
+                    "DisplayText":["Camilo, no digas eso, discúlpate con tu compañera y por favor silencio que vamos a empezar la actividad. Hoy vamos a empezar un nuevo tema, por eso, necesito que conformen equipos para un juego donde vamos a correr. ",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":3,
-                    "CharacherId":1,
+                    "CharacterId":1,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"¿Hay algún grupo que le falte alguien?"
+                    "DisplayText":["¿Hay algún grupo que le falte alguien?",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":4,
                     "CharacterId":4,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"A ti nadie te va a escoger porque no nos gusta compartir contigo"   
+                    "DisplayText":["A ti nadie te va a escoger porque no nos gusta compartir contigo",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":5,
                     "CharacterId":0,
                     "ActionName":"sonido",
                     "Duration":1,
-                    "audiofile":"/audios/sonidos/risas.mp3"
+                    "audiofile":["/audios/sonidos/risas.mp3",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":6,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"Sarita tranquila, yo te ubico en un grupo, hazte con María Fernanda y Jorge."
+                    "DisplayText":["Sarita tranquila, yo te ubico en un grupo, hazte con María Fernanda y Jorge.",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":7,
                     "CharacterId":3,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"¿Por qué con nosotros, ah? No queremos que se haga con nosotros tampoco, ella ni siquiera puede correr y vamos a perder."                            
+                    "DisplayText":["¿Por qué con nosotros, ah? No queremos que se haga con nosotros tampoco, ella ni siquiera puede correr y vamos a perder.",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":8,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"Viste Profesora Martica, perdimos, y todo por culpa de Sarita."   
+                    "DisplayText":["Viste Profesora Martica, perdimos, y todo por culpa de Sarita.",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":9,
                     "CharacterId":6,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"Tranquilos niños, solo es un juego, no pasa nada. "  
+                    "DisplayText":["Tranquilos niños, solo es un juego, no pasa nada.",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":10,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":"Si no te hubieras hecho con nosotros habríamos ganado, y todo porque estás más gorda que nosotros y eres más lenta."
+                    "DisplayText":["Si no te hubieras hecho con nosotros habríamos ganado, y todo porque estás más gorda que nosotros y eres más lenta.",
+                    "asdas","dasd","asdasw"]
                 },
                 {
                     "id":11,
