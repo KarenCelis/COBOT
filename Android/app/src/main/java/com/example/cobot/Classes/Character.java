@@ -1,11 +1,14 @@
-package com.example.cobot;
+package com.example.cobot.Classes;
 
 import android.media.Image;
+import android.widget.ImageView;
 
-public class Character {
+import java.io.Serializable;
+
+public class Character implements Serializable {
     private int Id;
     private String Name;
-    private Image CharacterIcon;
+    private String CharacterIconUrl;
     private int InitialPosition;
     private int InitialAlignment;
     private Position CurrentLocation;
@@ -24,14 +27,6 @@ public class Character {
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public Image getCharacterIcon() {
-        return CharacterIcon;
-    }
-
-    public void setCharacterIcon(Image characterIcon) {
-        CharacterIcon = characterIcon;
     }
 
     public int getInitialPosition() {
@@ -56,5 +51,13 @@ public class Character {
 
     public void setCurrentLocation(Position currentLocation) {
         CurrentLocation = currentLocation;
+    }
+
+    public String getCharacterIconUrl() {
+        return CharacterIconUrl;
+    }
+
+    public void setCharacterIconUrl(String characterIconUrl) {
+        CharacterIconUrl = characterIconUrl;
     }
 }

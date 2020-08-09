@@ -1,6 +1,8 @@
-package com.example.cobot;
+package com.example.cobot.Classes;
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable {
     private int Id;
     private int CharacterId;
     private int Duration;

@@ -1,6 +1,8 @@
-package com.example.cobot;
+package com.example.cobot.Classes;
 
-public class Scene {
+import java.io.Serializable;
+
+public class Scene implements Serializable {
     private int Id;
     private int Scenario;
     private int[]CharacterIds;

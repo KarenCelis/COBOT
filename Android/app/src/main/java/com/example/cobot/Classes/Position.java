@@ -1,6 +1,8 @@
-package com.example.cobot;
+package com.example.cobot.Classes;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     private int CharacterId;
     private String location;
 
