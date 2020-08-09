@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayoutMainActivity"
+    android:id="@+id/RLMainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -11,33 +11,82 @@
         android:id="@+id/btn_mirar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginLeft="112dp"
-        android:text="mirar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="75dp"
+        android:text="mirar" />
 
     <Button
         android:id="@+id/btn_sonido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:text="sonido"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_mirar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="75dp"
+        android:layout_toStartOf="@+id/btn_mirar"
+        android:layout_toEndOf="@+id/btn_girar"
+        android:text="sonido" />
 
     <Button
         android:id="@+id/btn_girar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="girar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_sonido"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginBottom="75dp"
+        android:text="girar" />
+
+    <TextView
+        android:id="@+id/TVBienvenida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="@string/texto_de_bienvenida"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/TVSeleccionarArchivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TVBienvenida"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:hint="@string/hint_texto_de_archivo_seleccionado" />
+
+    <Button
+        android:id="@+id/BAbrirArchivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TVBienvenida"
+        android:layout_alignBaseline="@id/TVSeleccionarArchivo"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/TVSeleccionarArchivo"
+        android:text="@string/boton_abrir_archivo" />
+
+    <Button
+        android:id="@+id/BCargarObra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_sonido"
+        android:layout_alignStart="@id/btn_sonido"
+        android:layout_alignEnd="@id/btn_sonido"
+        android:layout_alignParentEnd="false"
+        android:layout_marginBottom="30dp"
+        android:text="@string/boton_abrir_obra"
+        android:visibility="gone" />
+</RelativeLayout>

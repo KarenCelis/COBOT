@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">COBOT</string>
-    <string name="seleccionar_obra">2. Selecciona una obra de teatro</string>
-    <string name="seleccionar_obra_preview">...</string>
-    <string name="seleccionar_obra_boton">Selecciona un archivo…</string>
-    <string name="seleccionar_personaje">Selecciona un personaje de la obra</string>
-    <string name="boton_continuar_main_activity">CONTINUAR</string>
+    <string name="texto_de_bienvenida">¡Bienvenido!</string>
+    <string name="hint_texto_de_archivo_seleccionado">Selecciona una obra</string>
+    <string name="boton_abrir_archivo">Seleccionar Archivo</string>
+    <string name="boton_abrir_obra">ABRIR</string>
+    <string name="seleccionar_escena">Selecciona una escena: </string>
+    <string name="seleccionar_acciones">Seleccione qué acciones hará </string>
+    <string name="personaje_seleccionado1">Personaje:</string>
+    <string name="personaje_seleccionado2">Nombre personaje</string>
+    <string name="imagen_personaje">Posee la imagen del personaje seleccionado</string>
+    <string name="boton_ejecutar_central">EJECUTAR</string>
 </resources>
