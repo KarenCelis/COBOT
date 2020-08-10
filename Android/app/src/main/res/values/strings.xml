@@ -4,6 +4,8 @@
     <string name="hint_texto_de_archivo_seleccionado">Selecciona una obra</string>
     <string name="boton_abrir_archivo">Seleccionar Archivo</string>
     <string name="boton_abrir_obra">ABRIR</string>
+    <string name="texto_seleccion_de_personaje">Selecciona un personaje</string>
+    <string name="boton_continuar_a_central">CONTINUAR</string>
     <string name="seleccionar_escena">Selecciona una escena: </string>
     <string name="seleccionar_acciones">Seleccione qué acciones hará </string>
     <string name="personaje_seleccionado1">Personaje:</string>
