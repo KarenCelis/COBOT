@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RLCentral"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     tools:context=".CentralActivity">
 
@@ -12,7 +12,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_toStartOf="@id/TVPersonajeSeleccionado"
         android:contentDescription="@string/imagen_personaje"
@@ -25,29 +25,44 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
         android:text="@string/seleccionar_escena" />
 
     <HorizontalScrollView
         android:id="@+id/SVBotonesEscenas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="280dp"
         android:layout_toStartOf="@id/IVCharacterIcon"
-        android:layout_toEndOf="@id/TVSeleccionEscena">
+        android:layout_toEndOf="@id/TVSeleccionEscena"
+        android:scrollbarSize="5dp">
 
         <LinearLayout
             android:id="@+id/LLHEscenas"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="0"
+                android:visibility="gone" />
+
+        </LinearLayout>
     </HorizontalScrollView>
 
     <TextView
@@ -55,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVSeleccionEscena"
-        android:layout_marginStart="41dp"
+        android:layout_alignStart="@id/TVSeleccionEscena"
         android:layout_marginTop="60dp"
         android:text="@string/seleccionar_acciones" />
 
@@ -73,39 +88,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVPersonajeSeleccionado"
-        android:text="@string/personaje_seleccionado2"
-        android:layout_toEndOf="@id/IVCharacterIcon" />
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/IVCharacterIcon"
+        android:text="@string/personaje_seleccionado2" />
 
     <ScrollView
         android:id="@+id/SVAcciones"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/TVSeleccionAcciones"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@id/TVSeleccionAcciones"
+        android:layout_alignEnd="@id/TVSeleccionAcciones"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="400dp">
+        android:layout_marginTop="20dp">
 
         <GridLayout
             android:id="@+id/GLAcciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3"/>
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/RLEmociones"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/TVSeleccionAcciones"
-        android:layout_alignParentStart="true"
+        android:layout_below="@id/IVCharacterIcon"
+        android:layout_alignStart="@id/SVBotonesEscenas"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="350dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp">
+
+        <ImageButton
+            android:id="@+id/IBHappy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/iconhappy" />
+
+        <ImageButton
+            android:id="@+id/IBNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_toStartOf="@+id/IBHappy"
+            android:layout_toEndOf="@+id/IBSad"
+            app:srcCompat="@drawable/iconnormal" />
+
+        <ImageButton
+            android:id="@+id/IBSad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/iconsad" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/BEjecutarCentral"
