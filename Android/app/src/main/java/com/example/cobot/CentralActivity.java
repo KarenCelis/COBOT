@@ -139,12 +139,12 @@ public class CentralActivity extends AppCompatActivity {
 
     public void createDialogForHablar(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_hablar, null);
-        Button hablar1 = contactPopup.findViewById(R.id.btn_h1);
-        Button hablar2 = contactPopup.findViewById(R.id.btn_h2);
-        Button hablar3 = contactPopup.findViewById(R.id.btn_h3);
-        Button hablar4 = contactPopup.findViewById(R.id.EditTextDesde);
-        dialogBuilder.setView(contactPopup);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_hablar, null);
+        Button hablar1 = actionPopup.findViewById(R.id.btn_h1);
+        Button hablar2 = actionPopup.findViewById(R.id.btn_h2);
+        Button hablar3 = actionPopup.findViewById(R.id.btn_h3);
+        Button hablar4 = actionPopup.findViewById(R.id.EditTextDesde);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         hablar1.setOnClickListener(new View.OnClickListener() {
@@ -178,12 +178,12 @@ public class CentralActivity extends AppCompatActivity {
     }
     public void createDialogForCaminar(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_caminar, null);
-        Button caminar1 = contactPopup.findViewById(R.id.btn_h1);
-        Button caminar2 = contactPopup.findViewById(R.id.btn_h2);
-        Button caminar3 = contactPopup.findViewById(R.id.btn_h3);
-        Button caminar4 = contactPopup.findViewById(R.id.btn_h4);
-        dialogBuilder.setView(contactPopup);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_caminar, null);
+        Button caminar1 = actionPopup.findViewById(R.id.btn_h1);
+        Button caminar2 = actionPopup.findViewById(R.id.btn_h2);
+        Button caminar3 = actionPopup.findViewById(R.id.btn_h3);
+        Button caminar4 = actionPopup.findViewById(R.id.btn_h4);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         caminar1.setOnClickListener(new View.OnClickListener() {
@@ -217,12 +217,12 @@ public class CentralActivity extends AppCompatActivity {
     }
     public void createDialogForGirar(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
-        Button girarDerecha = contactPopup.findViewById(R.id.btn_girarDerech);
-        Button girarIzquierda = contactPopup.findViewById(R.id.btn_girarIzq);
-        Button girarFrente = contactPopup.findViewById(R.id.btn_girarFrente);
-        Button girarDeEspaldas = contactPopup.findViewById(R.id.btn_girarDeEspaldas);
-        dialogBuilder.setView(contactPopup);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
+        Button girarDerecha = actionPopup.findViewById(R.id.btn_girarDerech);
+        Button girarIzquierda = actionPopup.findViewById(R.id.btn_girarIzq);
+        Button girarFrente = actionPopup.findViewById(R.id.btn_girarFrente);
+        Button girarDeEspaldas = actionPopup.findViewById(R.id.btn_girarDeEspaldas);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         girarDerecha.setOnClickListener(new View.OnClickListener() {
@@ -256,13 +256,13 @@ public class CentralActivity extends AppCompatActivity {
     }
     public void createDialogForMirar(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_mirar, null);
-        Button mirarDerecha = contactPopup.findViewById(R.id.btn_mirarDerec);
-        Button mirarIzquierda = contactPopup.findViewById(R.id.btn_mirarIzq);
-        Button mirarFrente = contactPopup.findViewById(R.id.btn_mirarFrente);
-        Button mirarAbajo = contactPopup.findViewById(R.id.btn_MirarAbajo);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_mirar, null);
+        Button mirarDerecha = actionPopup.findViewById(R.id.btn_mirarDerec);
+        Button mirarIzquierda = actionPopup.findViewById(R.id.btn_mirarIzq);
+        Button mirarFrente = actionPopup.findViewById(R.id.btn_mirarFrente);
+        Button mirarAbajo = actionPopup.findViewById(R.id.btn_MirarAbajo);
 
-        dialogBuilder.setView(contactPopup);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         mirarDerecha.setOnClickListener(new View.OnClickListener() {
@@ -296,12 +296,12 @@ public class CentralActivity extends AppCompatActivity {
     }
     public void createDialogForSonido(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_sonido, null);
-        Button cantar = contactPopup.findViewById(R.id.btn_cantar);
-        Button gritar = contactPopup.findViewById(R.id.btn_gritar);
-        Button silbar = contactPopup.findViewById(R.id.btn_silbar);
-        Button reir = contactPopup.findViewById(R.id.btn_reir);
-        dialogBuilder.setView(contactPopup);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_sonido, null);
+        Button cantar = actionPopup.findViewById(R.id.btn_cantar);
+        Button gritar = actionPopup.findViewById(R.id.btn_gritar);
+        Button silbar = actionPopup.findViewById(R.id.btn_silbar);
+        Button reir = actionPopup.findViewById(R.id.btn_reir);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         cantar.setOnClickListener(new View.OnClickListener() {
@@ -335,12 +335,12 @@ public class CentralActivity extends AppCompatActivity {
     }
     public void createDialogForCorrer(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopup = getLayoutInflater().inflate(R.layout.layout_correr, null);
-        Button correr1 = contactPopup.findViewById(R.id.btn_h1);
-        Button correr2 = contactPopup.findViewById(R.id.btn_h2);
-        Button correr3 = contactPopup.findViewById(R.id.btn_h3);
-        Button correr4 = contactPopup.findViewById(R.id.btn_h4);
-        dialogBuilder.setView(contactPopup);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_correr, null);
+        Button correr1 = actionPopup.findViewById(R.id.btn_h1);
+        Button correr2 = actionPopup.findViewById(R.id.btn_h2);
+        Button correr3 = actionPopup.findViewById(R.id.btn_h3);
+        Button correr4 = actionPopup.findViewById(R.id.btn_h4);
+        dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
         correr1.setOnClickListener(new View.OnClickListener() {
