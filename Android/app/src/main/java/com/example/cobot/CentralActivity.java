@@ -260,7 +260,7 @@ public class CentralActivity extends AppCompatActivity {
         Button mirarDerecha = actionPopup.findViewById(R.id.btn_mirarDerec);
         Button mirarIzquierda = actionPopup.findViewById(R.id.btn_mirarIzq);
         Button mirarFrente = actionPopup.findViewById(R.id.btn_mirarFrente);
-        Button mirarAbajo = actionPopup.findViewById(R.id.btn_MirarAbajo);
+        //Button mirarAbajo = actionPopup.findViewById(R.id.btn_MirarAbajo);
 
         dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
@@ -286,13 +286,13 @@ public class CentralActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        mirarAbajo.setOnClickListener(new View.OnClickListener() {
+       /** mirarAbajo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "mirarAbajo", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
-        });
+        });**/
     }
     public void createDialogForSonido(){
         dialogBuilder = new AlertDialog.Builder(this);

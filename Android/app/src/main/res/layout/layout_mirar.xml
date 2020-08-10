@@ -5,17 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="177dp"
+        android:layout_height="106dp"
+        android:layout_below="@id/textView3"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/captura" />
+
     <Button
         android:id="@+id/btn_mirarIzq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_mirarFrente"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
         android:text="Hacia la izquierda" />
 
     <TextView
@@ -27,43 +35,51 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="¿Hacia dónde quieres que el personaje mire?" />
+        android:text="¿Hacia dónde quiere que el personaje mire?" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="64dp"
+        android:layout_toEndOf="@+id/imageView"
+        app:srcCompat="@drawable/captura2" />
 
     <Button
         android:id="@+id/btn_mirarDerec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_MirarAbajo"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:layout_toEndOf="@+id/btn_mirarIzq"
         android:text="Hacia la derecha" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="40dp"
+        android:layout_toEndOf="@+id/imageView2"
+        app:srcCompat="@drawable/captura1" />
 
     <Button
         android:id="@+id/btn_mirarFrente"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView3"
-        android:layout_alignStart="@+id/btn_mirarIzq"
+        android:layout_below="@+id/imageView3"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="68dp"
         android:layout_marginBottom="40dp"
-        android:text="Hacia el frente"  />
-
-    <Button
-        android:id="@+id/btn_MirarAbajo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView3"
-        android:layout_alignEnd="@+id/btn_mirarDerec"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="false"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:text="Hacia Abajo"/>
+        android:layout_toEndOf="@+id/btn_mirarDerec"
+        android:text="Hacia el frente" />
 
 </RelativeLayout>
