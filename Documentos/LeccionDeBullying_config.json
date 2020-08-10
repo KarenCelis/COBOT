@@ -5,49 +5,49 @@
         {
             "id":1,
             "Name":"Sarita",
-            "CharacterIcon":"https://imgur.com/XtbyiG1",
+            "CharacterIcon":"https://i.imgur.com/XtbyiG1.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":2,
             "Name":"Camilo",
-            "CharacterIcon":"https://imgur.com/7WAHQ1A",
+            "CharacterIcon":"https://i.imgur.com/7WAHQ1A.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":3,
             "Name":"Jorge Alfonso",
-            "CharacterIcon":"https://imgur.com/qTxSw4D",
+            "CharacterIcon":"https://i.imgur.com/qTxSw4D.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":4,
             "Name":"Manuela",
-            "CharacterIcon":"https://imgur.com/4Laa2rQ",
+            "CharacterIcon":"https://i.imgur.com/4Laa2rQ.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":5,
             "Name":"Maria Fernanda",
-            "CharacterIcon":"https://imgur.com/PQ575vR",
+            "CharacterIcon":"https://i.imgur.com/PQ575vR.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },
         {
             "id":6,
             "Name":"Martica",
-            "CharacterIcon":"https://imgur.com/GONA0VR",
+            "CharacterIcon":"https://i.imgur.com/GONA0VR.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         },      
         {
             "id":7,
             "Name":"Esperanza",
-            "CharacterIcon":"https://imgur.com/Oa4i38D",
+            "CharacterIcon":"https://i.imgur.com/Oa4i38D.jpg",
             "InitialPosition":0,
             "InitialAlignment":0
         }
@@ -90,6 +90,7 @@
             "actions":[
                 {
                     "id":1,
+                    "idGeneric": 3,
                     "CharacterId":2,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -98,6 +99,7 @@
                 },                        
                 {
                     "id":2,
+                    "idGeneric": 3,
                     "CharacterId":6,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -106,6 +108,7 @@
                 },
                 {
                     "id":3,
+                    "idGeneric": 3,
                     "CharacterId":1,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -114,6 +117,7 @@
                 },
                 {
                     "id":4,
+                    "idGeneric": 3,
                     "CharacterId":4,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -122,6 +126,7 @@
                 },
                 {
                     "id":5,
+                    "idGeneric": 5,
                     "CharacterId":0,
                     "ActionName":"sonido",
                     "Duration":1,
@@ -130,6 +135,7 @@
                 },
                 {
                     "id":6,
+                    "idGeneric": 3,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -138,6 +144,7 @@
                 },
                 {
                     "id":7,
+                    "idGeneric": 3,
                     "CharacterId":3,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -146,6 +153,7 @@
                 },
                 {
                     "id":8,
+                    "idGeneric": 3,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -154,6 +162,7 @@
                 },
                 {
                     "id":9,
+                    "idGeneric": 3,
                     "CharacterId":6,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -162,6 +171,7 @@
                 },
                 {
                     "id":10,
+                    "idGeneric": 3,
                     "CharacterId":5,
                     "ActionName":"hablar",
                     "Duration":1,
@@ -170,18 +180,21 @@
                 },
                 {
                     "id":11,
+                    "idGeneric": 1,
                     "CharacterId":0,
                     "ActionName":"caminar",
                     "Duration":1
                 },
                 {
                     "id":12,
+                    "idGeneric": 6,
                     "CharacterId":0,
                     "ActionName":"girar",
                     "Duration":1                    
                 },
                 {
                     "id":13,
+                    "idGeneric": 4,
                     "CharacterId":0,
                     "ActionName":"mirar",
                     "Duration":1
@@ -196,6 +209,38 @@
             "dimension_x":5,
             "dimension_y":3,
             "Locations":["puerta_0_0","tablero_0_1","espacio_0_2","espacio_1_0","espacio_1_1", "espacio_1_2", "pupitre_2_0","pupitre_2_1","pupitre_2_2","espacio_3_0","espacio_3_1","espacio_3_2","pupitre_4_0","pupitre_4_1","pupitre_4_2"]
+        }
+    ],
+    "GenericActions": [
+        {
+            "id": 1,
+            "name": "caminar",
+            "ActionIcon": "https://i.imgur.com/vFrXtl2.png"
+        },
+        {
+            "id": 2,
+            "name": "correr",
+            "ActionIcon": "https://i.imgur.com/TXO3sAT.png"
+        },
+        {
+            "id": 3,
+            "name": "hablar",
+            "ActionIcon": "https://i.imgur.com/jV8kVFv.png"
+        },
+        {
+            "id": 4,
+            "name": "mirar",
+            "ActionIcon": "https://i.imgur.com/82mMq92.png"
+        },
+        {
+            "id": 5,
+            "name": "sonido",
+            "ActionIcon": "https://i.imgur.com/fU7wWyW.png"
+        },
+        {
+            "id": 6,
+            "name": "girar",
+            "ActionIcon": "https://i.imgur.com/mBFXvEU.png"
         }
     ]
 }
