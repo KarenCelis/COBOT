@@ -24,12 +24,14 @@
 
     <TextView
         android:id="@+id/TVSeleccionarArchivo"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/TVBienvenida"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="213dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="36dp"
+        android:layout_toStartOf="@+id/BAbrirArchivo"
         android:gravity="center"
         android:hint="@string/hint_texto_de_archivo_seleccionado" />
 
@@ -39,8 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/TVBienvenida"
         android:layout_alignBaseline="@id/TVSeleccionarArchivo"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/TVSeleccionarArchivo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="103dp"
         android:text="@string/boton_abrir_archivo" />
 
     <Button
@@ -50,9 +53,8 @@
         android:layout_below="@id/BAbrirArchivo"
         android:layout_alignStart="@id/TVSeleccionarArchivo"
         android:layout_alignEnd="@id/TVSeleccionarArchivo"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="30dp"
         android:text="@string/boton_abrir_obra"
-        android:visibility="gone"/>
+        android:visibility="visible" />
 </RelativeLayout>

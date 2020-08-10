@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,11 +63,10 @@ public class MainActivity extends Activity {
 
                 final Uri uri = data.getData();
                 assert uri != null;
-                String path = uri.getPath();
                 TextView TVSeleccionArchivo = findViewById(R.id.TVSeleccionarArchivo);
                 BCargarObra = findViewById(R.id.BCargarObra);
 
-                TVSeleccionArchivo.setText(path);
+                TVSeleccionArchivo.setText(getFileName(uri));
                 BCargarObra.setVisibility(View.VISIBLE);
 
                 BCargarObra.setOnClickListener(new View.OnClickListener() {
@@ -107,5 +108,27 @@ public class MainActivity extends Activity {
         reader.close();
         String Result = sb.toString();
         obra = Reader.crearObraDesdeJSON(Result);
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 }
