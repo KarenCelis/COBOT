@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Action implements Serializable {
     private int Id;
+    private int idGeneric;
     private int CharacterId;
     private int Duration;
     private String ActionName;
@@ -18,6 +19,14 @@ public class Action implements Serializable {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public int getIdGeneric() {
+        return idGeneric;
+    }
+
+    public void setIdGeneric(int idGeneric) {
+        this.idGeneric = idGeneric;
     }
 
     public int getCharacterId() {

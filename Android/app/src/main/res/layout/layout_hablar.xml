@@ -6,20 +6,20 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btn_girarIzq"
+        android:id="@+id/btn_h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_girarFrente"
+        android:layout_below="@+id/btn_h3"
         android:layout_alignParentEnd="true"
         android:layout_margin="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Hacia la izquierda" />
+        android:text="Hola, ¿Qué tal?" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -27,42 +27,42 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="¿Hacia dónde quieres que el personaje mire?" />
+        android:text="¿Qué quieres que diga el personaje?​" />
 
     <Button
-        android:id="@+id/btn_girarDerech"
+        android:id="@+id/btn_h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_girarDeEspaldas"
+        android:layout_below="@id/EditTextDesde"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Hacia la derecha" />
+        android:text="No, gracias" />
 
     <Button
-        android:id="@+id/btn_girarFrente"
+        android:id="@+id/btn_h3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView2"
-        android:layout_alignStart="@+id/btn_girarIzq"
+        android:layout_below="@id/textView"
+        android:layout_alignStart="@id/btn_h1"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Hacia el frente"  />
+        android:text="Tengo pereza" />
 
     <Button
-        android:id="@+id/btn_girarDeEspaldas"
+        android:id="@+id/EditTextDesde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView2"
-        android:layout_alignEnd="@+id/btn_girarDerech"
+        android:layout_below="@id/textView"
+        android:layout_alignEnd="@id/btn_h2"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="false"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:text="De Espaldas"/>
+        android:text="¡Ya voy!" />
 </RelativeLayout>

@@ -9,4 +9,14 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+    <style name="ButtonTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="buttonStyle">@style/SmallerButtonStyle</item>
+
+    </style>
+
+    <style name="SmallerButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
 </resources>
