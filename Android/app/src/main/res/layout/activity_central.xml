@@ -26,7 +26,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
         android:layout_marginTop="20dp"
-        android:text="@string/seleccionar_escena" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/seleccionar_escena"
+        android:textSize="18sp" />
 
     <HorizontalScrollView
         android:id="@+id/SVBotonesEscenas"
@@ -72,7 +74,9 @@
         android:layout_below="@+id/TVSeleccionEscena"
         android:layout_alignStart="@id/TVSeleccionEscena"
         android:layout_marginTop="60dp"
-        android:text="@string/seleccionar_acciones" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/seleccionar_acciones"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/TVPersonajeSeleccionado"
@@ -81,7 +85,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="41dp"
-        android:text="@string/personaje_seleccionado1" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/personaje_seleccionado1"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/TVNombrePersonaje"
@@ -90,7 +96,9 @@
         android:layout_below="@+id/TVPersonajeSeleccionado"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/IVCharacterIcon"
-        android:text="@string/personaje_seleccionado2" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/personaje_seleccionado2"
+        android:textSize="18sp" />
 
     <ScrollView
         android:id="@+id/SVAcciones"
@@ -156,5 +164,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/boton_ejecutar_central" />
 </RelativeLayout>

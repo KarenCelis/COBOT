@@ -8,42 +8,29 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/TVBienvenida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:text="@string/texto_de_bienvenida"
-        android:textSize="40sp" />
-
-    <TextView
         android:id="@+id/TVSeleccionarArchivo"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/TVBienvenida"
+        android:layout_width="345dp"
+        android:layout_height="41dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="213dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="18dp"
         android:layout_toStartOf="@+id/BAbrirArchivo"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:hint="@string/hint_texto_de_archivo_seleccionado" />
+        android:hint="@string/hint_texto_de_archivo_seleccionado"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/BAbrirArchivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/TVBienvenida"
         android:layout_alignBaseline="@id/TVSeleccionarArchivo"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="103dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="82dp"
         android:text="@string/boton_abrir_archivo" />
 
     <Button
@@ -53,7 +40,9 @@
         android:layout_below="@id/BAbrirArchivo"
         android:layout_alignStart="@id/TVSeleccionarArchivo"
         android:layout_alignEnd="@id/TVSeleccionarArchivo"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="-114dp"
         android:layout_marginBottom="30dp"
         android:text="@string/boton_abrir_obra"
         android:visibility="visible" />
