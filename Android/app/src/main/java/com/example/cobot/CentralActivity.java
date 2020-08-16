@@ -93,7 +93,7 @@ public class CentralActivity extends AppCompatActivity {
         final Scene escenaEscogida = obra.getScenes()[idEscena-1];
         for(final Action iterator: escenaEscogida.getActions()){
             if(iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje){
-                Log.i(TAG, "Accion encontrada para el personaje "+idPersonaje);
+                Log.i(TAG, "Acciones encontrada para el personaje "+idPersonaje);
                 ImageButton IBAccion = new ImageButton(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
                 IBAccion.setLayoutParams(params);
