@@ -14,7 +14,9 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:text="pupitre propio" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="pupitre propio"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView"
@@ -24,8 +26,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="Hacia dónde quieres que camine el personaje?​" />
+        android:text="Hacia dónde quieres que camine el personaje?​"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h2"
@@ -36,7 +40,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:text="puerta" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="puerta"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h4"
@@ -48,7 +54,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="espacio" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="espacio"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h3"
@@ -59,7 +67,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
-        android:text="Tablero" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="Tablero"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/EditTextDesde"
@@ -70,7 +80,9 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
         android:layout_toStartOf="@+id/textHacia"
-        android:layout_toEndOf="@id/textDesde" />
+        android:layout_toEndOf="@id/textDesde"
+        android:fontFamily="@font/fredoka_one"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textDesde"
@@ -81,8 +93,10 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="Desde: " />
+        android:text="Desde: "
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textHacia"
@@ -93,6 +107,8 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_toStartOf="@+id/btn_h3"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="Hacia:" />
+        android:text="Hacia:"
+        android:textSize="18sp" />
 </RelativeLayout>

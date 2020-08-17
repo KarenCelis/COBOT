@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/pop_bg"
+    tools:context=".Acciones.AccionSonido">
 
     <Button
         android:id="@+id/btn_silbar"
@@ -15,6 +17,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="Silbar" />
 
     <TextView
@@ -25,8 +28,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="¿Qué sonido quieres que haga el personaje?​" />
+        android:text="¿Qué sonido quiere que haga el personaje?​"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_cantar"
@@ -38,6 +43,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="Cantar" />
 
     <Button
@@ -49,6 +55,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="Gritar" />
 
     <Button
@@ -62,5 +69,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="Reir" />
 </RelativeLayout>

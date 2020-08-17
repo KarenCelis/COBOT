@@ -26,20 +26,22 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
         android:layout_marginTop="20dp"
-        android:text="@string/seleccionar_escena" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/seleccionar_escena"
+        android:textSize="18sp" />
 
     <HorizontalScrollView
         android:id="@+id/SVBotonesEscenas"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
+        android:layout_width="258dp"
+        android:layout_height="78dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="323dp"
         android:layout_toStartOf="@id/IVCharacterIcon"
         android:layout_toEndOf="@id/TVSeleccionEscena"
         android:scrollbarSize="5dp">
@@ -72,7 +74,9 @@
         android:layout_below="@+id/TVSeleccionEscena"
         android:layout_alignStart="@id/TVSeleccionEscena"
         android:layout_marginTop="60dp"
-        android:text="@string/seleccionar_acciones" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/seleccionar_acciones"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/TVPersonajeSeleccionado"
@@ -81,7 +85,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="41dp"
-        android:text="@string/personaje_seleccionado1" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/personaje_seleccionado1"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/TVNombrePersonaje"
@@ -90,17 +96,20 @@
         android:layout_below="@+id/TVPersonajeSeleccionado"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/IVCharacterIcon"
-        android:text="@string/personaje_seleccionado2" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/personaje_seleccionado2"
+        android:textSize="18sp" />
 
     <ScrollView
         android:id="@+id/SVAcciones"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="612dp"
+        android:layout_height="95dp"
         android:layout_below="@+id/TVSeleccionAcciones"
         android:layout_alignStart="@id/TVSeleccionAcciones"
-        android:layout_alignEnd="@id/TVSeleccionAcciones"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp">
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="84dp">
 
         <GridLayout
             android:id="@+id/GLAcciones"
@@ -108,19 +117,19 @@
             android:layout_height="wrap_content"
             android:columnCount="3"
             android:orientation="horizontal"
-            android:rowCount="3"/>
+            android:rowCount="3" />
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/RLEmociones"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/IVCharacterIcon"
-        android:layout_alignStart="@id/SVBotonesEscenas"
+        android:layout_width="676dp"
+        android:layout_height="85dp"
+        android:layout_below="@+id/SVAcciones"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="27dp"
         android:layout_marginBottom="50dp">
 
         <ImageButton
@@ -132,9 +141,9 @@
 
         <ImageButton
             android:id="@+id/IBNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_width="405dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
             android:layout_marginEnd="30dp"
             android:layout_toStartOf="@+id/IBHappy"
             android:layout_toEndOf="@+id/IBSad"
@@ -143,7 +152,7 @@
         <ImageButton
             android:id="@+id/IBSad"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/iconsad" />
     </RelativeLayout>
 
@@ -155,5 +164,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/boton_ejecutar_central" />
 </RelativeLayout>

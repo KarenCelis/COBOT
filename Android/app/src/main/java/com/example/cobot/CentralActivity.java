@@ -3,7 +3,9 @@ package com.example.cobot;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Scene;
@@ -97,6 +100,9 @@ public class CentralActivity extends AppCompatActivity {
         });
 
     }
+
+
+
     public void establecerAccionesDisponibles(final int idEscena){
         Log.i(TAG, "Estableciendo acciones para la escena "+idEscena+ " y el personaje "+idPersonaje);
         GLAcciones = findViewById(R.id.GLAcciones);
@@ -104,7 +110,7 @@ public class CentralActivity extends AppCompatActivity {
         final Scene escenaEscogida = obra.getScenes()[idEscena-1];
         for(final Action iterator: escenaEscogida.getActions()){
             if(iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje){
-                Log.i(TAG, "Accion encontrada para el personaje "+idPersonaje);
+                Log.i(TAG, "Acciones encontrada para el personaje "+idPersonaje);
                 ImageButton IBAccion = new ImageButton(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
                 IBAccion.setLayoutParams(params);
@@ -137,7 +143,8 @@ public class CentralActivity extends AppCompatActivity {
                 createDialogForMirar();
                 break;
             case "sonido":
-                createDialogForSonido();
+                Intent intent = new Intent(getApplicationContext(), AccionSonido.class);
+                startActivity(intent);
                 break;
             case "correr":
                 createDialogForCorrer();
@@ -305,6 +312,7 @@ public class CentralActivity extends AppCompatActivity {
             }
         });**/
     }
+/*
     public void createDialogForSonido(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_sonido, null);
@@ -315,17 +323,22 @@ public class CentralActivity extends AppCompatActivity {
         dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
+
+
         cantar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "cantar", Toast.LENGTH_LONG).show();
+v.setBackgroundColor(Color.rgb(3, 106, 150));
                 dialog.dismiss();
             }
         });
+
         gritar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "gritar", Toast.LENGTH_LONG).show();
+                v.setBackgroundColor(Color.rgb(3, 106, 150));
                 dialog.dismiss();
             }
         });
@@ -333,6 +346,7 @@ public class CentralActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "silbar", Toast.LENGTH_LONG).show();
+                v.setBackgroundColor(Color.rgb(3, 106, 150));
                 dialog.dismiss();
             }
         });
@@ -340,10 +354,14 @@ public class CentralActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "reir", Toast.LENGTH_LONG).show();
+                v.setBackgroundColor(Color.rgb(3, 106, 150));
                 dialog.dismiss();
             }
         });
-    }
+
+
+    }*/
+
     public void createDialogForCorrer(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_correr, null);

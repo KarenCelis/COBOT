@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_h3"
         android:layout_alignParentEnd="true"
-        android:layout_margin="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Hola, ¿Qué tal?" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Hola, ¿Qué tal?"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView"
@@ -26,8 +27,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="¿Qué quieres que diga el personaje?​" />
+        android:text="¿Qué quieres que diga el personaje?​"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h2"
@@ -39,7 +42,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="No, gracias" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="No, gracias"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h3"
@@ -51,7 +56,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Tengo pereza" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="Tengo pereza"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/EditTextDesde"
@@ -64,5 +71,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:text="¡Ya voy!" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="¡Ya voy!"
+        android:textSize="18sp" />
 </RelativeLayout>

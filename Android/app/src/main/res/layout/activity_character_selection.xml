@@ -15,6 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
         android:text="@string/texto_seleccion_de_personaje"
         android:textSize="24sp" />
@@ -27,6 +28,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/fredoka_one"
         android:text="@string/boton_continuar_a_central" />
 
     <Spinner

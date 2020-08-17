@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_girarFrente"
         android:layout_alignParentEnd="true"
-        android:layout_margin="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Hacia la izquierda" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Hacia la izquierda"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -26,8 +27,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="¿Hacia dónde quieres que el personaje mire?" />
+        android:text="¿Hacia dónde quieres que el personaje mire?"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_girarDerech"
@@ -39,7 +42,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Hacia la derecha" />
+        android:fontFamily="@font/fredoka_one"
+        android:text="Hacia la derecha"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_girarFrente"
@@ -51,7 +56,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Hacia el frente"  />
+        android:fontFamily="@font/fredoka_one"
+        android:text="Hacia el frente"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_girarDeEspaldas"
@@ -64,5 +71,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:text="De Espaldas"/>
+        android:fontFamily="@font/fredoka_one"
+        android:text="De Espaldas"
+        android:textSize="18sp" />
 </RelativeLayout>
