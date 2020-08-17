@@ -13,9 +13,9 @@
         android:layout_height="41dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="33dp"
         android:layout_toStartOf="@+id/BAbrirArchivo"
         android:fontFamily="@font/fredoka_one"
         android:gravity="center"
@@ -29,8 +29,8 @@
         android:layout_alignBaseline="@id/TVSeleccionarArchivo"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="82dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="71dp"
         android:text="@string/boton_abrir_archivo" />
 
     <Button
@@ -40,9 +40,9 @@
         android:layout_below="@id/BAbrirArchivo"
         android:layout_alignStart="@id/TVSeleccionarArchivo"
         android:layout_alignEnd="@id/TVSeleccionarArchivo"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="-114dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="-127dp"
         android:layout_marginBottom="30dp"
         android:text="@string/boton_abrir_obra"
         android:visibility="visible" />
