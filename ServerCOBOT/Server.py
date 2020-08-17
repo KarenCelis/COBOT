@@ -3,23 +3,19 @@ import json
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-host = socket.gethostname()
-port = 5000
-
 buffer_size = 4096
 
-serverSocket.bind((host, port))
+serverSocket.bind((socket.gethostname(), 1235))
 serverSocket.listen(10)
 
-print("Listening on %s:%s..." % (host, str(port)))
-
 while True:
-    clientSocket, address = serverSocket.accept()
+    clientsocket, address = serverSocket.accept()
     print("Connection received from %s..." % str(address))
+    clientsocket.send(bytes("Welcome to the python server"))
 
-    data = clientSocket.recv(buffer_size)
-    jdata = json.loads(data.decode('utf-8'))
+    #data = clientsocket.recv(buffer_size)
+    #jdata = json.loads(data.decode('utf-8'))
 
-    #clientSocket.send(jdata)
-    print("the data sent was:\n", jdata)
-    clientSocket.close()
+    #clientsocket.send(jdata)
+    #print("the data sent was:\n", jdata)
+    clientsocket.close()
