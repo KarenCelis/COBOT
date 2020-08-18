@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.example.cobot.R;
 
-public class AccionCaminar extends AppCompatActivity implements View.OnClickListener{
+public class AccionCaminar extends AppCompatActivity implements View.OnClickListener {
 
     private Button[] btn = new Button[4];
     private Button btn_unfocus, botontn;
@@ -24,7 +24,6 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accion_caminar);
-
 
 
 //Sombrear Botones
@@ -38,13 +37,13 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
 
         btn_unfocus = btn[0];
 
-        ////
+        ////Actualizar el estado del boton
         Intent resultado = getIntent();
-        int idresult = resultado.getIntExtra("id2",0);
-        if(idresult!=0){
+        int idresult = resultado.getIntExtra("id2", 0);
+        if (idresult != 0) {
             botontn = findViewById(idresult);
             botontn.setBackgroundColor(Color.rgb(3, 106, 150));
-            btn_unfocus=botontn;
+            btn_unfocus = botontn;
         }
 
         //Dimesiones de la actividad
@@ -53,14 +52,9 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
 
         int with = dm.widthPixels;
         int height = dm.heightPixels;
-
-
         getWindow().setLayout((int) (with * .9), (int) (height * .9));
-
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
-
         getWindow().setAttributes(params);
 
 
@@ -75,9 +69,6 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        //setForcus(btn_unfocus, (Button) findViewById(v.getId()));
-        //Or use switch
-
         switch (v.getId()) {
             case R.id.btn_h1:
                 setFocus(btn_unfocus, btn[0]);

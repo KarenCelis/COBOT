@@ -39,7 +39,7 @@ public class AccionCorrer extends Activity implements View.OnClickListener{
 
         btn_unfocus = btn[0];
 
-        ////
+        ////Actualizar el estado del boton
         Intent resultado = getIntent();
         int idresult = resultado.getIntExtra("id2",0);
         if(idresult!=0){
@@ -70,8 +70,6 @@ public class AccionCorrer extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        //setForcus(btn_unfocus, (Button) findViewById(v.getId()));
-        //Or use switch
 
         switch (v.getId()) {
             case R.id.btn_h1:

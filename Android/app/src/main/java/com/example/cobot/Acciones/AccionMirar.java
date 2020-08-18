@@ -27,9 +27,7 @@ public class AccionMirar extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_accion_mirar);
 
 
-
 //Sombrear Botones
-
 
         for (int i = 0; i < btn.length; i++) {
             btn[i] = (Button) findViewById(btn_id[i]);
@@ -41,27 +39,21 @@ public class AccionMirar extends Activity implements View.OnClickListener {
 
         ////
         Intent resultado = getIntent();
-        int idresult = resultado.getIntExtra("id2",0);
-        if(idresult!=0){
+        int idresult = resultado.getIntExtra("id2", 0);
+        if (idresult != 0) {
             botontn = findViewById(idresult);
             botontn.setBackgroundColor(Color.rgb(3, 106, 150));
-            btn_unfocus=botontn;
+            btn_unfocus = botontn;
         }
 
         //Dimesiones de la actividad
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int with = dm.widthPixels;
         int height = dm.heightPixels;
-
-
         getWindow().setLayout((int) (with * .9), (int) (height * .9));
-
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
-
         getWindow().setAttributes(params);
 
 
@@ -76,8 +68,6 @@ public class AccionMirar extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //setForcus(btn_unfocus, (Button) findViewById(v.getId()));
-        //Or use switch
 
         switch (v.getId()) {
             case R.id.btn_mirarIzq:
@@ -98,8 +88,6 @@ public class AccionMirar extends Activity implements View.OnClickListener {
                 setFocus(btn_unfocus, btn[2]);
                 volver(R.id.btn_mirarFrente);
                 break;
-
-
 
 
         }

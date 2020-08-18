@@ -70,8 +70,6 @@ public class AccionGirar extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        //setForcus(btn_unfocus, (Button) findViewById(v.getId()));
-        //Or use switch
 
         switch (v.getId()) {
             case R.id.btn_girarIzq:
