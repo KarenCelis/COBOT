@@ -1,5 +1,6 @@
 package com.example.cobot;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cobot.Acciones.AccionCaminar;
 import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Obra;
@@ -35,12 +37,12 @@ public class CentralActivity extends AppCompatActivity {
     private GridLayout GLAcciones;
     private Obra obra;
     private int idPersonaje;
-
+private int returnInt=0;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
     private static final String TAG = "ViewsCreation";
-
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +131,15 @@ public class CentralActivity extends AppCompatActivity {
 
     public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric){
         Action accion = obra.getScenes()[idScene-1].getActions()[idAccion-1];
+        Intent intent;
         switch (accion.getActionName()) {
             case "hablar":
                 createDialogForHablar();
                 break;
             case "caminar":
-                createDialogForCaminar();
+                intent = new Intent(getApplicationContext(), AccionCaminar.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "girar":
                 createDialogForGirar();
@@ -143,8 +148,10 @@ public class CentralActivity extends AppCompatActivity {
                 createDialogForMirar();
                 break;
             case "sonido":
-                Intent intent = new Intent(getApplicationContext(), AccionSonido.class);
-                startActivity(intent);
+                intent = new Intent(getApplicationContext(), AccionSonido.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+
                 break;
             case "correr":
                 createDialogForCorrer();
@@ -153,6 +160,25 @@ public class CentralActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No hay parámetros para esta acción", Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                // Get String data from Intent
+                returnInt = data.getIntExtra("id",0);
+               Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
+                // Set text view with string
+               // TextView textView = (TextView) findViewById(R.id.textView);
+                //textView.setText(returnString);
+            }
+        }
+
     }
 
     public void createDialogForHablar(){
@@ -194,6 +220,7 @@ public class CentralActivity extends AppCompatActivity {
             }
         });
     }
+    /*
     public void createDialogForCaminar(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_caminar, null);
@@ -232,7 +259,7 @@ public class CentralActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-    }
+    }*/
     public void createDialogForGirar(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
