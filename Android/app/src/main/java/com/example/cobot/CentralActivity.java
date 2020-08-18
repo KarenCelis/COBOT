@@ -303,55 +303,7 @@ public class CentralActivity extends AppCompatActivity {
             }
         });**/
     }
-/*
-    public void createDialogForSonido(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_sonido, null);
-        Button cantar = actionPopup.findViewById(R.id.btn_cantar);
-        Button gritar = actionPopup.findViewById(R.id.btn_gritar);
-        Button silbar = actionPopup.findViewById(R.id.btn_silbar);
-        Button reir = actionPopup.findViewById(R.id.btn_reir);
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
 
-
-        cantar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "cantar", Toast.LENGTH_LONG).show();
-v.setBackgroundColor(Color.rgb(3, 106, 150));
-                dialog.dismiss();
-            }
-        });
-
-        gritar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "gritar", Toast.LENGTH_LONG).show();
-                v.setBackgroundColor(Color.rgb(3, 106, 150));
-                dialog.dismiss();
-            }
-        });
-        silbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "silbar", Toast.LENGTH_LONG).show();
-                v.setBackgroundColor(Color.rgb(3, 106, 150));
-                dialog.dismiss();
-            }
-        });
-        reir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "reir", Toast.LENGTH_LONG).show();
-                v.setBackgroundColor(Color.rgb(3, 106, 150));
-                dialog.dismiss();
-            }
-        });
-
-
-    }*/
 
     public void createDialogForCorrer(){
         dialogBuilder = new AlertDialog.Builder(this);
