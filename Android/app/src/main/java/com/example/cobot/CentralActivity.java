@@ -22,6 +22,7 @@ import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Scene;
+import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +30,7 @@ public class CentralActivity extends AppCompatActivity {
 
     private ImageView IVCharacterIcon;
     private TextView TVNombrePersonaje;
+    private Button BEjecutarCentral;
     private LinearLayout LLHEscenas;
     private GridLayout GLAcciones;
     private Obra obra;
@@ -89,6 +91,13 @@ public class CentralActivity extends AppCompatActivity {
             }
         }
 
+        BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
+        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SocketClient().execute();
+            }
+        });
 
     }
 
