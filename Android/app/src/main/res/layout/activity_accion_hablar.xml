@@ -19,7 +19,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Hola, ¿Qué tal?"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <TextView
         android:id="@+id/textView"
@@ -46,7 +47,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="No, gracias"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h3"
@@ -60,7 +62,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Tengo pereza"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h4"
@@ -75,5 +78,6 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="¡Ya voy!"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 </RelativeLayout>

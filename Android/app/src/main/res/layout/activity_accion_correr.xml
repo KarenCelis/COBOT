@@ -18,7 +18,8 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="pupitre propio"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <TextView
         android:id="@+id/textView"
@@ -31,7 +32,8 @@
         android:fontFamily="@font/fredoka_one"
         android:gravity="center"
         android:text="¿Hacia dónde quieres que corra el personaje?​"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+/>
 
     <Button
         android:id="@+id/btn_h2"
@@ -44,7 +46,8 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="puerta"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h4"
@@ -58,7 +61,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="espacio"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h3"
@@ -71,7 +75,8 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Tablero"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <EditText
         android:id="@+id/btn_h4"
