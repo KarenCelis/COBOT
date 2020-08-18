@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,13 +25,15 @@ import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
-public class CentralActivity extends AppCompatActivity {
+public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView IVCharacterIcon;
     private TextView TVNombrePersonaje;
+    private ImageButton[] btn = new ImageButton[4];
+    private ImageButton btn_unfocus;
+    private int[] btn_id = {R.id.IBNormal, R.id.IBHappy, R.id.IBSad, R.id.IBAngry};
     private Button BEjecutarCentral;
-    private LinearLayout LLHEscenas;
-    private GridLayout GLAcciones;
+    private LinearLayout LLHEscenas, LLHAcciones;
     private Obra obra;
     private int idPersonaje;
 
@@ -62,6 +63,13 @@ public class CentralActivity extends AppCompatActivity {
 
         TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
         TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje-1].getName());
+
+        for(int i = 0; i < btn.length; i++){
+            btn[i] = findViewById(btn_id[i]);
+            btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
+            btn[i].setOnClickListener(this);
+        }
+        btn_unfocus = btn[0];
 
         LLHEscenas = findViewById(R.id.LLHEscenas);
         Scene[]escenas = obra.getScenes();
@@ -105,17 +113,18 @@ public class CentralActivity extends AppCompatActivity {
 
     public void establecerAccionesDisponibles(final int idEscena){
         Log.i(TAG, "Estableciendo acciones para la escena "+idEscena+ " y el personaje "+idPersonaje);
-        GLAcciones = findViewById(R.id.GLAcciones);
-        GLAcciones.removeAllViews();
+        LLHAcciones = findViewById(R.id.LLHAcciones);
+        LLHAcciones.removeAllViews();
         final Scene escenaEscogida = obra.getScenes()[idEscena-1];
         for(final Action iterator: escenaEscogida.getActions()){
             if(iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje){
                 Log.i(TAG, "Acciones encontrada para el personaje "+idPersonaje);
                 ImageButton IBAccion = new ImageButton(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
+                params.setMargins(10,0,0,0);
                 IBAccion.setLayoutParams(params);
                 Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric()-1].getActionIconUrl()).resize(120, 120).into(IBAccion);
-                GLAcciones.addView(IBAccion);
+                LLHAcciones.addView(IBAccion);
                 IBAccion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -402,4 +411,29 @@ v.setBackgroundColor(Color.rgb(3, 106, 150));
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.IBNormal:
+                setFocus(btn_unfocus, btn[0]);
+                break;
+            case R.id.IBHappy:
+                setFocus(btn_unfocus, btn[1]);
+                break;
+            case R.id.IBSad:
+                setFocus(btn_unfocus, btn[2]);
+                break;
+            case R.id.IBAngry:
+                setFocus(btn_unfocus, btn[3]);
+                break;
+        }
+    }
+
+    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
+        //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
+        btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
+        // btn_focus.setTextColor(Color.rgb(255, 255, 255));
+        btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
+        this.btn_unfocus = btn_focus;
+    }
 }
