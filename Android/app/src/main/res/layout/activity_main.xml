@@ -48,5 +48,5 @@
         android:fontFamily="@font/fredoka_one"
         android:text="@string/boton_abrir_obra"
         android:visibility="gone"
-        android:background="@drawable/style_button"/>
+     />
 </RelativeLayout>
