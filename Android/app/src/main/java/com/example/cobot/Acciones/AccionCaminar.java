@@ -42,7 +42,7 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
         int idresult = resultado.getIntExtra("id2", 0);
         if (idresult != 0) {
             botontn = findViewById(idresult);
-            botontn.setBackgroundColor(Color.rgb(3, 106, 150));
+            botontn.setBackgroundColor(Color.rgb(79, 254, 20));
             btn_unfocus = botontn;
         }
 
@@ -99,7 +99,7 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
     }
 
     private void setFocus(Button btn_unfocus, Button btn_focus) {
-        btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
+        btn_unfocus.setBackgroundColor(Color.rgb(79, 254, 20));
         btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
         this.btn_unfocus = btn_focus;
     }

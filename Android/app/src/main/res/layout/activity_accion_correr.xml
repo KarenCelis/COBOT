@@ -16,10 +16,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="pupitre propio"
         android:textSize="18sp"
-        android:background="@drawable/style_button"/>
+        app:backgroundTint="@android:color/holo_green_light" />
 
     <TextView
         android:id="@+id/textView"
@@ -73,10 +74,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="Tablero"
         android:textSize="18sp"
-        android:background="@drawable/style_button"/>
+        app:backgroundTint="#FFFFFF" />
 
     <EditText
         android:id="@+id/btn_h4"

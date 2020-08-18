@@ -4,10 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -250,11 +252,12 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
         //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
-        btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
+        btn_unfocus.setBackgroundColor(Color.rgb(139,195,74));
         // btn_focus.setTextColor(Color.rgb(255, 255, 255));
-        btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
+        btn_focus.setBackgroundColor(R.color.pressed_color);
         this.btn_unfocus = btn_focus;
     }
 }

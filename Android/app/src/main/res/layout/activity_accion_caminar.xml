@@ -77,7 +77,8 @@
         android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="Tablero"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:backgroundTint="?attr/colorPrimarySurface" />
 
     <EditText
         android:id="@+id/btn_h4"

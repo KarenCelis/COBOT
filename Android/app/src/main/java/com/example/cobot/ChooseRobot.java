@@ -53,7 +53,7 @@ public class ChooseRobot extends AppCompatActivity implements View.OnClickListen
         //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
         btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
        // btn_focus.setTextColor(Color.rgb(255, 255, 255));
-        btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
+        btn_focus.setBackgroundColor(Color.rgb(171, 252, 143));
         this.btn_unfocus = btn_focus;
     }
 }
