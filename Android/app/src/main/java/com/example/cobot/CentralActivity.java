@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,7 +31,7 @@ import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
-public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
+public class CentralActivity extends AppCompatActivity  implements View.OnClickListener {
 
     private ImageView IVCharacterIcon;
     private TextView TVNombrePersonaje;
@@ -41,35 +42,36 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout LLHEscenas, LLHAcciones;
     private Obra obra;
     private int idPersonaje;
-private int returnInt=0;
+    private int returnInt = 0;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
     private static final String TAG = "ViewsCreation";
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        obra = (Obra)getIntent().getSerializableExtra("obra");
-        idPersonaje = (int)getIntent().getSerializableExtra("itemSelected");
+        obra = (Obra) getIntent().getSerializableExtra("obra");
+        idPersonaje = (int) getIntent().getSerializableExtra("itemSelected");
 
-        if(Picasso.get()==null){
+        if (Picasso.get() == null) {
             Picasso picasso = new Picasso.Builder(getApplicationContext())
-                    .downloader(new OkHttp3Downloader(getApplicationContext(),Integer.MAX_VALUE))
+                    .downloader(new OkHttp3Downloader(getApplicationContext(), Integer.MAX_VALUE))
                     .build();
             Picasso.setSingletonInstance(picasso);
         }
 
         IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
-        Picasso.get().load(obra.getCharacters()[idPersonaje-1].getCharacterIconUrl()).into(IVCharacterIcon);
+        Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
 
         TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
-        TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje-1].getName());
+        TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje - 1].getName());
 
-        for(int i = 0; i < btn.length; i++){
+        for (int i = 0; i < btn.length; i++) {
             btn[i] = findViewById(btn_id[i]);
             btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
             btn[i].setOnClickListener(this);
@@ -77,19 +79,19 @@ private int returnInt=0;
         btn_unfocus = btn[0];
 
         LLHEscenas = findViewById(R.id.LLHEscenas);
-        Scene[]escenas = obra.getScenes();
-        for(final Scene iterator : escenas){
-            for(int i=0 ; i < iterator.getCharacterIds().length ; i++){
-                if(iterator.getCharacterIds()[i]==idPersonaje){
-                    Log.i(TAG, "Dentro de la escena "+iterator.getId());
+        Scene[] escenas = obra.getScenes();
+        for (final Scene iterator : escenas) {
+            for (int i = 0; i < iterator.getCharacterIds().length; i++) {
+                if (iterator.getCharacterIds()[i] == idPersonaje) {
+                    Log.i(TAG, "Dentro de la escena " + iterator.getId());
                     Button BEscena = new Button(this);
-                    BEscena.setText(iterator.getId()+"");
+                    BEscena.setText(iterator.getId() + "");
                     BEscena.setMinimumWidth(0);
                     BEscena.setMinWidth(0);
                     BEscena.setMinimumHeight(0);
                     BEscena.setMinHeight(0);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0,0,10,0);
+                    params.setMargins(0, 0, 10, 0);
                     params.gravity = Gravity.START;
                     params.weight = 1;
                     BEscena.setLayoutParams(params);
@@ -115,20 +117,19 @@ private int returnInt=0;
     }
 
 
-
-    public void establecerAccionesDisponibles(final int idEscena){
-        Log.i(TAG, "Estableciendo acciones para la escena "+idEscena+ " y el personaje "+idPersonaje);
+    public void establecerAccionesDisponibles(final int idEscena) {
+        Log.i(TAG, "Estableciendo acciones para la escena " + idEscena + " y el personaje " + idPersonaje);
         LLHAcciones = findViewById(R.id.LLHAcciones);
         LLHAcciones.removeAllViews();
-        final Scene escenaEscogida = obra.getScenes()[idEscena-1];
-        for(final Action iterator: escenaEscogida.getActions()){
-            if(iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje){
-                Log.i(TAG, "Acciones encontrada para el personaje "+idPersonaje);
+        final Scene escenaEscogida = obra.getScenes()[idEscena - 1];
+        for (final Action iterator : escenaEscogida.getActions()) {
+            if (iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje) {
+                Log.i(TAG, "Acciones encontrada para el personaje " + idPersonaje);
                 ImageButton IBAccion = new ImageButton(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
-                params.setMargins(10,0,0,0);
+                params.setMargins(10, 0, 0, 0);
                 IBAccion.setLayoutParams(params);
-                Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric()-1].getActionIconUrl()).resize(120, 120).into(IBAccion);
+                Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric() - 1].getActionIconUrl()).resize(120, 120).into(IBAccion);
                 LLHAcciones.addView(IBAccion);
                 IBAccion.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -141,39 +142,39 @@ private int returnInt=0;
 
     }
 
-    public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric){
-        Action accion = obra.getScenes()[idScene-1].getActions()[idAccion-1];
+    public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric) {
+        Action accion = obra.getScenes()[idScene - 1].getActions()[idAccion - 1];
         Intent intent;
         switch (accion.getActionName()) {
             case "hablar":
                 intent = new Intent(getApplicationContext(), AccionHablar.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "caminar":
                 intent = new Intent(getApplicationContext(), AccionCaminar.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "girar":
                 intent = new Intent(getApplicationContext(), AccionGirar.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "mirar":
                 intent = new Intent(getApplicationContext(), AccionMirar.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "sonido":
                 intent = new Intent(getApplicationContext(), AccionSonido.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
 
                 break;
             case "correr":
                 intent = new Intent(getApplicationContext(), AccionCorrer.class);
-                intent.putExtra("id2",returnInt);
+                intent.putExtra("id2", returnInt);
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             default:
@@ -191,15 +192,16 @@ private int returnInt=0;
             if (resultCode == RESULT_OK) {
 
                 // Get String data from Intent
-                returnInt = data.getIntExtra("id",0);
-               Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
+                returnInt = data.getIntExtra("id", 0);
+                Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
                 // Set text view with string
-               // TextView textView = (TextView) findViewById(R.id.textView);
+                // TextView textView = (TextView) findViewById(R.id.textView);
                 //textView.setText(returnString);
             }
         }
-
     }
+
+
 /*
     public void createDialogForHablar(){
         dialogBuilder = new AlertDialog.Builder(this);
@@ -400,7 +402,7 @@ private int returnInt=0;
             }
         });
     }
-
+*/
     @Override
     public void onClick(View v) {
         switch (v.getId()){
