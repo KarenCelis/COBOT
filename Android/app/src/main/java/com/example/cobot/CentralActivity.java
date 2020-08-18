@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,6 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cobot.Acciones.AccionCaminar;
+import com.example.cobot.Acciones.AccionCorrer;
+import com.example.cobot.Acciones.AccionGirar;
+import com.example.cobot.Acciones.AccionHablar;
+import com.example.cobot.Acciones.AccionMirar;
 import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Obra;
@@ -134,7 +137,9 @@ private int returnInt=0;
         Intent intent;
         switch (accion.getActionName()) {
             case "hablar":
-                createDialogForHablar();
+                intent = new Intent(getApplicationContext(), AccionHablar.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "caminar":
                 intent = new Intent(getApplicationContext(), AccionCaminar.class);
@@ -142,10 +147,14 @@ private int returnInt=0;
                 startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "girar":
-                createDialogForGirar();
+                intent = new Intent(getApplicationContext(), AccionGirar.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "mirar":
-                createDialogForMirar();
+                intent = new Intent(getApplicationContext(), AccionMirar.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             case "sonido":
                 intent = new Intent(getApplicationContext(), AccionSonido.class);
@@ -154,7 +163,9 @@ private int returnInt=0;
 
                 break;
             case "correr":
-                createDialogForCorrer();
+                intent = new Intent(getApplicationContext(), AccionCorrer.class);
+                intent.putExtra("id2",returnInt);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                 break;
             default:
                 Toast.makeText(getApplicationContext(), "No hay parámetros para esta acción", Toast.LENGTH_LONG).show();
@@ -180,14 +191,14 @@ private int returnInt=0;
         }
 
     }
-
+/*
     public void createDialogForHablar(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_hablar, null);
         Button hablar1 = actionPopup.findViewById(R.id.btn_h1);
         Button hablar2 = actionPopup.findViewById(R.id.btn_h2);
         Button hablar3 = actionPopup.findViewById(R.id.btn_h3);
-        Button hablar4 = actionPopup.findViewById(R.id.EditTextDesde);
+        Button hablar4 = actionPopup.findViewById(R.id.btn_h4);
         dialogBuilder.setView(actionPopup);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -220,7 +231,7 @@ private int returnInt=0;
             }
         });
     }
-    /*
+
     public void createDialogForCaminar(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_caminar, null);
@@ -259,7 +270,7 @@ private int returnInt=0;
                 dialog.dismiss();
             }
         });
-    }*/
+    }
     public void createDialogForGirar(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
@@ -338,9 +349,9 @@ private int returnInt=0;
                 dialog.dismiss();
             }
         });**/
-    }
 
 
+/*
     public void createDialogForCorrer(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_correr, null);
@@ -380,5 +391,5 @@ private int returnInt=0;
             }
         });
     }
-
+*/
 }

@@ -2,6 +2,7 @@ package com.example.cobot.Acciones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.Button;
 
 import com.example.cobot.R;
 
-public class AccionCaminar extends AppCompatActivity implements View.OnClickListener{
+public class AccionCorrer extends Activity implements View.OnClickListener{
 
     private Button[] btn = new Button[4];
     private Button btn_unfocus, botontn;
@@ -23,7 +24,7 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accion_caminar);
+        setContentView(R.layout.activity_accion_correr);
 
 
 
@@ -50,17 +51,11 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
         //Dimesiones de la actividad
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int with = dm.widthPixels;
         int height = dm.heightPixels;
-
-
         getWindow().setLayout((int) (with * .9), (int) (height * .9));
-
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
-
         getWindow().setAttributes(params);
 
 

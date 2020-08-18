@@ -13,10 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Acciones.AccionMirar"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".Acciones.AccionHablar"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".Acciones.AccionGirar"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".Acciones.AccionCorrer"
+            android:theme="@style/AppTheme.PopMe" />
         <activity android:name=".Acciones.AccionCaminar"
-            android:theme="@style/AppTheme.PopMe"/>
-        <activity
-            android:name=".Acciones.AccionSonido"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".Acciones.AccionSonido"
             android:theme="@style/AppTheme.PopMe" />
         <activity android:name=".MainActivity" />
         <activity

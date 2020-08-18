@@ -2,6 +2,7 @@ package com.example.cobot.Acciones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,17 +14,17 @@ import android.widget.Button;
 
 import com.example.cobot.R;
 
-public class AccionCaminar extends AppCompatActivity implements View.OnClickListener{
+public class AccionGirar extends Activity implements View.OnClickListener{
 
     private Button[] btn = new Button[4];
     private Button btn_unfocus, botontn;
-    private int[] btn_id = {R.id.btn_h1, R.id.btn_h2, R.id.btn_h3, R.id.btn_h4};
+    private int[] btn_id = {R.id.btn_girarIzq, R.id.btn_girarDerech, R.id.btn_girarFrente, R.id.btn_girarDeEspaldas};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accion_caminar);
+        setContentView(R.layout.activity_accion_girar);
 
 
 
@@ -50,17 +51,11 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
         //Dimesiones de la actividad
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int with = dm.widthPixels;
         int height = dm.heightPixels;
-
-
         getWindow().setLayout((int) (with * .9), (int) (height * .9));
-
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
-
         getWindow().setAttributes(params);
 
 
@@ -79,28 +74,28 @@ public class AccionCaminar extends AppCompatActivity implements View.OnClickList
         //Or use switch
 
         switch (v.getId()) {
-            case R.id.btn_h1:
+            case R.id.btn_girarIzq:
                 setFocus(btn_unfocus, btn[0]);
-                volver(R.id.btn_h1);
+                volver(R.id.btn_girarIzq);
                 //Log.d("pruebaid",String.valueOf(v.getId()));
                 //Log.d("prueba",v.toString());
 
                 break;
 
-            case R.id.btn_h2:
+            case R.id.btn_girarDerech:
                 setFocus(btn_unfocus, btn[1]);
-                volver(R.id.btn_h2);
+                volver(R.id.btn_girarDerech);
                 //Log.d("prueba",v.toString());
                 break;
 
-            case R.id.btn_h3:
+            case R.id.btn_girarFrente:
                 setFocus(btn_unfocus, btn[2]);
-                volver(R.id.btn_h3);
+                volver(R.id.btn_girarFrente);
                 break;
 
-            case R.id.btn_h4:
+            case R.id.btn_girarDeEspaldas:
                 setFocus(btn_unfocus, btn[3]);
-                volver(R.id.btn_h4);
+                volver(R.id.btn_girarDeEspaldas);
                 break;
 
 
