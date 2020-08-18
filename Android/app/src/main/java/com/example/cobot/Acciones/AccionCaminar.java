@@ -2,33 +2,28 @@ package com.example.cobot.Acciones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import com.example.cobot.CentralActivity;
-import com.example.cobot.MainActivity;
 import com.example.cobot.R;
 
-public class AccionSonido extends Activity implements View.OnClickListener {
+public class AccionCaminar extends AppCompatActivity implements View.OnClickListener{
 
     private Button[] btn = new Button[4];
     private Button btn_unfocus, botontn;
-    private int[] btn_id = {R.id.btn_cantar, R.id.btn_gritar, R.id.btn_silbar, R.id.btn_reir};
+    private int[] btn_id = {R.id.btn_h1, R.id.btn_h2, R.id.btn_h3, R.id.btn_h4};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accion_sonido);
+        setContentView(R.layout.layout_caminar);
 
 
 
@@ -84,28 +79,28 @@ public class AccionSonido extends Activity implements View.OnClickListener {
         //Or use switch
 
         switch (v.getId()) {
-            case R.id.btn_cantar:
+            case R.id.btn_h1:
                 setFocus(btn_unfocus, btn[0]);
-                volver(R.id.btn_cantar);
+                volver(R.id.btn_h1);
                 //Log.d("pruebaid",String.valueOf(v.getId()));
                 //Log.d("prueba",v.toString());
 
                 break;
 
-            case R.id.btn_gritar:
+            case R.id.btn_h2:
                 setFocus(btn_unfocus, btn[1]);
-                volver(R.id.btn_gritar);
+                volver(R.id.btn_h2);
                 //Log.d("prueba",v.toString());
                 break;
 
-            case R.id.btn_silbar:
+            case R.id.btn_h3:
                 setFocus(btn_unfocus, btn[2]);
-                volver(R.id.btn_silbar);
+                volver(R.id.btn_h3);
                 break;
 
-            case R.id.btn_reir:
+            case R.id.btn_h4:
                 setFocus(btn_unfocus, btn[3]);
-                volver(R.id.btn_reir);
+                volver(R.id.btn_h4);
                 break;
 
 
