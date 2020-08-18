@@ -42,12 +42,14 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
     private LinearLayout LLHEscenas, LLHAcciones;
     private Obra obra;
     private int idPersonaje;
-    private int returnInt = 0;
+    private int returnInt = 0, returnInt1 = 0,returnInt2 = 0,returnInt3 = 0,returnInt4 = 0,returnInt5 = 0;
+
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
     private static final String TAG = "ViewsCreation";
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static final int THIRD_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,33 +151,33 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
             case "hablar":
                 intent = new Intent(getApplicationContext(), AccionHablar.class);
                 intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent,0);
                 break;
             case "caminar":
                 intent = new Intent(getApplicationContext(), AccionCaminar.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id2", returnInt1);
+                startActivityForResult(intent, 1);
                 break;
             case "girar":
                 intent = new Intent(getApplicationContext(), AccionGirar.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id2", returnInt2);
+                startActivityForResult(intent, 2);
                 break;
             case "mirar":
                 intent = new Intent(getApplicationContext(), AccionMirar.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id2", returnInt3);
+                startActivityForResult(intent, 3);
                 break;
             case "sonido":
                 intent = new Intent(getApplicationContext(), AccionSonido.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id2", returnInt4);
+                startActivityForResult(intent, 4);
 
                 break;
             case "correr":
                 intent = new Intent(getApplicationContext(), AccionCorrer.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id2", returnInt5);
+                startActivityForResult(intent, 5);
                 break;
             default:
                 Toast.makeText(getApplicationContext(), "No hay parámetros para esta acción", Toast.LENGTH_LONG).show();
@@ -188,15 +190,44 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
 
         // Check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
 
                 // Get String data from Intent
-                returnInt = data.getIntExtra("id", 0);
-                Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
+                returnInt = data.getIntExtra("id", returnInt);
+               // Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
                 // Set text view with string
                 // TextView textView = (TextView) findViewById(R.id.textView);
                 //textView.setText(returnString);
+            }
+
+
+        }
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                returnInt1 = data.getIntExtra("id", returnInt1);
+            }
+        }
+
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                returnInt2 = data.getIntExtra("id", returnInt2);
+            }
+        }
+        if (requestCode == 3) {
+            if (resultCode == RESULT_OK) {
+                returnInt3 = data.getIntExtra("id", returnInt3);
+            }
+        }
+        if (requestCode == 4) {
+            if (resultCode == RESULT_OK) {
+                returnInt4 = data.getIntExtra("id", returnInt4);
+            }
+        }
+        if (requestCode == 5) {
+            if (resultCode == RESULT_OK) {
+                returnInt5 = data.getIntExtra("id", returnInt5);
             }
         }
     }
