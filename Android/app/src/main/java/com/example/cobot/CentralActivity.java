@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -37,9 +36,9 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
 
     private ImageView IVCharacterIcon;
     private TextView TVNombrePersonaje;
-    private ImageButton[] btn = new ImageButton[4];
+    private ImageButton[] btn = new ImageButton[5];
     private ImageButton btn_unfocus;
-    private int[] btn_id = {R.id.IBNormal, R.id.IBHappy, R.id.IBSad, R.id.IBAngry};
+    private int[] btn_id = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz,R.id.IBMuyFeliz};
     private Button BEjecutarCentral;
     private LinearLayout LLHEscenas, LLHAcciones;
     private Obra obra;
@@ -77,7 +76,7 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
 
         for (int i = 0; i < btn.length; i++) {
             btn[i] = findViewById(btn_id[i]);
-            btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
+            btn[i].setBackgroundColor(Color.rgb(255, 255, 255));
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
@@ -237,17 +236,20 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.IBNormal:
+            case R.id.IBMuyTriste:
                 setFocus(btn_unfocus, btn[0]);
                 break;
-            case R.id.IBHappy:
+            case R.id.IBTriste:
                 setFocus(btn_unfocus, btn[1]);
                 break;
-            case R.id.IBSad:
+            case R.id.IBNormal:
                 setFocus(btn_unfocus, btn[2]);
                 break;
-            case R.id.IBAngry:
+            case R.id.IBFeliz:
                 setFocus(btn_unfocus, btn[3]);
+                break;
+            case R.id.IBMuyFeliz:
+                setFocus(btn_unfocus, btn[4]);
                 break;
         }
     }
@@ -255,7 +257,7 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
     @SuppressLint("ResourceAsColor")
     private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
         //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
-        btn_unfocus.setBackgroundColor(Color.rgb(139,195,74));
+        btn_unfocus.setBackgroundColor(Color.rgb(255,255,255));
         // btn_focus.setTextColor(Color.rgb(255, 255, 255));
         btn_focus.setBackgroundColor(R.color.pressed_color);
         this.btn_unfocus = btn_focus;
