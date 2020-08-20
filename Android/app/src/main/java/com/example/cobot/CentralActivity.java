@@ -21,11 +21,15 @@ import android.widget.Toast;
 import com.example.cobot.Acciones.AccionCaminar;
 import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
+import com.example.cobot.Classes.Emotion;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Scene;
 import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +46,15 @@ private int returnInt=0;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
+    private boolean isEmotionSelected;
+    private int LatestActionSelectedId;
+    private String emotionSelected;
+    private int emotionIntensitySelected;
+    private Map<Integer, String> ActionsSelected;
+    //private Action[] ActionsSelected;
+
     private static final String TAG = "ViewsCreation";
+    private static final String TAG2 = "DataCollection";
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +71,12 @@ private int returnInt=0;
                     .build();
             Picasso.setSingletonInstance(picasso);
         }
+
+        //Al presionar el botón BEjecutar, se revisa que se haya seleccionado la emoción y al menos una acción con su parámetro.
+        isEmotionSelected = false;
+        LatestActionSelectedId = 0;
+        emotionIntensitySelected = 100;
+        ActionsSelected = new HashMap<>();
 
         IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
         Picasso.get().load(obra.getCharacters()[idPersonaje-1].getCharacterIconUrl()).into(IVCharacterIcon);
@@ -105,7 +123,18 @@ private int returnInt=0;
         BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SocketClient().execute();
+                //TODO Collect all the actions and emotions selected, 50% done
+                if(isEmotionSelected && ActionsSelected.size() > 0){
+                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
+                    Log.i(TAG2, ActionsSelected.keySet().toString());
+                    Log.i(TAG2, ActionsSelected.values().toString());
+                    new SocketClient().execute();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -139,6 +168,10 @@ private int returnInt=0;
     }
 
     public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric){
+        //Almacenar la acción seleccionada
+        LatestActionSelectedId = idActionGeneric-1;
+        ActionsSelected.put(LatestActionSelectedId, "none");
+
         Action accion = obra.getScenes()[idScene-1].getActions()[idAccion-1];
         Intent intent;
         switch (accion.getActionName()) {
@@ -181,9 +214,14 @@ private int returnInt=0;
 
                 // Get String data from Intent
                 returnInt = data.getIntExtra("id",0);
-               Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
+
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+
+                Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
                 // Set text view with string
-               // TextView textView = (TextView) findViewById(R.id.textView);
+                // TextView textView = (TextView) findViewById(R.id.textView);
                 //textView.setText(returnString);
             }
         }
@@ -395,14 +433,18 @@ private int returnInt=0;
         switch (v.getId()){
             case R.id.IBNormal:
                 setFocus(btn_unfocus, btn[0]);
+                emotionSelected = "Normal";
                 break;
             case R.id.IBHappy:
                 setFocus(btn_unfocus, btn[1]);
+                emotionSelected = "Happy";
                 break;
             case R.id.IBSad:
                 setFocus(btn_unfocus, btn[2]);
+                emotionSelected = "Sad";
                 break;
             case R.id.IBAngry:
+                emotionSelected = "Angry";
                 setFocus(btn_unfocus, btn[3]);
                 break;
         }
@@ -414,5 +456,6 @@ private int returnInt=0;
         // btn_focus.setTextColor(Color.rgb(255, 255, 255));
         btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
         this.btn_unfocus = btn_focus;
+        isEmotionSelected = true;
     }
 }
