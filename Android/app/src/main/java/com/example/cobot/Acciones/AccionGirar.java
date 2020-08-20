@@ -61,8 +61,9 @@ public class AccionGirar extends Activity implements View.OnClickListener{
 
     }
 
-    private void volver(int id) {
+    private void volver(int id, String parameter) {
         Intent intent = new Intent();
+        intent.putExtra("parameter", parameter);
         intent.putExtra("id", id);
         setResult(RESULT_OK, intent);
         finish();
@@ -70,11 +71,13 @@ public class AccionGirar extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        Button b;
 
         switch (v.getId()) {
             case R.id.btn_girarIzq:
                 setFocus(btn_unfocus, btn[0]);
-                volver(R.id.btn_girarIzq);
+                b = findViewById(R.id.btn_girarIzq);
+                volver(R.id.btn_girarIzq, (String) b.getText());
                 //Log.d("pruebaid",String.valueOf(v.getId()));
                 //Log.d("prueba",v.toString());
 
@@ -82,18 +85,21 @@ public class AccionGirar extends Activity implements View.OnClickListener{
 
             case R.id.btn_girarDerech:
                 setFocus(btn_unfocus, btn[1]);
-                volver(R.id.btn_girarDerech);
+                b = findViewById(R.id.btn_girarDerech);
+                volver(R.id.btn_girarDerech, (String) b.getText());
                 //Log.d("prueba",v.toString());
                 break;
 
             case R.id.btn_girarFrente:
+                b = findViewById(R.id.btn_girarFrente);
                 setFocus(btn_unfocus, btn[2]);
-                volver(R.id.btn_girarFrente);
+                volver(R.id.btn_girarFrente, (String) b.getText());
                 break;
 
             case R.id.btn_girarDeEspaldas:
                 setFocus(btn_unfocus, btn[3]);
-                volver(R.id.btn_girarDeEspaldas);
+                b = findViewById(R.id.btn_girarDeEspaldas);
+                volver(R.id.btn_girarDeEspaldas, (String) b.getText());
                 break;
 
 

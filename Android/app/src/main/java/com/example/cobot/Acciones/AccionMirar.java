@@ -59,8 +59,9 @@ public class AccionMirar extends Activity implements View.OnClickListener {
 
     }
 
-    private void volver(int id) {
+    private void volver(int id, String parameter) {
         Intent intent = new Intent();
+        intent.putExtra("parameter", parameter);
         intent.putExtra("id", id);
         setResult(RESULT_OK, intent);
         finish();
@@ -68,11 +69,12 @@ public class AccionMirar extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        Button b;
         switch (v.getId()) {
             case R.id.btn_mirarIzq:
                 setFocus(btn_unfocus, btn[0]);
-                volver(R.id.btn_mirarIzq);
+                b = findViewById(R.id.btn_mirarIzq);
+                volver(R.id.btn_mirarIzq, (String) b.getText());
                 //Log.d("pruebaid",String.valueOf(v.getId()));
                 //Log.d("prueba",v.toString());
 
@@ -80,13 +82,15 @@ public class AccionMirar extends Activity implements View.OnClickListener {
 
             case R.id.btn_mirarDerec:
                 setFocus(btn_unfocus, btn[1]);
-                volver(R.id.btn_mirarDerec);
+                b = findViewById(R.id.btn_mirarDerec);
+                volver(R.id.btn_mirarDerec, (String) b.getText());
                 //Log.d("prueba",v.toString());
                 break;
 
             case R.id.btn_mirarFrente:
+                b = findViewById(R.id.btn_mirarFrente);
                 setFocus(btn_unfocus, btn[2]);
-                volver(R.id.btn_mirarFrente);
+                volver(R.id.btn_mirarFrente, (String) b.getText());
                 break;
 
 

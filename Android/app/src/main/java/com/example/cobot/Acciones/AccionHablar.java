@@ -61,8 +61,9 @@ public class AccionHablar extends Activity implements View.OnClickListener {
 
     }
 
-    private void volver(int id) {
+    private void volver(int id, String parameter) {
         Intent intent = new Intent();
+        intent.putExtra("parameter", parameter);
         intent.putExtra("id", id);
         setResult(RESULT_OK, intent);
         finish();
@@ -70,29 +71,34 @@ public class AccionHablar extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Button b;
         switch (v.getId()) {
             case R.id.btn_h1:
+                b = findViewById(R.id.btn_h1);
                 setFocus(btn_unfocus, btn[0]);
-                volver(R.id.btn_h1);
+                volver(R.id.btn_h1, (String) b.getText());
                 //Log.d("pruebaid",String.valueOf(v.getId()));
                 //Log.d("prueba",v.toString());
 
                 break;
 
             case R.id.btn_h2:
+                b = findViewById(R.id.btn_h2);
                 setFocus(btn_unfocus, btn[1]);
-                volver(R.id.btn_h2);
+                volver(R.id.btn_h2, (String) b.getText());
                 //Log.d("prueba",v.toString());
                 break;
 
             case R.id.btn_h3:
+                b = findViewById(R.id.btn_h3);
                 setFocus(btn_unfocus, btn[2]);
-                volver(R.id.btn_h3);
+                volver(R.id.btn_h3, (String) b.getText());
                 break;
 
             case R.id.btn_h4:
+                b = findViewById(R.id.btn_h4);
                 setFocus(btn_unfocus, btn[3]);
-                volver(R.id.btn_h4);
+                volver(R.id.btn_h4, (String) b.getText());
                 break;
 
 

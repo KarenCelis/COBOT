@@ -228,17 +228,12 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
 
                 // Get String data from Intent
                 returnInt = data.getIntExtra("id", returnInt);
-               // Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-                //returnInt = data.getIntExtra("id",0);
-
                 //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
                 String parameter = data.getStringExtra("parameter");
                 ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
 
-                Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-                // Set text view with string
-                // TextView textView = (TextView) findViewById(R.id.textView);
-                //textView.setText(returnString);
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
 
 
@@ -247,27 +242,57 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 returnInt1 = data.getIntExtra("id", returnInt1);
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
         }
 
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 returnInt2 = data.getIntExtra("id", returnInt2);
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
         }
         if (requestCode == 3) {
             if (resultCode == RESULT_OK) {
                 returnInt3 = data.getIntExtra("id", returnInt3);
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
         }
         if (requestCode == 4) {
             if (resultCode == RESULT_OK) {
                 returnInt4 = data.getIntExtra("id", returnInt4);
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
         }
         if (requestCode == 5) {
             if (resultCode == RESULT_OK) {
                 returnInt5 = data.getIntExtra("id", returnInt5);
+                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
+                String parameter = data.getStringExtra("parameter");
+                ActionsSelected.put(LatestActionSelectedId, parameter);
+                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
             }
         }
     }
