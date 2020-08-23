@@ -116,7 +116,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton3"
-                android:layout_width="70dp"
+                android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1"
                 android:visibility="gone"
@@ -127,55 +127,64 @@
     <LinearLayout
         android:id="@+id/LYEmociones"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/TVEmociones"
         android:layout_alignStart="@id/TVSeleccionEscena"
         android:layout_alignEnd="@id/TVPersonajeSeleccionado"
         android:layout_alignParentStart="false"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/IBHappy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/IBMuyTriste"
+            android:layout_width="12dp"
+            android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_key"
-            app:srcCompat="@drawable/normal_face"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/muytriste"
             tools:ignore="VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/IBTriste"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_key"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/triste" />
 
         <ImageButton
             android:id="@+id/IBNormal"
-            android:layout_width="wrap_content"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_key"
-            app:srcCompat="@drawable/happy_face"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/normal" />
+
+        <ImageButton
+            android:id="@+id/IBFeliz"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_key"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/feliz"
             tools:ignore="VectorDrawableCompat" />
 
         <ImageButton
-            android:id="@+id/IBSad"
-            android:layout_width="wrap_content"
+            android:id="@+id/IBMuyFeliz"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_key"
-            app:srcCompat="@drawable/sad_face"
-            tools:ignore="VectorDrawableCompat" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/muyfeliz" />
 
-        <ImageButton
-            android:id="@+id/IBAngry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            app:srcCompat="@drawable/angry_face"
-            tools:ignore="VectorDrawableCompat" />
     </LinearLayout>
 
     <TextView

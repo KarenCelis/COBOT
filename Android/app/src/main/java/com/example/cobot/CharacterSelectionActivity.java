@@ -21,9 +21,7 @@ public class CharacterSelectionActivity extends AppCompatActivity {
 
     private Obra obra;
     private static final String TAG = "ItemSelection";
-    private Spinner SPlistadoDePersonajes;
     private int itemSelected;
-    private Button BContinuar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,7 @@ public class CharacterSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_character_selection);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        BContinuar = findViewById(R.id.BContinuar);
+        Button BContinuar = findViewById(R.id.BContinuar);
         BContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,30 +44,23 @@ public class CharacterSelectionActivity extends AppCompatActivity {
             personajes.add(cha.getName());
         }
 
-        SPlistadoDePersonajes = findViewById(R.id.SPListadoDePersonajes);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, personajes);
+        Spinner SPlistadoDePersonajes = findViewById(R.id.SPListadoDePersonajes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, personajes);
         SPlistadoDePersonajes.setAdapter(adapter);
         SPlistadoDePersonajes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedFromList =(String) (SPlistadoDePersonajes.getItemAtPosition(position));
                 itemSelected = position+1;
-                Log.i(TAG, "El ítem seleccionado tiene la id: "+position+" es del personaje "+selectedFromList);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
     private void IniciarActividadCentral() {
         Intent intent = new Intent(this, CentralActivity.class);
-        //pasar la información de la obra.
         intent.putExtra("obra", obra);
         intent.putExtra("itemSelected", itemSelected);
         startActivity(intent);
     }
-
 }

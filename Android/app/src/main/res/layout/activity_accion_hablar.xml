@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Acciones.AccionHablar">
+
 
     <Button
         android:id="@+id/btn_h1"
@@ -17,7 +19,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Hola, ¿Qué tal?"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <TextView
         android:id="@+id/textView"
@@ -36,7 +39,7 @@
         android:id="@+id/btn_h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/EditTextDesde"
+        android:layout_below="@id/btn_h4"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
@@ -44,7 +47,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="No, gracias"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h3"
@@ -58,10 +62,11 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Tengo pereza"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
-        android:id="@+id/EditTextDesde"
+        android:id="@+id/btn_h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
@@ -73,5 +78,6 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="¡Ya voy!"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 </RelativeLayout>

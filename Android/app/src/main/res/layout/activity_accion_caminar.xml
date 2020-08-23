@@ -17,7 +17,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/style_button"
         android:text="pupitre propio"
+
         android:textSize="18sp" />
 
     <TextView
@@ -43,6 +45,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/style_button"
         android:text="puerta"
         android:textSize="18sp" />
 
@@ -58,23 +61,27 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="espacio"
+        android:background="@drawable/style_button"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_h3"
-        android:layout_width="wrap_content"
+        android:layout_width="197dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
         android:layout_alignStart="@id/btn_h1"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="Tablero"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:backgroundTint="?attr/colorPrimarySurface" />
 
     <EditText
-        android:id="@+id/EditTextDesde"
+        android:id="@+id/btn_h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
@@ -91,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:layout_alignBottom="@id/EditTextDesde"
+        android:layout_alignBottom="@id/btn_h4"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
@@ -105,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:layout_alignBottom="@id/EditTextDesde"
+        android:layout_alignBottom="@id/btn_h4"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_toStartOf="@+id/btn_h3"

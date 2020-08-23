@@ -1,9 +1,9 @@
 package com.example.cobot;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -18,401 +18,299 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cobot.Acciones.AccionCaminar;
-import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
+import com.example.cobot.Classes.Character;
+import com.example.cobot.Classes.Emotion;
 import com.example.cobot.Classes.Obra;
+import com.example.cobot.Classes.Position;
 import com.example.cobot.Classes.Scene;
 import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView IVCharacterIcon;
-    private TextView TVNombrePersonaje;
-    private ImageButton[] btn = new ImageButton[4];
+    private ImageButton[] btn = new ImageButton[5];
     private ImageButton btn_unfocus;
-    private int[] btn_id = {R.id.IBNormal, R.id.IBHappy, R.id.IBSad, R.id.IBAngry};
-    private Button BEjecutarCentral;
-    private LinearLayout LLHEscenas, LLHAcciones;
+    private Button BEscenaUnFocus;
+    private int[] ArregloBEmociones = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz, R.id.IBMuyFeliz};
+    private ImageButton[] actionButtons;
+    private int latestActionId;
+
+    //Objetos recibidos por el intent
     private Obra obra;
     private int idPersonaje;
-private int returnInt=0;
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
+
+    //Índices de la opción seleccionada para cada acción
+    private int[] actionReturns;
+
+    //Variables para la recolección de los datos al momento de ejecutar
+    private boolean isEmotionSelected;
+    private int LatestActionSelectedId;
+    private String emotionSelected;
+    private int emotionIntensitySelected;
+    private Map<Integer, String> ActionsSelected;
 
     private static final String TAG = "ViewsCreation";
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static final String TAG2 = "DataCollection";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        obra = (Obra)getIntent().getSerializableExtra("obra");
-        idPersonaje = (int)getIntent().getSerializableExtra("itemSelected");
+        obra = (Obra) getIntent().getSerializableExtra("obra");
+        idPersonaje = (int) getIntent().getSerializableExtra("itemSelected");
 
-        if(Picasso.get()==null){
+        if (Picasso.get() == null) {
             Picasso picasso = new Picasso.Builder(getApplicationContext())
-                    .downloader(new OkHttp3Downloader(getApplicationContext(),Integer.MAX_VALUE))
+                    .downloader(new OkHttp3Downloader(getApplicationContext(), Integer.MAX_VALUE))
                     .build();
             Picasso.setSingletonInstance(picasso);
         }
 
-        IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
-        Picasso.get().load(obra.getCharacters()[idPersonaje-1].getCharacterIconUrl()).into(IVCharacterIcon);
+        isEmotionSelected = false;
+        LatestActionSelectedId = 0;
+        emotionIntensitySelected = 100;
+        ActionsSelected = new HashMap<>();
 
-        TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
-        TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje-1].getName());
+        ImageView IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
+        Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
+        TextView TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
+        TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje - 1].getName());
 
-        for(int i = 0; i < btn.length; i++){
-            btn[i] = findViewById(btn_id[i]);
-            btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
+        for (int i = 0; i < btn.length; i++) {
+            btn[i] = findViewById(ArregloBEmociones[i]);
+            btn[i].setBackgroundColor(Color.rgb(255, 255, 255));
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
 
-        LLHEscenas = findViewById(R.id.LLHEscenas);
-        Scene[]escenas = obra.getScenes();
-        for(final Scene iterator : escenas){
-            for(int i=0 ; i < iterator.getCharacterIds().length ; i++){
-                if(iterator.getCharacterIds()[i]==idPersonaje){
-                    Log.i(TAG, "Dentro de la escena "+iterator.getId());
-                    Button BEscena = new Button(this);
-                    BEscena.setText(iterator.getId()+"");
+        loadScenes();
+
+        Button BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
+        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Collect all the actions and emotions selected, 50%
+                if (isEmotionSelected && ActionsSelected.size() > 0) {
+                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
+                    Log.i(TAG2, ActionsSelected.keySet().toString());
+                    Log.i(TAG2, ActionsSelected.values().toString());
+                    Log.i(TAG2, em.print());
+                    new SocketClient().execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void loadScenes() {
+
+        LinearLayout LLHEscenas = findViewById(R.id.LLHEscenas);
+        LLHEscenas.removeAllViews();
+        Scene[] escenas = obra.getScenes();
+        int assignOnce = 0;
+
+        for (final Scene iterator : escenas) {
+            for (int i = 0; i < iterator.getCharacterIds().length; i++) {
+                if (iterator.getCharacterIds()[i] == idPersonaje) {
+
+                    final Button BEscena = new Button(this);
+
+                    BEscena.setText(iterator.getId() + "");
                     BEscena.setMinimumWidth(0);
                     BEscena.setMinWidth(0);
                     BEscena.setMinimumHeight(0);
                     BEscena.setMinHeight(0);
+
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0,0,10,0);
+
+                    params.setMargins(0, 0, 10, 0);
                     params.gravity = Gravity.START;
                     params.weight = 1;
+
                     BEscena.setLayoutParams(params);
+
                     LLHEscenas.addView(BEscena);
                     BEscena.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            setFocusSceneButtons(BEscenaUnFocus, BEscena);
                             establecerAccionesDisponibles(iterator.getId());
                         }
                     });
+                    if (assignOnce == 0) {
+                        BEscenaUnFocus = BEscena;
+                        assignOnce++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void establecerAccionesDisponibles(final int idEscena) {
+
+        for (Position p : obra.getScenes()[idEscena - 1].getPositions()) {
+            for (Character c : obra.getCharacters()) {
+                if (c.getId() == p.getNodeId()) {
+                    c.setNodeId(p.getNodeId());
                 }
             }
         }
 
-        BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
-        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SocketClient().execute();
-            }
-        });
-
-    }
-
-
-
-    public void establecerAccionesDisponibles(final int idEscena){
-        Log.i(TAG, "Estableciendo acciones para la escena "+idEscena+ " y el personaje "+idPersonaje);
-        LLHAcciones = findViewById(R.id.LLHAcciones);
+        Log.i(TAG, "Estableciendo acciones para la escena " + idEscena + " y el personaje " + idPersonaje);
+        LinearLayout LLHAcciones = findViewById(R.id.LLHAcciones);
         LLHAcciones.removeAllViews();
-        final Scene escenaEscogida = obra.getScenes()[idEscena-1];
-        for(final Action iterator: escenaEscogida.getActions()){
-            if(iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje){
-                Log.i(TAG, "Acciones encontrada para el personaje "+idPersonaje);
-                ImageButton IBAccion = new ImageButton(this);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
-                params.setMargins(10,0,0,0);
+        final Scene escenaEscogida = obra.getScenes()[idEscena - 1];
+
+        //Se crean tantos enteros de acciones como acciones hayan y se inicia en -1 para identificar la primera vez.
+        actionReturns = new int[escenaEscogida.getActions().length];
+        Arrays.fill(actionReturns, -1);
+        //Se crean tantos tags de botones de acciones como acciones haya y se nombran según su posición
+        actionButtons = new ImageButton[escenaEscogida.getActions().length];
+
+        for (final Action iterator : escenaEscogida.getActions()) {
+
+            //Si son nulas las opciones entonces es caminar o correr, se asignan los lugares del mapa excepto en donde está, TODO place exception 0%
+            if (iterator.getDisplayText() == null) {
+                String[]nodeNames = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNodeNames();
+                nodeNames = append(nodeNames, "Ninguno");
+                iterator.setDisplayText(nodeNames);
+            }
+
+            if (iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje) {
+
+                Log.i(TAG, "Acciones encontrada para el personaje " + idPersonaje);
+                final ImageButton IBAccion = new ImageButton(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(130, 130);
+
+                params.setMargins(10, 0, 0, 0);
                 IBAccion.setLayoutParams(params);
-                Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric()-1].getActionIconUrl()).resize(120, 120).into(IBAccion);
+
+                Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric() - 1].getActionIconUrl()).resize(120, 120).into(IBAccion);
+
                 LLHAcciones.addView(IBAccion);
+                actionButtons[iterator.getId()-1] = IBAccion;
                 IBAccion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iniciarDialogos(idEscena, iterator.getId(), iterator.getIdGeneric());
+                        IBAccion.setBackgroundColor(v.getResources().getColor(R.color.pressed_color));
+                        latestActionId = iterator.getId()-1;
+                        startActionActivities(idEscena, iterator.getId(), iterator.getIdGeneric());
                     }
                 });
             }
         }
-
     }
 
-    public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric){
-        Action accion = obra.getScenes()[idScene-1].getActions()[idAccion-1];
-        Intent intent;
-        switch (accion.getActionName()) {
-            case "hablar":
-                createDialogForHablar();
-                break;
-            case "caminar":
-                intent = new Intent(getApplicationContext(), AccionCaminar.class);
-                intent.putExtra("id2",returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
-                break;
-            case "girar":
-                createDialogForGirar();
-                break;
-            case "mirar":
-                createDialogForMirar();
-                break;
-            case "sonido":
-                intent = new Intent(getApplicationContext(), AccionSonido.class);
-                intent.putExtra("id2",returnInt);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+    public void startActionActivities(int idScene, int idAccion, int idActionGeneric) {
 
-                break;
-            case "correr":
-                createDialogForCorrer();
-                break;
-            default:
-                Toast.makeText(getApplicationContext(), "No hay parámetros para esta acción", Toast.LENGTH_LONG).show();
-                break;
+        Action accion = obra.getScenes()[idScene - 1].getActions()[idAccion - 1];
+        String[] options = accion.getDisplayText();
+        String[] imageResourceIds;
+
+        Log.d(TAG, "startActionActivities: " + Arrays.toString(options));
+
+        if (accion.isHasImages() && accion.getImageUrls() != null) {
+            imageResourceIds = accion.getImageUrls();
+        } else {
+            imageResourceIds = new String[1];
+            imageResourceIds[0] = obra.getGenericActions()[idActionGeneric - 1].getActionIconUrl();
         }
+
+        Intent intentTest = new Intent(getApplicationContext(), ActionActivity.class);
+
+        intentTest.putExtra("options", options);
+        intentTest.putExtra("hasImages", accion.isHasImages());
+        intentTest.putExtra("imageResourceIds", imageResourceIds);
+        intentTest.putExtra("id", actionReturns[idAccion - 1]);
+
+        startActivityForResult(intentTest, idAccion - 1);
+
+        LatestActionSelectedId = idActionGeneric - 1;
+        ActionsSelected.put(LatestActionSelectedId, "none");
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
 
-                // Get String data from Intent
-                returnInt = data.getIntExtra("id",0);
-               Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-                // Set text view with string
-               // TextView textView = (TextView) findViewById(R.id.textView);
-                //textView.setText(returnString);
+            assert data != null;
+            actionReturns[requestCode] = data.getIntExtra("id", actionReturns[requestCode]);
+
+            String parameter = data.getStringExtra("parameter");
+            assert parameter != null;
+            if(parameter.equals("Ninguno")){
+                actionButtons[latestActionId].setBackgroundColor(Color.rgb(255, 255, 255));
             }
+            ActionsSelected.put(LatestActionSelectedId, parameter);
+            Log.i(TAG2, "Se ha actualizado lo siguiente:" + ActionsSelected.get(LatestActionSelectedId));
+
         }
-
-    }
-
-    public void createDialogForHablar(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_hablar, null);
-        Button hablar1 = actionPopup.findViewById(R.id.btn_h1);
-        Button hablar2 = actionPopup.findViewById(R.id.btn_h2);
-        Button hablar3 = actionPopup.findViewById(R.id.btn_h3);
-        Button hablar4 = actionPopup.findViewById(R.id.EditTextDesde);
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        hablar1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hola, ¿Qué tal?", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        hablar2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "No, gracias", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        hablar3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Tengo pereza", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        hablar4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "¡Ya voy!", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-    }
-    /*
-    public void createDialogForCaminar(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_caminar, null);
-        Button caminar1 = actionPopup.findViewById(R.id.btn_h1);
-        Button caminar2 = actionPopup.findViewById(R.id.btn_h2);
-        Button caminar3 = actionPopup.findViewById(R.id.btn_h3);
-        Button caminar4 = actionPopup.findViewById(R.id.btn_h4);
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        caminar1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Caminando hacia su pupitre", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        caminar2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Caminando hacia la puerta", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        caminar3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Caminando hacia el tablero", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        caminar4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Caminando hacia el espacio vacío", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-    }*/
-    public void createDialogForGirar(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_girar, null);
-        Button girarDerecha = actionPopup.findViewById(R.id.btn_girarDerech);
-        Button girarIzquierda = actionPopup.findViewById(R.id.btn_girarIzq);
-        Button girarFrente = actionPopup.findViewById(R.id.btn_girarFrente);
-        Button girarDeEspaldas = actionPopup.findViewById(R.id.btn_girarDeEspaldas);
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        girarDerecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "girarDerecha", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        girarIzquierda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "girarIzquierda", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        girarFrente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "girarFrente", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        girarDeEspaldas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "girarDeEspaldas", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-    }
-    public void createDialogForMirar(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_mirar, null);
-        Button mirarDerecha = actionPopup.findViewById(R.id.btn_mirarDerec);
-        Button mirarIzquierda = actionPopup.findViewById(R.id.btn_mirarIzq);
-        Button mirarFrente = actionPopup.findViewById(R.id.btn_mirarFrente);
-        //Button mirarAbajo = actionPopup.findViewById(R.id.btn_MirarAbajo);
-
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        mirarDerecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "mirarDerecha", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        mirarIzquierda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "mirarIzquierda", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        mirarFrente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "mirarFrente", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-       /** mirarAbajo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "mirarAbajo", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });**/
-    }
-
-
-    public void createDialogForCorrer(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_correr, null);
-        Button correr1 = actionPopup.findViewById(R.id.btn_h1);
-        Button correr2 = actionPopup.findViewById(R.id.btn_h2);
-        Button correr3 = actionPopup.findViewById(R.id.btn_h3);
-        Button correr4 = actionPopup.findViewById(R.id.btn_h4);
-        dialogBuilder.setView(actionPopup);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        correr1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Corriendo hacia su pupitre", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        correr2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Corriendo hacia la puerta", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        correr3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Corriendo hacia el tablero", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        correr4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Corriendo hacia el espacio vacío", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.IBNormal:
+
+        switch (v.getId()) {
+
+            case R.id.IBMuyTriste:
                 setFocus(btn_unfocus, btn[0]);
+                emotionSelected = "TooSad";
                 break;
-            case R.id.IBHappy:
+            case R.id.IBTriste:
                 setFocus(btn_unfocus, btn[1]);
+                emotionSelected = "Sad";
                 break;
-            case R.id.IBSad:
+            case R.id.IBNormal:
                 setFocus(btn_unfocus, btn[2]);
+                emotionSelected = "Normal";
                 break;
-            case R.id.IBAngry:
+            case R.id.IBFeliz:
                 setFocus(btn_unfocus, btn[3]);
+                emotionSelected = "Happy";
+                break;
+            case R.id.IBMuyFeliz:
+                setFocus(btn_unfocus, btn[4]);
+                emotionSelected = "TooHappy";
                 break;
         }
     }
 
-    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
-        //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
-        btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
-        // btn_focus.setTextColor(Color.rgb(255, 255, 255));
-        btn_focus.setBackgroundColor(Color.rgb(3, 106, 150));
+    @SuppressLint("ResourceAsColor")
+    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus) {
+        btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
+        btn_focus.setBackgroundColor(R.color.pressed_color);
         this.btn_unfocus = btn_focus;
+        isEmotionSelected = true;
     }
+
+    @SuppressLint("ResourceAsColor")
+    private void setFocusSceneButtons(Button btn_unfocus, Button btn_focus) {
+        btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
+        btn_focus.setBackgroundColor(R.color.pressed_color);
+        this.BEscenaUnFocus = btn_focus;
+    }
+
+    static <T> T[] append(T[] arr, T element) {
+        final int N = arr.length;
+        arr = Arrays.copyOf(arr, N + 1);
+        arr[N] = element;
+        return arr;
+    }
+
+
+
 }

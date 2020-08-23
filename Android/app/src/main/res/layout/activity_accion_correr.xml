@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/pop_bg"
+    tools:context=".Acciones.AccionCorrer">
 
     <Button
         android:id="@+id/btn_h1"
@@ -14,9 +16,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="pupitre propio"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:backgroundTint="@android:color/holo_green_light" />
 
     <TextView
         android:id="@+id/textView"
@@ -28,8 +32,9 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/fredoka_one"
         android:gravity="center"
-        android:text="Hacia dónde quieres que camine el personaje?​"
-        android:textSize="18sp" />
+        android:text="¿Hacia dónde quieres que corra el personaje?​"
+        android:textSize="18sp"
+/>
 
     <Button
         android:id="@+id/btn_h2"
@@ -42,7 +47,8 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="puerta"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h4"
@@ -56,7 +62,8 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/fredoka_one"
         android:text="espacio"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/style_button"/>
 
     <Button
         android:id="@+id/btn_h3"
@@ -67,12 +74,14 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/style_button"
         android:fontFamily="@font/fredoka_one"
         android:text="Tablero"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:backgroundTint="#FFFFFF" />
 
     <EditText
-        android:id="@+id/EditTextDesde"
+        android:id="@+id/edit_h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
@@ -81,15 +90,14 @@
         android:layout_marginBottom="40dp"
         android:layout_toStartOf="@+id/textHacia"
         android:layout_toEndOf="@id/textDesde"
-        android:fontFamily="@font/fredoka_one"
-        android:textSize="18sp" />
+        android:fontFamily="@font/fredoka_one" />
 
     <TextView
         android:id="@+id/textDesde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:layout_alignBottom="@id/EditTextDesde"
+        android:layout_alignBottom="@id/btn_h4"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
@@ -103,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:layout_alignBottom="@id/EditTextDesde"
+        android:layout_alignBottom="@id/btn_h4"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_toStartOf="@+id/btn_h3"
