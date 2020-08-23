@@ -24,4 +24,11 @@ public class Emotion {
     public void setIntensity(int intensity) {
         this.intensity = intensity;
     }
+
+    public String print() {
+        return "Emotion{" +
+                "EmotionName='" + EmotionName + '\'' +
+                ", intensity=" + intensity +
+                '}';
+    }
 }

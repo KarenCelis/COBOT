@@ -1,7 +1,6 @@
 package com.example.cobot;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -19,50 +18,45 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cobot.Acciones.AccionCaminar;
-import com.example.cobot.Acciones.AccionCorrer;
-import com.example.cobot.Acciones.AccionGirar;
-import com.example.cobot.Acciones.AccionHablar;
-import com.example.cobot.Acciones.AccionMirar;
-import com.example.cobot.Acciones.AccionSonido;
 import com.example.cobot.Classes.Action;
+import com.example.cobot.Classes.Character;
 import com.example.cobot.Classes.Emotion;
 import com.example.cobot.Classes.Obra;
+import com.example.cobot.Classes.Position;
 import com.example.cobot.Classes.Scene;
 import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CentralActivity extends AppCompatActivity  implements View.OnClickListener {
+public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-    private ImageView IVCharacterIcon;
-    private TextView TVNombrePersonaje;
     private ImageButton[] btn = new ImageButton[5];
     private ImageButton btn_unfocus;
-    private int[] btn_id = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz,R.id.IBMuyFeliz};
-    private Button BEjecutarCentral;
-    private LinearLayout LLHEscenas, LLHAcciones;
+    private Button BEscenaUnFocus;
+    private int[] ArregloBEmociones = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz, R.id.IBMuyFeliz};
+    private ImageButton[] actionButtons;
+    private int latestActionId;
+
+    //Objetos recibidos por el intent
     private Obra obra;
     private int idPersonaje;
-    private int returnInt = 0, returnInt1 = 0,returnInt2 = 0,returnInt3 = 0,returnInt4 = 0,returnInt5 = 0;
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
+    //Índices de la opción seleccionada para cada acción
+    private int[] actionReturns;
 
+    //Variables para la recolección de los datos al momento de ejecutar
     private boolean isEmotionSelected;
     private int LatestActionSelectedId;
     private String emotionSelected;
     private int emotionIntensitySelected;
     private Map<Integer, String> ActionsSelected;
-    //private Action[] ActionsSelected;
 
     private static final String TAG = "ViewsCreation";
     private static final String TAG2 = "DataCollection";
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
-    private static final int THIRD_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,226 +74,198 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
             Picasso.setSingletonInstance(picasso);
         }
 
-        //Al presionar el botón BEjecutar, se revisa que se haya seleccionado la emoción y al menos una acción con su parámetro.
         isEmotionSelected = false;
         LatestActionSelectedId = 0;
         emotionIntensitySelected = 100;
         ActionsSelected = new HashMap<>();
 
-        IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
+        ImageView IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
         Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
-
-        TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
+        TextView TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
         TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje - 1].getName());
 
         for (int i = 0; i < btn.length; i++) {
-            btn[i] = findViewById(btn_id[i]);
+            btn[i] = findViewById(ArregloBEmociones[i]);
             btn[i].setBackgroundColor(Color.rgb(255, 255, 255));
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
 
-        LLHEscenas = findViewById(R.id.LLHEscenas);
+        loadScenes();
+
+        Button BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
+        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Collect all the actions and emotions selected, 50%
+                if (isEmotionSelected && ActionsSelected.size() > 0) {
+                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
+                    Log.i(TAG2, ActionsSelected.keySet().toString());
+                    Log.i(TAG2, ActionsSelected.values().toString());
+                    Log.i(TAG2, em.print());
+                    new SocketClient().execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void loadScenes() {
+
+        LinearLayout LLHEscenas = findViewById(R.id.LLHEscenas);
+        LLHEscenas.removeAllViews();
         Scene[] escenas = obra.getScenes();
+        int assignOnce = 0;
+
         for (final Scene iterator : escenas) {
             for (int i = 0; i < iterator.getCharacterIds().length; i++) {
                 if (iterator.getCharacterIds()[i] == idPersonaje) {
-                    Log.i(TAG, "Dentro de la escena " + iterator.getId());
-                    Button BEscena = new Button(this);
+
+                    final Button BEscena = new Button(this);
+
                     BEscena.setText(iterator.getId() + "");
                     BEscena.setMinimumWidth(0);
                     BEscena.setMinWidth(0);
                     BEscena.setMinimumHeight(0);
                     BEscena.setMinHeight(0);
+
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+
                     params.setMargins(0, 0, 10, 0);
                     params.gravity = Gravity.START;
                     params.weight = 1;
+
                     BEscena.setLayoutParams(params);
+
                     LLHEscenas.addView(BEscena);
                     BEscena.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            setFocusSceneButtons(BEscenaUnFocus, BEscena);
                             establecerAccionesDisponibles(iterator.getId());
                         }
                     });
+                    if (assignOnce == 0) {
+                        BEscenaUnFocus = BEscena;
+                        assignOnce++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void establecerAccionesDisponibles(final int idEscena) {
+
+        for (Position p : obra.getScenes()[idEscena - 1].getPositions()) {
+            for (Character c : obra.getCharacters()) {
+                if (c.getId() == p.getNodeId()) {
+                    c.setNodeId(p.getNodeId());
                 }
             }
         }
 
-        BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
-        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Collect all the actions and emotions selected, 50% done
-                if(isEmotionSelected && ActionsSelected.size() > 0){
-                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
-                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
-                    Log.i(TAG2, ActionsSelected.keySet().toString());
-                    Log.i(TAG2, ActionsSelected.values().toString());
-                    new SocketClient().execute();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-    }
-
-
-    public void establecerAccionesDisponibles(final int idEscena) {
         Log.i(TAG, "Estableciendo acciones para la escena " + idEscena + " y el personaje " + idPersonaje);
-        LLHAcciones = findViewById(R.id.LLHAcciones);
+        LinearLayout LLHAcciones = findViewById(R.id.LLHAcciones);
         LLHAcciones.removeAllViews();
         final Scene escenaEscogida = obra.getScenes()[idEscena - 1];
+
+        //Se crean tantos enteros de acciones como acciones hayan y se inicia en -1 para identificar la primera vez.
+        actionReturns = new int[escenaEscogida.getActions().length];
+        Arrays.fill(actionReturns, -1);
+        //Se crean tantos tags de botones de acciones como acciones haya y se nombran según su posición
+        actionButtons = new ImageButton[escenaEscogida.getActions().length];
+
         for (final Action iterator : escenaEscogida.getActions()) {
+
+            //Si son nulas las opciones entonces es caminar o correr, se asignan los lugares del mapa excepto en donde está, TODO place exception 0%
+            if (iterator.getDisplayText() == null) {
+                String[]nodeNames = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNodeNames();
+                nodeNames = append(nodeNames, "Ninguno");
+                iterator.setDisplayText(nodeNames);
+            }
+
             if (iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje) {
+
                 Log.i(TAG, "Acciones encontrada para el personaje " + idPersonaje);
-                ImageButton IBAccion = new ImageButton(this);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120);
+                final ImageButton IBAccion = new ImageButton(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(130, 130);
+
                 params.setMargins(10, 0, 0, 0);
                 IBAccion.setLayoutParams(params);
+
                 Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric() - 1].getActionIconUrl()).resize(120, 120).into(IBAccion);
+
                 LLHAcciones.addView(IBAccion);
+                actionButtons[iterator.getId()-1] = IBAccion;
                 IBAccion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iniciarDialogos(idEscena, iterator.getId(), iterator.getIdGeneric());
+                        IBAccion.setBackgroundColor(v.getResources().getColor(R.color.pressed_color));
+                        latestActionId = iterator.getId()-1;
+                        startActionActivities(idEscena, iterator.getId(), iterator.getIdGeneric());
                     }
                 });
             }
         }
-
     }
 
-    public void iniciarDialogos(int idScene, int idAccion, int idActionGeneric) {
-        Action accion = obra.getScenes()[idScene - 1].getActions()[idAccion - 1];
-        //Almacenar la acción seleccionada
-        LatestActionSelectedId = idActionGeneric-1;
-        ActionsSelected.put(LatestActionSelectedId, "none");
-        Intent intent;
-        switch (accion.getActionName()) {
-            case "hablar":
-                intent = new Intent(getApplicationContext(), AccionHablar.class);
-                intent.putExtra("id2", returnInt);
-                startActivityForResult(intent,0);
-                break;
-            case "caminar":
-                intent = new Intent(getApplicationContext(), AccionCaminar.class);
-                intent.putExtra("id2", returnInt1);
-                startActivityForResult(intent, 1);
-                break;
-            case "girar":
-                intent = new Intent(getApplicationContext(), AccionGirar.class);
-                intent.putExtra("id2", returnInt2);
-                startActivityForResult(intent, 2);
-                break;
-            case "mirar":
-                intent = new Intent(getApplicationContext(), AccionMirar.class);
-                intent.putExtra("id2", returnInt3);
-                startActivityForResult(intent, 3);
-                break;
-            case "sonido":
-                intent = new Intent(getApplicationContext(), AccionSonido.class);
-                intent.putExtra("id2", returnInt4);
-                startActivityForResult(intent, 4);
+    public void startActionActivities(int idScene, int idAccion, int idActionGeneric) {
 
-                break;
-            case "correr":
-                intent = new Intent(getApplicationContext(), AccionCorrer.class);
-                intent.putExtra("id2", returnInt5);
-                startActivityForResult(intent, 5);
-                break;
-            default:
-                Toast.makeText(getApplicationContext(), "No hay parámetros para esta acción", Toast.LENGTH_LONG).show();
-                break;
+        Action accion = obra.getScenes()[idScene - 1].getActions()[idAccion - 1];
+        String[] options = accion.getDisplayText();
+        String[] imageResourceIds;
+
+        Log.d(TAG, "startActionActivities: " + Arrays.toString(options));
+
+        if (accion.isHasImages() && accion.getImageUrls() != null) {
+            imageResourceIds = accion.getImageUrls();
+        } else {
+            imageResourceIds = new String[1];
+            imageResourceIds[0] = obra.getGenericActions()[idActionGeneric - 1].getActionIconUrl();
         }
+
+        Intent intentTest = new Intent(getApplicationContext(), ActionActivity.class);
+
+        intentTest.putExtra("options", options);
+        intentTest.putExtra("hasImages", accion.isHasImages());
+        intentTest.putExtra("imageResourceIds", imageResourceIds);
+        intentTest.putExtra("id", actionReturns[idAccion - 1]);
+
+        startActivityForResult(intentTest, idAccion - 1);
+
+        LatestActionSelectedId = idActionGeneric - 1;
+        ActionsSelected.put(LatestActionSelectedId, "none");
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check that it is the SecondActivity with an OK result
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
 
-                // Get String data from Intent
-                returnInt = data.getIntExtra("id", returnInt);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
+            assert data != null;
+            actionReturns[requestCode] = data.getIntExtra("id", actionReturns[requestCode]);
 
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
+            String parameter = data.getStringExtra("parameter");
+            assert parameter != null;
+            if(parameter.equals("Ninguno")){
+                actionButtons[latestActionId].setBackgroundColor(Color.rgb(255, 255, 255));
             }
+            ActionsSelected.put(LatestActionSelectedId, parameter);
+            Log.i(TAG2, "Se ha actualizado lo siguiente:" + ActionsSelected.get(LatestActionSelectedId));
 
-
-        }
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                returnInt1 = data.getIntExtra("id", returnInt1);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-            }
-        }
-
-        if (requestCode == 2) {
-            if (resultCode == RESULT_OK) {
-                returnInt2 = data.getIntExtra("id", returnInt2);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-            }
-        }
-        if (requestCode == 3) {
-            if (resultCode == RESULT_OK) {
-                returnInt3 = data.getIntExtra("id", returnInt3);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-            }
-        }
-        if (requestCode == 4) {
-            if (resultCode == RESULT_OK) {
-                returnInt4 = data.getIntExtra("id", returnInt4);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-            }
-        }
-        if (requestCode == 5) {
-            if (resultCode == RESULT_OK) {
-                returnInt5 = data.getIntExtra("id", returnInt5);
-                //Obtener el parámetro de la acción y ponerlo en el map paralelo a la id de la acción genérica
-                String parameter = data.getStringExtra("parameter");
-                ActionsSelected.put(LatestActionSelectedId, parameter);
-                Log.i(TAG2, "Se ha actualizado lo siguiente:"+ActionsSelected.get(LatestActionSelectedId));
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(returnInt), Toast.LENGTH_LONG).show();
-            }
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+
+        switch (v.getId()) {
+
             case R.id.IBMuyTriste:
                 setFocus(btn_unfocus, btn[0]);
                 emotionSelected = "TooSad";
@@ -324,12 +290,27 @@ public class CentralActivity extends AppCompatActivity  implements View.OnClickL
     }
 
     @SuppressLint("ResourceAsColor")
-    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
-        //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
-        btn_unfocus.setBackgroundColor(Color.rgb(255,255,255));
-        // btn_focus.setTextColor(Color.rgb(255, 255, 255));
+    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus) {
+        btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
         btn_focus.setBackgroundColor(R.color.pressed_color);
         this.btn_unfocus = btn_focus;
         isEmotionSelected = true;
     }
+
+    @SuppressLint("ResourceAsColor")
+    private void setFocusSceneButtons(Button btn_unfocus, Button btn_focus) {
+        btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
+        btn_focus.setBackgroundColor(R.color.pressed_color);
+        this.BEscenaUnFocus = btn_focus;
+    }
+
+    static <T> T[] append(T[] arr, T element) {
+        final int N = arr.length;
+        arr = Arrays.copyOf(arr, N + 1);
+        arr[N] = element;
+        return arr;
+    }
+
+
+
 }

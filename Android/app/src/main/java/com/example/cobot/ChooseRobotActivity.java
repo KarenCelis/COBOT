@@ -1,15 +1,13 @@
 package com.example.cobot;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-public class ChooseRobot extends AppCompatActivity implements View.OnClickListener {
+public class ChooseRobotActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ImageButton[] btn = new ImageButton[2];
@@ -31,28 +29,22 @@ public class ChooseRobot extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-        //setForcus(btn_unfocus, (Button) findViewById(v.getId()));
-        //Or use switch
+    public void onClick(View v){
         Intent intent = new Intent(this, MainActivity.class);
         switch (v.getId()){
             case R.id.imgbtn_1 :
                 setFocus(btn_unfocus, btn[0]);
                 startActivity(intent);
                 break;
-
             case R.id.imgbtn_2 :
                 setFocus(btn_unfocus, btn[1]);
                 startActivity(intent);
                 break;
-
         }
     }
 
     private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus){
-        //btn_unfocus.setTextColor(Color.rgb(49, 50, 51));
         btn_unfocus.setBackgroundColor(Color.rgb(207, 207, 207));
-       // btn_focus.setTextColor(Color.rgb(255, 255, 255));
         btn_focus.setBackgroundColor(Color.rgb(171, 252, 143));
         this.btn_unfocus = btn_focus;
     }

@@ -51,7 +51,6 @@ public class SocketClient extends AsyncTask<Void, Void, Void> {
             try {
                 sent.join();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

@@ -1,7 +1,5 @@
 package com.example.cobot.Utils;
 
-import android.content.ContentResolver;
-import android.net.Uri;
 import android.util.Log;
 
 import com.example.cobot.Classes.Action;
@@ -9,49 +7,52 @@ import com.example.cobot.Classes.Character;
 import com.example.cobot.Classes.GenericAction;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Position;
+import com.example.cobot.Classes.Scenario;
 import com.example.cobot.Classes.Scene;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class Reader {
+
     private static final String TAG = "UtilsJSONReader";
 
     public static Obra crearObraDesdeJSON(String archivoJSON) throws JSONException {
 
         JSONObject jsonObject = new JSONObject(archivoJSON);
+
         JSONArray arrayOfCharacters = jsonObject.getJSONArray("Characters");
         JSONArray arrayOfScenes = jsonObject.getJSONArray("Scenes");
         JSONArray arrayOfGenericActions = jsonObject.getJSONArray("GenericActions");
+        JSONArray arrayOfScenarios = jsonObject.getJSONArray("Scenarios");
 
         Character[] characters = new Character[arrayOfCharacters.length()];
         Scene[] scenes = new Scene[arrayOfScenes.length()];
+        Scenario[] scenarios = new Scenario[arrayOfScenarios.length()];
         GenericAction[] genericActions = new GenericAction[arrayOfGenericActions.length()];
 
         //loop para la información de los personajes.
         for (int i = 0; i < arrayOfCharacters.length(); i++) {
+
             characters[i] = new Character();
             JSONObject jsonTemp = arrayOfCharacters.getJSONObject(i);
+
             characters[i].setId(jsonTemp.getInt("id"));
             characters[i].setCharacterIconUrl(jsonTemp.getString("CharacterIcon"));
-            characters[i].setInitialAlignment(jsonTemp.getInt("InitialAlignment"));
-            characters[i].setInitialPosition(jsonTemp.getInt("InitialPosition"));
             characters[i].setName(jsonTemp.getString("Name"));
+
         }
         //loop para la información de las escenas
         for (int i = 0; i < arrayOfScenes.length(); i++) {
 
             scenes[i] = new Scene();
             JSONObject jsonTemp = arrayOfScenes.getJSONObject(i);
+
             JSONArray arrayOfActions = jsonTemp.getJSONArray("actions");
             JSONArray arrayOfPositions = jsonTemp.getJSONArray("Positions");
             JSONArray arrayOfCharacterids = jsonTemp.getJSONArray("CharacterIds");
+
             Action[] actions = new Action[arrayOfActions.length()];
             Position[] positions = new Position[arrayOfPositions.length()];
             int[] characterids = new int[arrayOfCharacterids.length()];
@@ -63,8 +64,10 @@ public class Reader {
 
             //loop para la información de las acciones de cada escena.
             for (int j = 0; j < arrayOfActions.length(); j++) {
+
                 actions[j] = new Action();
                 JSONObject jsonTempActions = arrayOfActions.getJSONObject(j);
+
                 actions[j].setId(jsonTempActions.getInt("id"));
                 actions[j].setIdGeneric(jsonTempActions.getInt("idGeneric"));
                 actions[j].setActionName(jsonTempActions.getString("ActionName"));
@@ -74,12 +77,16 @@ public class Reader {
                 if (jsonTempActions.has("DisplayText")) {
 
                     JSONArray arrayOfActionsTexts = jsonTempActions.getJSONArray("DisplayText");
-                    String[] texts = new String[arrayOfActionsTexts.length()];
+                    String[] texts = new String[arrayOfActionsTexts.length()+1];
+                    Log.d(TAG, "crearObraDesdeJSON: "+"longitud de las opciones: "+arrayOfActionsTexts.length());
 
                     //loop para iterar los textos disponibles.
                     for (int k = 0; k < arrayOfActionsTexts.length(); k++) {
                         texts[k] = arrayOfActionsTexts.getString(k);
+                        Log.d(TAG, "crearObraDesdeJSON: "+"opción: "+arrayOfActionsTexts.getString(k));
                     }
+                    //Agregar opción de ninguno para cancelar la acción
+                    texts[arrayOfActionsTexts.length()] = "Ninguno";
                     actions[j].setDisplayText(texts);
                 }
                 //Se verifica si la acción es de tipo hablar o sonido, en ese caso existirá un arreglo de posibles textos/sonidos que hay que leer.
@@ -87,26 +94,77 @@ public class Reader {
 
                     JSONArray arrayOfActionsAudios = jsonTempActions.getJSONArray("audiofile");
                     String[] audios = new String[arrayOfActionsAudios.length()];
+
                     //loop para iterar los audios disponibles.
                     for (int l = 0; l < arrayOfActionsAudios.length(); l++) {
                         audios[l] = arrayOfActionsAudios.getString(l);
                     }
-                    actions[j].setDisplayText(audios);
+
+                    actions[j].setAudioFile(audios);
                 }
+
+                if(jsonTempActions.getBoolean("hasImages")){
+                    JSONArray arrayOfImageUrls = jsonTemp.getJSONArray("optionImagesUrl");
+                    String[] imageUrls = new String[arrayOfImageUrls.length()];
+
+                    for (int k = 0; k < arrayOfImageUrls.length(); k++) {
+                        imageUrls[k] = arrayOfImageUrls.getString(k);
+                    }
+                    actions[j].setImageUrls(imageUrls);
+                }
+
                 actions[j].setDuration(jsonTempActions.getInt("Duration"));
+                actions[j].setHasImages(jsonTempActions.getBoolean("hasImages"));
+
             }
             //loop para la información de las posiciones de cada escena.
             for (int j = 0; j < arrayOfPositions.length(); j++) {
+
                 positions[j] = new Position();
                 JSONObject jsonTempPositions = arrayOfPositions.getJSONObject(j);
+
                 positions[j].setCharacterId(jsonTempPositions.getInt("CharacterId"));
-                positions[j].setLocation(jsonTempPositions.getString("Location"));
+                positions[j].setNodeId(jsonTempPositions.getInt("NodeId"));
             }
+
             scenes[i].setCharacterIds(characterids);
             scenes[i].setActions(actions);
             scenes[i].setPositions(positions);
             scenes[i].setId(jsonTemp.getInt("id"));
             scenes[i].setScenario(jsonTemp.getInt("Scenario"));
+        }
+        for (int i = 0; i < arrayOfScenarios.length(); i++) {
+
+            scenarios[i] = new Scenario();
+            JSONObject jsonTemp = arrayOfScenarios.getJSONObject(i);
+
+            scenarios[i].setId(jsonTemp.getInt("id"));
+            scenarios[i].setName(jsonTemp.getString("name"));
+            scenarios[i].setNodes(jsonTemp.getInt("nodes"));
+
+            JSONArray arrayOfAdjacencyRows = jsonTemp.getJSONArray("adjacency_matrix");
+            int[][] adjacencyMatrix = new int[arrayOfAdjacencyRows.length()][arrayOfAdjacencyRows.length()];
+
+            //loop para recorrer cada fila de la matriz de adyacencias
+            for (int j = 0; j < arrayOfAdjacencyRows.length(); j++) {
+
+                JSONArray arrayOfAdjacencySingleRow = arrayOfAdjacencyRows.getJSONArray(j);
+
+                //loop para recorrer cada dato de cada fila y agregarlo a la matriz
+                for (int k = 0; k < arrayOfAdjacencySingleRow.length(); k++) {
+                    adjacencyMatrix[j][k] = arrayOfAdjacencySingleRow.getInt(k);
+                }
+            }
+
+            JSONArray arrayOfNodeNames = jsonTemp.getJSONArray("node_names");
+            String[] nodeNames = new String[arrayOfNodeNames.length()];
+
+            for (int j = 0; j < arrayOfNodeNames.length(); j++) {
+                nodeNames[j] = arrayOfNodeNames.getString(j);
+            }
+
+            scenarios[i].setAdjacencyMatrix(adjacencyMatrix);
+            scenarios[i].setNodeNames(nodeNames);
         }
         for (int i = 0; i < arrayOfGenericActions.length(); i++) {
             genericActions[i] = new GenericAction();
@@ -120,7 +178,9 @@ public class Reader {
                 new Obra(jsonObject.getString("Title"),
                         jsonObject.getInt("SceneAmount"),
                         characters,
-                        scenes, genericActions);
+                        scenes,
+                        scenarios,
+                        genericActions);
         Log.i(TAG, "Obra:\n" + obra.toString());
         return obra;
     }

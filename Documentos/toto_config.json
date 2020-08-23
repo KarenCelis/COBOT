@@ -1,0 +1,275 @@
+{
+    "Title":"TOTÓ",
+    "SceneAmount": 2,
+    "Characters":[
+        {
+            "id":1,
+            "Name":"Totó",
+            "CharacterIcon":"https://i.imgur.com/PQ575vR.jpg"
+        },
+        {
+            "id":2,
+            "Name":"Libia",
+            "CharacterIcon":"https://i.imgur.com/Oa4i38D.jpg"
+        }
+    ],
+    "Scenes":[
+        {
+            "id":1,
+            "Scenario":1,
+            "CharacterIds":[1,2],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":1
+                },
+                {
+                    "CharacterId":2,
+                    "NodeId":0
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":2,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["¡Totó entrate! ", 
+                    "Ajá niña, te estoy hablando! ", 
+                    "¡Totó ven!", 
+                    "Totó, acércate"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":0,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":0,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":0,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":0,
+                    "ActionName":"sonido",
+                    "DisplayText":["Cantar La Candela Viva", 
+                        "Cantar El Pescador", 
+                        "risa", 
+                        "grito", 
+                        "tarareo"],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":6,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["No mamá no quiero entrar",
+                    "¡ya voy mamá!", 
+                    "Ay mami, me vas a dejar sin orejas", 
+                    "escucho un ruido que viene del parque", 
+                    "¡iré al parque mamá!"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }       
+            ]
+        },
+        {
+            "id":2,
+            "Scenario":2,
+            "CharacterIds":[1,2],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":5
+                },
+                {
+                    "CharacterId":2,
+                    "NodeId":3
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":2,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["¿Por qué paras?",
+                    "Pero estabas cantando", 
+                    "Lo siento, mi hija está un poco indispuesta y no quiere jugar, hasta luego", 
+                    "¿Concurso?", 
+                    "No, la niña está aburrida. Tiene el corazón triste. Ven acá este niño… ¿Sabes qué? Tú vete al parque y esperas allí. ¡Ya vas a ver!", 
+                    "Mi niña, ¡tú tienes que cantar!",
+                    "Totó está ocupada no puede salir",
+                    "Ella irá luego de que termine sus quehaceres"
+                    ],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":0,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":0,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":0,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":0,
+                    "ActionName":"sonido",
+                    "DisplayText":["Cantar La Candela Viva", 
+                        "Cantar El Pescador", 
+                        "risa", 
+                        "grito", 
+                        "tarareo"],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":6,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["No, ya terminé de barrer", 
+                        "¿Cantando? No, yo estaba barriendo. Barriendo, y me falta la cocina. Permiso", 
+                        "¡No estoy! ", "Sí mami, cantaba El Pescador", 
+                        "No, estaba pensando en voz alta", 
+                        "¡Espérenme!", 
+                        "Adiós mami", 
+                        "mejor me voy a la cocina"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }       
+            ]
+        }
+    ],
+    "Scenarios":[
+        {
+            "id":1,
+            "name":"afuera de la casa",
+            "nodes":6,
+            "adjacency_matrix":[[0, 0, 0, 3, 0, 0],
+                [0, 0, 11, 20, 0, 7],
+                [0, 11, 0, 0, 0, 4],
+                [3, 20, 0, 0, 7, 0],
+                [0, 0, 0, 7, 0, 20],
+                [0, 7, 4, 0, 20, 0]],
+            "node_names":["Puerta de la casa", 
+                "A la derecha de la fachada", 
+                "Fachada de la casa", 
+                "Entrada al parque", 
+                "A la derecha de la entrada al parque", 
+                "Tarima"]
+        },
+        {
+            "id":2,
+            "name":"dentro de la casa",
+            "nodes":10,
+            "adjacency_matrix":[[0, 4, 0, 0, 0, 0, 0, 0, 0, 0],
+                [4, 0, 1, 3, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 1, 3, 1, 0, 0, 3, 0],
+                [0, 3, 1, 0, 1, 3, 1, 0, 1, 0],
+                [0, 0, 3, 1, 0, 1, 0, 0, 0, 0],
+                [0, 0, 1, 3, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 2],
+                [0, 1, 3, 1, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 2, 0, 0]],
+            "node_names":["sofá", 
+                "frente al sofá", 
+                "junto a la cocina", 
+                "cocina", 
+                "silla", 
+                "frente a la silla", 
+                "frente a la puerta", 
+                "a la izquierda de la puerta", 
+                "puerta", 
+                "fachada"]
+        }
+    ],
+    "GenericActions": [
+        {
+            "id": 1,
+            "name": "caminar",
+            "ActionIcon": "https://i.imgur.com/vFrXtl2.png"
+        },
+        {
+            "id": 2,
+            "name": "correr",
+            "ActionIcon": "https://i.imgur.com/TXO3sAT.png"
+        },
+        {
+            "id": 3,
+            "name": "hablar",
+            "ActionIcon": "https://i.imgur.com/jV8kVFv.png"
+        },
+        {
+            "id": 4,
+            "name": "mirar",
+            "ActionIcon": "https://i.imgur.com/82mMq92.png"
+        },
+        {
+            "id": 5,
+            "name": "sonido",
+            "ActionIcon": "https://i.imgur.com/fU7wWyW.png"
+        },
+        {
+            "id": 6,
+            "name": "girar",
+            "ActionIcon": "https://i.imgur.com/mBFXvEU.png"
+        }
+    ]
+}

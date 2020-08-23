@@ -1,7 +1,5 @@
 package com.example.cobot;
 
-import androidx.appcompat.app.AlertDialog;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Utils.Reader;
@@ -24,14 +21,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class MainActivity extends Activity {
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
     private static final int READ_REQUEST_CODE = 42;
     private static final String TAG = "FileRead";
-    private Button BCargarObra;
     private Obra obra;
 
     @Override
@@ -64,7 +59,7 @@ public class MainActivity extends Activity {
                 final Uri uri = data.getData();
                 assert uri != null;
                 TextView TVSeleccionArchivo = findViewById(R.id.TVSeleccionarArchivo);
-                BCargarObra = findViewById(R.id.BCargarObra);
+                Button BCargarObra = findViewById(R.id.BCargarObra);
 
                 TVSeleccionArchivo.setText(getFileName(uri));
                 BCargarObra.setVisibility(View.VISIBLE);
@@ -89,7 +84,6 @@ public class MainActivity extends Activity {
     private void IniciarActividadDeSeleccionDePersonaje(Uri uri) throws IOException, JSONException {
         cargarObra(uri);
         Intent intent = new Intent(this, CharacterSelectionActivity.class);
-        //pasar la información de la obra.
         intent.putExtra("obra", obra);
         startActivity(intent);
     }
@@ -112,18 +106,16 @@ public class MainActivity extends Activity {
 
     public String getFileName(Uri uri) {
         String result = null;
-        if (uri.getScheme().equals("content")) {
-            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-            try {
+        if (Objects.equals(uri.getScheme(), "content")) {
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 }
-            } finally {
-                cursor.close();
             }
         }
         if (result == null) {
             result = uri.getPath();
+            assert result != null;
             int cut = result.lastIndexOf('/');
             if (cut != -1) {
                 result = result.substring(cut + 1);

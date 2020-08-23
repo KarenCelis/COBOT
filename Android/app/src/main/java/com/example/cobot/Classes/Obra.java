@@ -8,14 +8,16 @@ public class Obra implements Serializable {
     private int SceneAmount;
     private Character[] Characters;
     private Scene[] Scenes;
+    private Scenario[]Scenarios;
     private GenericAction[]GenericActions;
     //El escenario de la obra es un grafo, aún no se crearán las instancias de los nodos por lo que no aparecerá el escenario hasta entonces.
 
-    public Obra(String Title, int SceneAmount, Character[]Characters, Scene[]Scenes, GenericAction[]GenericActions){
+    public Obra(String Title, int SceneAmount, Character[]Characters, Scene[]Scenes, Scenario[] Scenarios, GenericAction[]GenericActions){
         this.Title=Title;
         this.SceneAmount=SceneAmount;
         this.Characters=Characters;
         this.Scenes=Scenes;
+        this.Scenarios = Scenarios;
         this.GenericActions = GenericActions;
     }
     public String getTitle() {
@@ -48,6 +50,14 @@ public class Obra implements Serializable {
 
     public void setScenes(Scene[] scenes) {
         Scenes = scenes;
+    }
+
+    public Scenario[] getScenarios() {
+        return Scenarios;
+    }
+
+    public void setScenarios(Scenario[] scenarios) {
+        Scenarios = scenarios;
     }
 
     public GenericAction[] getGenericActions() {

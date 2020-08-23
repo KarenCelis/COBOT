@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Position implements Serializable {
     private int CharacterId;
-    private String location;
+    private int NodeId;
 
     public int getCharacterId() {
         return CharacterId;
@@ -14,11 +14,11 @@ public class Position implements Serializable {
         CharacterId = characterId;
     }
 
-    public String getLocation() {
-        return location;
+    public int getNodeId() {
+        return NodeId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setNodeId(int NodeId) {
+        this.NodeId = NodeId;
     }
 }

@@ -13,17 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Acciones.AccionMirar"
+        <activity android:name=".ActionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".Acciones.AccionMirar"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Acciones.AccionHablar"
+        <activity
+            android:name=".Acciones.AccionHablar"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Acciones.AccionGirar"
+        <activity
+            android:name=".Acciones.AccionGirar"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Acciones.AccionCorrer"
+        <activity
+            android:name=".Acciones.AccionCorrer"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Acciones.AccionCaminar"
+        <activity
+            android:name=".Acciones.AccionCaminar"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Acciones.AccionSonido"
+        <activity
+            android:name=".Acciones.AccionSonido"
             android:theme="@style/AppTheme.PopMe" />
         <activity android:name=".MainActivity" />
         <activity
@@ -39,7 +47,7 @@
                 android:resource="@array/preloaded_fonts" />
         </activity>
         <activity
-            android:name=".ChooseRobot"
+            android:name=".ChooseRobotActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

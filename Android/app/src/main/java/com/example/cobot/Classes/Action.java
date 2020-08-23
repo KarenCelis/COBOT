@@ -12,6 +12,9 @@ public class Action implements Serializable {
     private String[] DisplayText;
     //El atributo AudioFile puede ser nulo para aquellas acciones que no involucren sonidos.
     private String[] AudioFile;
+    //Si las opciones de la acción tienen una imagen explicativa en el sistema entonces es true, de lo contrario se asigna la imagen de la acción genérica
+    private boolean hasImages;
+    private String[]imageUrls;
 
     public int getId() {
         return Id;
@@ -67,5 +70,21 @@ public class Action implements Serializable {
 
     public void setAudioFile(String[] audioFile) {
         AudioFile = audioFile;
+    }
+
+    public boolean isHasImages() {
+        return hasImages;
+    }
+
+    public void setHasImages(boolean hasImages) {
+        this.hasImages = hasImages;
+    }
+
+    public String[] getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String[] imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }
