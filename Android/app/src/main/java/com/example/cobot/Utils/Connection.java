@@ -1,15 +1,15 @@
 package com.example.cobot.Utils;
 
-public class Conection {
+public class Connection {
 
 
     private String ip;
     private int port;
 
-    public Conection() {
+    public Connection() {
     }
 
-    public Conection(String ip, int port) {
+    public Connection(String ip, int port) {
         this.ip = ip;
         this.port = port;
     }

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.cobot.Utils.Conection;
+import com.example.cobot.Utils.Connection;
 
 public class ChooseRobotActivity extends AppCompatActivity implements View.OnClickListener {
     private AlertDialog.Builder dialogBuilder;
@@ -72,7 +72,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 Toast.makeText(getApplicationContext(), "conectado", Toast.LENGTH_LONG).show();
-                Conection conection = new Conection(ip.getText().toString(),Integer.parseInt(port.getText().toString()));
+                Connection connection = new Connection(ip.getText().toString(),Integer.parseInt(port.getText().toString()));
                 startActivity(intent);
                // dialog.dismiss();
             }
