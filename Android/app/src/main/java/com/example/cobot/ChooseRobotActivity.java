@@ -1,14 +1,21 @@
 package com.example.cobot;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.example.cobot.Utils.Connection;
 
 public class ChooseRobotActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     private ImageButton[] btn = new ImageButton[2];
     private ImageButton btn_unfocus;
@@ -30,15 +37,16 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+
         switch (v.getId()){
             case R.id.imgbtn_1 :
                 setFocus(btn_unfocus, btn[0]);
-                startActivity(intent);
+
+                createDialogForConnection();
                 break;
             case R.id.imgbtn_2 :
                 setFocus(btn_unfocus, btn[1]);
-                startActivity(intent);
+                createDialogForConnection();
                 break;
         }
     }
@@ -48,4 +56,29 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         btn_focus.setBackgroundColor(Color.rgb(171, 252, 143));
         this.btn_unfocus = btn_focus;
     }
+
+    public void createDialogForConnection(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_connection, null);
+        final EditText ip = actionPopup.findViewById(R.id.edtxt_ip);
+        final EditText port = actionPopup.findViewById(R.id.edtxt_port);
+        Button connect = actionPopup.findViewById(R.id.btn_connect);
+        dialogBuilder.setView(actionPopup);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Toast.makeText(getApplicationContext(), "conectado", Toast.LENGTH_LONG).show();
+                Connection connection = new Connection(ip.getText().toString(),Integer.parseInt(port.getText().toString()));
+                startActivity(intent);
+               // dialog.dismiss();
+            }
+        });
+
+    }
+
+
 }
