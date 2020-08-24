@@ -59,7 +59,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
 
     public void createDialogForConnection(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View actionPopup = getLayoutInflater().inflate(R.layout.connection, null);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_connection, null);
         final EditText ip = actionPopup.findViewById(R.id.edtxt_ip);
         final EditText port = actionPopup.findViewById(R.id.edtxt_port);
         Button connect = actionPopup.findViewById(R.id.btn_connect);
