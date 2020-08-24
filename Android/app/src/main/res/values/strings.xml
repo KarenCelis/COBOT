@@ -14,4 +14,5 @@
     <string name="personaje_seleccionado2">Nombre personaje</string>
     <string name="imagen_personaje">Posee la imagen del personaje seleccionado</string>
     <string name="boton_ejecutar_central">EJECUTAR</string>
+    <string name="texto_de_datos_conexion">Ingrese los datos: </string>
 </resources>
