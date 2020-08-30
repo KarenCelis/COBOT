@@ -201,33 +201,71 @@
             "id":1,
             "name":"afuera de la casa",
             "nodes":6,
-            "adjacency_matrix":[[0, 0, 0, 3, 0, 0],
-                [0, 0, 11, 20, 0, 7],
-                [0, 11, 0, 0, 0, 4],
-                [3, 20, 0, 0, 7, 0],
-                [0, 0, 0, 7, 0, 20],
-                [0, 7, 4, 0, 20, 0]],
+            "adjacency_matrix":[[0, 1, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0, 0],
+                [0, 1, 0, 0, 1, 0],
+                [0, 1, 0, 0, 1, 1],
+                [0, 0, 1, 1, 0, 0],
+                [0, 0, 0, 1, 0, 0]],
             "node_names":["Puerta de la casa", 
                 "A la derecha de la fachada", 
                 "Fachada de la casa", 
                 "Entrada al parque", 
                 "A la derecha de la entrada al parque", 
-                "Tarima"]
+                "Tarima"],
+            "node": [
+                {
+                    "id": 1,
+                    "name": "Puerta de la casa",
+                    "xaxis": 1,
+                    "yaxis": 3
+                },
+                {
+                    "id": 2,
+                    "name": "A la derecha de la fachada",
+                    "xaxis": 0,
+                    "yaxis": 2
+                },
+                {
+                    "id": 3,
+                    "name": "Fachada de la casa",
+                    "xaxis": 1,
+                    "yaxis": 2
+                },
+                {
+                    "id": 4,
+                    "name": "Entrada al parque",
+                    "xaxis": 1,
+                    "yaxis": 1
+                },
+                {
+                    "id": 5,
+                    "name": "A la derecha de la entrada al parque",
+                    "xaxis": 0,
+                    "yaxis": 1
+                },
+                {
+                    "id": 6,
+                    "name": "Tarima",
+                    "xaxis": 1,
+                    "yaxis": 0
+                }
+            ]
         },
         {
             "id":2,
             "name":"dentro de la casa",
             "nodes":10,
-            "adjacency_matrix":[[0, 4, 0, 0, 0, 0, 0, 0, 0, 0],
-                [4, 0, 1, 3, 0, 0, 0, 0, 1, 0],
-                [0, 1, 0, 1, 3, 1, 0, 0, 3, 0],
-                [0, 3, 1, 0, 1, 3, 1, 0, 1, 0],
-                [0, 0, 3, 1, 0, 1, 0, 0, 0, 0],
-                [0, 0, 1, 3, 1, 0, 0, 0, 0, 0],
+            "adjacency_matrix":[[0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 1, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 1, 1, 1, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1, 1, 1, 0, 1, 0],
+                [0, 0, 1, 1, 0, 1, 0, 0, 0, 0],
+                [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
                 [0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 0, 0, 1, 0, 1, 2],
-                [0, 1, 3, 1, 0, 0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 2, 0, 0]],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+                [0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]],
             "node_names":["sofá", 
                 "frente al sofá", 
                 "junto a la cocina", 
@@ -237,7 +275,69 @@
                 "frente a la puerta", 
                 "a la izquierda de la puerta", 
                 "puerta", 
-                "fachada"]
+                "fachada"],
+            "node": [
+                {
+                    "id": 1,
+                    "name": "sofá",
+                    "xaxis": 0,
+                    "yaxis": 3
+                },
+                {
+                    "id": 2,
+                    "name": "frente al sofá",
+                    "xaxis": 1,
+                    "yaxis": 3
+                },
+                {
+                    "id": 3,
+                    "name": "junto a la cocina",
+                    "xaxis": 2,
+                    "yaxis": 3
+                },
+                {
+                    "id": 4,
+                    "name": "cocina",
+                    "xaxis": 6,
+                    "yaxis": 3
+                },
+                {
+                    "id": 5,
+                    "name": "silla",
+                    "xaxis": 0,
+                    "yaxis": 2
+                },
+                {
+                    "id": 6,
+                    "name": "frente a la silla",
+                    "xaxis": 1,
+                    "yaxis": 2
+                },
+                {
+                    "id": 7,
+                    "name": "frente a la puerta",
+                    "xaxis": 2,
+                    "yaxis": 2
+                },
+                {
+                    "id": 8,
+                    "name": "a la izquierda de la puerta",
+                    "xaxis": 1,
+                    "yaxis": 1
+                },
+                {
+                    "id": 9,
+                    "name": "puerta",
+                    "xaxis": 2,
+                    "yaxis": 1
+                },
+                {
+                    "id": 10,
+                    "name": "fachada",
+                    "xaxis": 2,
+                    "yaxis": 0
+                }
+            ]
         }
     ],
     "GenericActions": [

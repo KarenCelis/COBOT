@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import socket
 import json
+import JSONReader
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -11,11 +14,13 @@ serverSocket.listen(10)
 while True:
     clientsocket, address = serverSocket.accept()
     print("Connection received from %s..." % str(address))
-    clientsocket.send(bytes("Welcome to the python server"))
+    # clientsocket.send(bytes("Welcome to the python server"))
 
-    #data = clientsocket.recv(buffer_size)
-    #jdata = json.loads(data.decode('utf-8'))
+    data = clientsocket.recv(buffer_size)
 
-    #clientsocket.send(jdata)
-    #print("the data sent was:\n", jdata)
+    instrucciones = JSONReader.jsonObject(data)
+    print(instrucciones.Emotion['name'])
+
+    # clientsocket.send(jdata)
+    # print("the data received is:\n", jdata)
     clientsocket.close()
