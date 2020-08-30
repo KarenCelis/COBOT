@@ -1,18 +1,30 @@
 package com.example.cobot.Utils;
 
 import android.os.AsyncTask;
+import android.os.Message;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class SocketClient extends AsyncTask<Void, Void, Void> {
+
     static Thread sent;
     static Thread receive;
     static Socket socket;
+    public JSONObject jsonToSend;
+
+    public SocketClient(JSONObject jsonToSend){
+        this.jsonToSend = jsonToSend;
+    }
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -27,6 +39,25 @@ public class SocketClient extends AsyncTask<Void, Void, Void> {
 
                 @Override
                 public void run() {
+
+                    try (OutputStreamWriter out = new OutputStreamWriter(
+                            socket.getOutputStream(), StandardCharsets.UTF_8)) {
+                        out.write(jsonToSend.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    ObjectOutputStream os = null;
+                    try {
+                        os = new ObjectOutputStream(socket.getOutputStream());
+                        System.out.println("Ok");
+                        os.writeObject(new Writer());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    /**
                     try {
                         BufferedReader stdIn =new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -45,6 +76,7 @@ public class SocketClient extends AsyncTask<Void, Void, Void> {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                     **/
                 }
             });
             sent.start();

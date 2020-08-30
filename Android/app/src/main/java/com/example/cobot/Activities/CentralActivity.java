@@ -1,4 +1,4 @@
-package com.example.cobot;
+package com.example.cobot.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +24,13 @@ import com.example.cobot.Classes.Emotion;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Position;
 import com.example.cobot.Classes.Scene;
+import com.example.cobot.R;
 import com.example.cobot.Utils.SocketClient;
+import com.example.cobot.Utils.Writer;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,7 +57,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     private int LatestActionSelectedId;
     private String emotionSelected;
     private int emotionIntensitySelected;
-    private Map<Integer, String> ActionsSelected;
+    private Map<Integer, String> actionsSelected;
 
     private static final String TAG = "ViewsCreation";
     private static final String TAG2 = "DataCollection";
@@ -77,7 +81,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         isEmotionSelected = false;
         LatestActionSelectedId = 0;
         emotionIntensitySelected = 100;
-        ActionsSelected = new HashMap<>();
+        actionsSelected = new HashMap<>();
 
         ImageView IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
         Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
@@ -98,13 +102,21 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 //TODO Collect all the actions and emotions selected, 50%
-                if (isEmotionSelected && ActionsSelected.size() > 0) {
+                if (isEmotionSelected && actionsSelected.size() > 0) {
+
                     Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+
                     Log.i(TAG2, "Se ha seleccionado lo siguiente:");
-                    Log.i(TAG2, ActionsSelected.keySet().toString());
-                    Log.i(TAG2, ActionsSelected.values().toString());
+                    Log.i(TAG2, actionsSelected.keySet().toString());
+                    Log.i(TAG2, actionsSelected.values().toString());
                     Log.i(TAG2, em.print());
-                    new SocketClient().execute();
+
+                    try {
+                        new SocketClient(Writer.writeJSON(actionsSelected, em)).execute();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
                 }
@@ -237,7 +249,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(intentTest, idAccion - 1);
 
         LatestActionSelectedId = idActionGeneric - 1;
-        ActionsSelected.put(LatestActionSelectedId, "none");
+        actionsSelected.put(LatestActionSelectedId, "none");
     }
 
     @Override
@@ -255,8 +267,8 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
             if(parameter.equals("Ninguno")){
                 actionButtons[latestActionId].setBackgroundColor(Color.rgb(255, 255, 255));
             }
-            ActionsSelected.put(LatestActionSelectedId, parameter);
-            Log.i(TAG2, "Se ha actualizado lo siguiente:" + ActionsSelected.get(LatestActionSelectedId));
+            actionsSelected.put(LatestActionSelectedId, parameter);
+            Log.i(TAG2, "Se ha actualizado lo siguiente:" + actionsSelected.get(LatestActionSelectedId));
 
         }
     }

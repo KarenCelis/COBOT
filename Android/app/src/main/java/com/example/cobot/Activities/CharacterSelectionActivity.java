@@ -1,11 +1,10 @@
-package com.example.cobot;
+package com.example.cobot.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,13 +13,13 @@ import android.widget.Spinner;
 
 import com.example.cobot.Classes.Character;
 import com.example.cobot.Classes.Obra;
+import com.example.cobot.R;
 
 import java.util.ArrayList;
 
 public class CharacterSelectionActivity extends AppCompatActivity {
 
     private Obra obra;
-    private static final String TAG = "ItemSelection";
     private int itemSelected;
 
     @Override

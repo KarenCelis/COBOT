@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActionActivity"
+        <activity android:name=".Activities.ActionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Acciones.AccionMirar"
@@ -33,13 +33,13 @@
         <activity
             android:name=".Acciones.AccionSonido"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activities.ChooseFileActivity" />
         <activity
-            android:name=".CharacterSelectionActivity"
+            android:name=".Activities.CharacterSelectionActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".CentralActivity"
+            android:name=".Activities.CentralActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
@@ -47,7 +47,7 @@
                 android:resource="@array/preloaded_fonts" />
         </activity>
         <activity
-            android:name=".ChooseRobotActivity"
+            android:name=".Activities.ChooseRobotActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

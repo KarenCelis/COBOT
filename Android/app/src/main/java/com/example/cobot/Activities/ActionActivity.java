@@ -1,4 +1,4 @@
-package com.example.cobot;
+package com.example.cobot.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,9 +9,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.cobot.R;
 import com.example.cobot.Utils.RecyclerViewAdapter;
-
-import java.util.ArrayList;
 
 public class ActionActivity extends AppCompatActivity implements RecyclerViewAdapter.OnOptionListener{
 

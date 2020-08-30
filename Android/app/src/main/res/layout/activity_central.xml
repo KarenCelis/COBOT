@@ -5,7 +5,7 @@
     android:id="@+id/RLCentral"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".CentralActivity">
+    tools:context=".Activities.CentralActivity">
 
     <ImageView
         android:id="@+id/IVCharacterIcon"
@@ -199,9 +199,22 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/BAccionEmergente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BEjecutarCentral"
+        android:layout_alignStart="@id/TVNombrePersonaje"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/boton_accion_emergente" />
+
+    <Button
         android:id="@+id/BEjecutarCentral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@id/TVNombrePersonaje"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
