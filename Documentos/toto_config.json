@@ -344,32 +344,52 @@
         {
             "id": 1,
             "name": "caminar",
-            "ActionIcon": "https://i.imgur.com/vFrXtl2.png"
+            "ActionIcon": "https://i.imgur.com/vFrXtl2.png",
+            "blocks": [2, 6]
         },
         {
             "id": 2,
             "name": "correr",
-            "ActionIcon": "https://i.imgur.com/TXO3sAT.png"
+            "ActionIcon": "https://i.imgur.com/TXO3sAT.png",
+            "blocks": [1, 6]
         },
         {
             "id": 3,
             "name": "hablar",
-            "ActionIcon": "https://i.imgur.com/jV8kVFv.png"
+            "ActionIcon": "https://i.imgur.com/jV8kVFv.png",
+            "blocks": [5]
         },
         {
             "id": 4,
             "name": "mirar",
-            "ActionIcon": "https://i.imgur.com/82mMq92.png"
+            "ActionIcon": "https://i.imgur.com/82mMq92.png",
+            "blocks": [4]
         },
         {
             "id": 5,
             "name": "sonido",
-            "ActionIcon": "https://i.imgur.com/fU7wWyW.png"
+            "ActionIcon": "https://i.imgur.com/fU7wWyW.png",
+            "blocks": [3]
         },
         {
             "id": 6,
             "name": "girar",
-            "ActionIcon": "https://i.imgur.com/mBFXvEU.png"
+            "ActionIcon": "https://i.imgur.com/mBFXvEU.png",
+            "blocks": [1, 2]
+        }
+    ],
+    "SignsOfLife": [
+        {
+            "id": 1,
+            "name": "Mirar alrededor",
+            "genericActionId": 4,
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Girar pausadamente",
+            "genericActionId": 6,
+            "characterId": [1,2]
         }
     ]
 }

@@ -30,7 +30,7 @@ def main(robotIP):
     y  = 0.0
     theta  = 0.0
     frequency  = 1.0
-    motionProxy.setWalkTargetVelocity(x, y, theta, frequency)
+    
 
     # If we don't send another command, he will move forever
     # Lets make him slow down(step length) and turn after 3 seconds

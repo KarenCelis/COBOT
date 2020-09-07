@@ -26,6 +26,7 @@ public class Reader {
         JSONArray arrayOfScenes = jsonObject.getJSONArray("Scenes");
         JSONArray arrayOfGenericActions = jsonObject.getJSONArray("GenericActions");
         JSONArray arrayOfScenarios = jsonObject.getJSONArray("Scenarios");
+        JSONArray arrayOfLifeSigns = jsonObject.getJSONArray("SignsOfLife");
 
         Character[] characters = new Character[arrayOfCharacters.length()];
         Scene[] scenes = new Scene[arrayOfScenes.length()];
@@ -172,6 +173,17 @@ public class Reader {
             genericActions[i].setId(jsonTemp.getInt("id"));
             genericActions[i].setName(jsonTemp.getString("name"));
             genericActions[i].setActionIconUrl(jsonTemp.getString("ActionIcon"));
+            JSONArray arrayOfBlocks = jsonTemp.getJSONArray("blocks");
+            int[] blocks = new int[arrayOfBlocks.length()];
+
+            for (int j = 0; j < arrayOfBlocks.length(); j++) {
+                //Si el número es el mismo que la acción, significa que no bloquea nada, se pone para que el arreglo nunca sea nulo.
+                if(arrayOfBlocks.getInt(j)!=jsonTemp.getInt("id")){
+                    blocks[j] = arrayOfBlocks.getInt(j);
+                }
+            }
+
+            genericActions[i].setBlocks(blocks);
         }
         //Creación del objeto obra
         Obra obra =
@@ -180,7 +192,7 @@ public class Reader {
                         characters,
                         scenes,
                         scenarios,
-                        genericActions);
+                        genericActions, arrayOfScenarios.toString(), arrayOfLifeSigns.toString());
         Log.i(TAG, "Obra:\n" + obra.toString());
         return obra;
     }

@@ -2,6 +2,7 @@
     <string name="app_name">COBOT</string>
     <string name="texto_de_bienvenida">¡BIENVENIDO!</string>
     <string name="texto_seleccion_de_robot">Para comenzar elija su actor:</string>
+    <string name="boton_conexion_lista">¡LISTO!</string>
     <string name="hint_texto_de_archivo_seleccionado">Primero seleccione una obra:</string>
     <string name="boton_abrir_archivo">Seleccionar Obra</string>
     <string name="boton_abrir_obra">ABRIR</string>

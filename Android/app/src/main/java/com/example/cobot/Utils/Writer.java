@@ -3,6 +3,7 @@ package com.example.cobot.Utils;
 import android.util.Log;
 
 import com.example.cobot.Classes.Emotion;
+import com.example.cobot.Classes.Obra;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,27 @@ public class Writer {
 
         Log.d(TAG, "writeJSON: "+objectToSend.toString());
 
+        return objectToSend;
+    }
+
+    public static JSONObject writeConnectionJSON(String ip, int port) throws JSONException {
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("ip", ip);
+        objectToSend.put("port", port);
+        return objectToSend;
+    }
+
+    public static JSONObject writeServerCommunicationJSON(String message) throws JSONException {
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("info", message);
+        return objectToSend;
+    }
+
+    public static JSONObject writePlayInfo(Obra obra) throws JSONException {
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("Scenarios", obra.getJsonScenarios());
+        objectToSend.put("SignsOfLife", obra.getJsonSignsOfLife());
+        Log.d(TAG, "writeJSON: "+objectToSend.toString());
         return objectToSend;
     }
 }

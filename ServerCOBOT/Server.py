@@ -12,14 +12,15 @@ serverSocket.bind((socket.gethostname(), 1235))
 serverSocket.listen(10)
 
 while True:
+    print("server listening!")
     clientsocket, address = serverSocket.accept()
     print("Connection received from %s..." % str(address))
-    # clientsocket.send(bytes("Welcome to the python server"))
+    clientsocket.send(bytes("Welcome to the python server"))
 
     data = clientsocket.recv(buffer_size)
-
+    print(data)
     instrucciones = JSONReader.jsonObject(data)
-    print(instrucciones.Emotion['name'])
+    # clientsocket.send(bytes("Welcome to the python server"))
 
     # clientsocket.send(jdata)
     # print("the data received is:\n", jdata)

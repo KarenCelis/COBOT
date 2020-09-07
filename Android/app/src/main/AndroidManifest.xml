@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cobot">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,25 +16,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.ActionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity
-            android:name=".Acciones.AccionMirar"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".Acciones.AccionHablar"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".Acciones.AccionGirar"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".Acciones.AccionCorrer"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".Acciones.AccionCaminar"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".Acciones.AccionSonido"
-            android:theme="@style/AppTheme.PopMe" />
         <activity android:name=".Activities.ChooseFileActivity" />
+        <service
+            android:name=".Utils.SocketClient"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="true">
+            <intent-filter android:label="SocketLabel">
+                <action android:name="com.example.cobot.Utils.SOCKETCLIENT" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".Activities.CharacterSelectionActivity"
             android:screenOrientation="landscape"
