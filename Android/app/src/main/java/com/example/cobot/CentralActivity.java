@@ -27,17 +27,35 @@ import com.example.cobot.Classes.Scene;
 import com.example.cobot.Utils.SocketClient;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
+public class CentralActivity extends AppCompatActivity  {
+//
 
+    String[] num = {"Muy Triste", "Triste", "Normal", "Feliz", "Muy Feliz"};
+    String[] num2 = {"Llorar", "Suspirar", "Normal", "Yei!!", "Yupi!!"};
+    int[] arrimg = {
+            R.drawable.emotionb,
+            R.drawable.emot,
+            R.drawable.emotionc,
+            R.drawable.emotion,
+            R.drawable.emotiona
+    };
+
+    IndicatorSeekBar seekBarWithTickText;
+    Button boton;
+    ImageView img;
+    //
     private ImageButton[] btn = new ImageButton[5];
     private ImageButton btn_unfocus;
     private Button BEscenaUnFocus;
-    private int[] ArregloBEmociones = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz, R.id.IBMuyFeliz};
+   // private int[] ArregloBEmociones = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz, R.id.IBMuyFeliz};
     private ImageButton[] actionButtons;
     private int latestActionId;
 
@@ -63,7 +81,37 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//
+        boton = findViewById(R.id.buttonAE);
+        img = findViewById(R.id.imageView);
+        seekBarWithTickText = findViewById(R.id.custom_text);
+        seekBarWithTickText.setOnSeekChangeListener(new OnSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                int y = 0;
 
+                if (seekParams.progress <= 50) {
+                    y = seekParams.progress / (100 / (num.length - 1));
+                } else {
+                    y = (int) Math.ceil((seekParams.progress * 1.0) / (100.0 / ((num.length * 1.0) - 1.0)));
+                }
+
+                seekBarWithTickText.setIndicatorTextFormat(num[y] + " : " + "${PROGRESS}");
+                boton.setText(num2[y]);
+                img.setImageResource(arrimg[y]);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+            }
+        });
+
+        //
         obra = (Obra) getIntent().getSerializableExtra("obra");
         idPersonaje = (int) getIntent().getSerializableExtra("itemSelected");
 
@@ -83,14 +131,14 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
         TextView TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
         TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje - 1].getName());
-
+/*
         for (int i = 0; i < btn.length; i++) {
             btn[i] = findViewById(ArregloBEmociones[i]);
             btn[i].setBackgroundColor(Color.rgb(255, 255, 255));
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
+*/
         loadScenes();
 
         Button BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
@@ -260,7 +308,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
-
+/*
     @Override
     public void onClick(View v) {
 
@@ -288,7 +336,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-
+*/
     @SuppressLint("ResourceAsColor")
     private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus) {
         btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
