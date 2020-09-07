@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e582fed-6f11-4157-967c-5f29e24404fd" name="Default Changelist" comment="" />
+    <list default="true" id="9e582fed-6f11-4157-967c-5f29e24404fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Utils/Writer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JSONReader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/ActionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Activities/ActionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/CentralActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Activities/CentralActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/CharacterSelectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Activities/CharacterSelectionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/ChooseRobotActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Activities/ChooseRobotActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Activities/ChooseFileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Utils/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/cobot/Utils/SocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_action.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_action.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_central.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_central.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_character_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_character_selection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_choose_robot.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_choose_robot.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/activity_choose_file.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/res/layout/layout_connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/res/layout/layout_connection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +33,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1gCgfrIucsNM3EqUOWIVkjOsNB1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -22,7 +45,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="ServerCOBOT" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="ServerCOBOT" />
+      </console-settings>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -35,10 +69,25 @@
       <option name="presentableId" value="Default" />
       <updated>1597624094830</updated>
       <workItem from="1597624096201" duration="5279000" />
+      <workItem from="1598243654515" duration="3252000" />
+      <workItem from="1598408855789" duration="1930000" />
+      <workItem from="1598411392453" duration="764000" />
+      <workItem from="1598484353356" duration="3386000" />
+      <workItem from="1598585993075" duration="345000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="6" key="SettingsEditor" timestamp="1598411686152">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598411686152" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1598411645588">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1598411645588" />
   </component>
 </project>

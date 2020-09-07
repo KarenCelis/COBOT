@@ -28,4 +28,11 @@
         <item>Madre</item>
         <item>Abuelita</item>
     </string-array>
+    <array name="tick_below_text_length_5">
+        <item>MUY TRISTE</item>
+        <item>TRISTE</item>
+        <item>NORMAL</item>
+        <item>FELIZ</item>
+        <item>MUY FELIZ</item>
+    </array>
 </resources>

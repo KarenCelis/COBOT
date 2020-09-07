@@ -5,7 +5,7 @@
     android:id="@+id/RLSeleccionDePersonaje"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharacterSelectionActivity">
+    tools:context=".Activities.CharacterSelectionActivity">
 
     <TextView
         android:id="@+id/TVSeleccionDePersonaje"

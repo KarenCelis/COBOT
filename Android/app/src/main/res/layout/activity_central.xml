@@ -5,7 +5,7 @@
     android:id="@+id/RLCentral"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".CentralActivity">
+    tools:context=".Activities.CentralActivity">
 
     <ImageView
         android:id="@+id/IVCharacterIcon"
@@ -127,63 +127,59 @@
     <LinearLayout
         android:id="@+id/LYEmociones"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:layout_below="@+id/TVEmociones"
         android:layout_alignStart="@id/TVSeleccionEscena"
         android:layout_alignEnd="@id/TVPersonajeSeleccionado"
         android:layout_alignParentStart="false"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="1dp"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/IBMuyTriste"
-            android:layout_width="12dp"
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/muytriste"
-            tools:ignore="VectorDrawableCompat" />
+            android:layout_weight="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.104"
+            app:srcCompat="@drawable/emotionc" />
 
-        <ImageButton
-            android:id="@+id/IBTriste"
-            android:layout_width="12dp"
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/custom_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/triste" />
-
-        <ImageButton
-            android:id="@+id/IBNormal"
-            android:layout_width="12dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/normal" />
-
-        <ImageButton
-            android:id="@+id/IBFeliz"
-            android:layout_width="12dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/feliz"
-            tools:ignore="VectorDrawableCompat" />
-
-        <ImageButton
-            android:id="@+id/IBMuyFeliz"
-            android:layout_width="12dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_key"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/muyfeliz" />
+            app:isb_indicator_color="@color/pressed_color"
+            app:isb_indicator_text_color="@color/colorPrimary"
+            app:isb_progress="50"
+            app:isb_seek_smoothly="true"
+            app:isb_show_indicator="rounded_rectangle"
+            app:isb_show_tick_marks_type="oval"
+            app:isb_show_tick_texts="true"
+            app:isb_thumb_adjust_auto="false"
+            app:isb_thumb_color="@color/pressed_color"
+            app:isb_thumb_size="20dp"
+            app:isb_tick_marks_color="@color/cardview_dark_background"
+            app:isb_tick_marks_size="10dp"
+            app:isb_tick_texts_array="@array/tick_below_text_length_5"
+            app:isb_tick_texts_color="@color/black"
+            app:isb_tick_texts_typeface="sans"
+            app:isb_ticks_count="5"
+            app:isb_track_background_color="?attr/actionModeSplitBackground"
+            app:isb_track_progress_color="@color/pressed_color"
+            app:isb_track_progress_size="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.319" />
 
     </LinearLayout>
 
@@ -202,11 +198,24 @@
         android:id="@+id/BEjecutarCentral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@id/TVNombrePersonaje"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/fredoka_one"
         android:text="@string/boton_ejecutar_central" />
+
+    <Button
+        android:id="@+id/buttonAE"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BEjecutarCentral"
+        android:layout_alignStart="@id/TVPersonajeSeleccionado"
+        android:layout_alignEnd="@id/BEjecutarCentral"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/texto_de_accion_emergente" />
+
 
 </RelativeLayout>

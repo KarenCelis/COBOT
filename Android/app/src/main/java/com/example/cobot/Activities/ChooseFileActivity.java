@@ -1,7 +1,10 @@
-package com.example.cobot;
+package com.example.cobot.Activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,9 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cobot.Classes.Obra;
+import com.example.cobot.R;
 import com.example.cobot.Utils.Reader;
+import com.example.cobot.Utils.SocketClient;
 
 import org.json.JSONException;
 
@@ -23,7 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-public class MainActivity extends Activity {
+public class ChooseFileActivity extends Activity {
 
     private static final int READ_REQUEST_CODE = 42;
     private static final String TAG = "FileRead";
@@ -32,7 +38,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_choose_file);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Button BAbrirArchivo = findViewById(R.id.BAbrirArchivo);
@@ -123,4 +129,5 @@ public class MainActivity extends Activity {
         }
         return result;
     }
+
 }
