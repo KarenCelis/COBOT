@@ -6,7 +6,9 @@ public class GenericAction implements Serializable {
     private int id;
     private String name;
     private String ActionIconUrl;
-    //parameter es el parámetro de tipo cualquiera que se escoge para cada acción, como el diálogo o el destino de la acción.
+    private int[]blocks;
+
+    //parameter es el parámetro de tipo cualquiera que se escoge para cada acción, como el diálogo o el destino de la acción, se usa para armar el json.
     private String parameter;
 
     public GenericAction(int id, String parameter){
@@ -48,5 +50,13 @@ public class GenericAction implements Serializable {
 
     public void setParameter(String parameter) {
         this.parameter = parameter;
+    }
+
+    public int[] getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(int[] blocks) {
+        this.blocks = blocks;
     }
 }
