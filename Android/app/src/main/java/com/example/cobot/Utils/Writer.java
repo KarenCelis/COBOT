@@ -61,4 +61,10 @@ public class Writer {
         Log.d(TAG, "writeJSON: "+objectToSend.toString());
         return objectToSend;
     }
+
+    public static JSONObject writeEmergentAction(String action) throws JSONException {
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("EmergentAction", action);
+        return objectToSend;
+    }
 }

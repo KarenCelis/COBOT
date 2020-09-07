@@ -215,7 +215,7 @@
         android:layout_alignEnd="@id/BEjecutarCentral"
         android:layout_marginBottom="9dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="Button" />
+        android:text="@string/texto_de_accion_emergente" />
 
 
 </RelativeLayout>

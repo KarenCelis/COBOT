@@ -48,8 +48,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CentralActivity extends AppCompatActivity  {
-//
+public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
     String[] num = {"Muy Triste", "Triste", "Normal", "Feliz", "Muy Feliz"};
     String[] num2 = {"Llorar", "Suspirar", "Normal", "Yei!!", "Yupi!!"};
@@ -64,11 +63,9 @@ public class CentralActivity extends AppCompatActivity  {
     IndicatorSeekBar seekBarWithTickText;
     Button boton;
     ImageView img;
-    //
-    private ImageButton[] btn = new ImageButton[5];
-    private ImageButton btn_unfocus;
+
     private Button BEscenaUnFocus;
-   // private int[] ArregloBEmociones = {R.id.IBMuyTriste, R.id.IBTriste, R.id.IBNormal, R.id.IBFeliz, R.id.IBMuyFeliz};
+
     private ImageButton[] actionButtons;
     private int latestActionId;
 
@@ -80,7 +77,6 @@ public class CentralActivity extends AppCompatActivity  {
     private int[] actionReturns;
 
     //Variables para la recolección de los datos al momento de ejecutar
-    private boolean isEmotionSelected;
     private int LatestActionSelectedId;
     private String emotionSelected;
     private int emotionIntensitySelected;
@@ -115,6 +111,7 @@ public class CentralActivity extends AppCompatActivity  {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         boton = findViewById(R.id.buttonAE);
+        boton.setOnClickListener(this);
         img = findViewById(R.id.imageView);
         seekBarWithTickText = findViewById(R.id.custom_text);
         seekBarWithTickText.setOnSeekChangeListener(new OnSeekChangeListener() {
@@ -131,6 +128,9 @@ public class CentralActivity extends AppCompatActivity  {
                 seekBarWithTickText.setIndicatorTextFormat(num[y] + " : " + "${PROGRESS}");
                 boton.setText(num2[y]);
                 img.setImageResource(arrimg[y]);
+
+                emotionSelected = num[y];
+                emotionIntensitySelected = seekParams.progress;
 
             }
 
@@ -154,50 +154,17 @@ public class CentralActivity extends AppCompatActivity  {
             Picasso.setSingletonInstance(picasso);
         }
 
-        isEmotionSelected = false;
         LatestActionSelectedId = 0;
-        emotionIntensitySelected = 100;
         actionsSelected = new HashMap<>();
 
         ImageView IVCharacterIcon = findViewById(R.id.IVCharacterIcon);
         Picasso.get().load(obra.getCharacters()[idPersonaje - 1].getCharacterIconUrl()).into(IVCharacterIcon);
         TextView TVNombrePersonaje = findViewById(R.id.TVNombrePersonaje);
         TVNombrePersonaje.setText(obra.getCharacters()[idPersonaje - 1].getName());
-/*
-        for (int i = 0; i < btn.length; i++) {
-            btn[i] = findViewById(ArregloBEmociones[i]);
-            btn[i].setBackgroundColor(Color.rgb(255, 255, 255));
-            btn[i].setOnClickListener(this);
-        }
-        btn_unfocus = btn[0];
-*/
         loadScenes();
 
         Button BEjecutarCentral = findViewById(R.id.BEjecutarCentral);
-        BEjecutarCentral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isEmotionSelected && actionsSelected.size() > 0) {
-
-                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
-
-                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
-                    Log.i(TAG2, actionsSelected.keySet().toString());
-                    Log.i(TAG2, actionsSelected.values().toString());
-                    Log.i(TAG2, em.print());
-
-                    try {
-                        enviarSocket(actionsSelected, em);
-                        //mBoundService.sendMessage(Writer.writeJSON(actionsSelected, em).toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Por favor selecciona una emoción", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        BEjecutarCentral.setOnClickListener(this);
 
         myReceiver = new CentralActivity.MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -276,16 +243,16 @@ public class CentralActivity extends AppCompatActivity  {
             //Si son nulas las opciones entonces es caminar o correr, se asignan los lugares del mapa excepto en donde está
             if (iterator.getDisplayText() == null) {
                 String[] originalNodes = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNodeNames();
-                ArrayList<String>nodeNames = new ArrayList<>();
-                for(int i = 0; i<originalNodes.length; i++){
+                ArrayList<String> nodeNames = new ArrayList<>();
+                for (int i = 0; i < originalNodes.length; i++) {
                     //remover la posición actual
-                    if(i != obra.getCharacters()[idPersonaje - 1].getNodeId()-1){
+                    if (i != obra.getCharacters()[idPersonaje - 1].getNodeId() - 1) {
                         nodeNames.add(originalNodes[i]);
                     }
                 }
                 nodeNames.add("Ninguno");
-                String[]nodeNamesArray = new String[nodeNames.size()];
-                for(int i=0;i<nodeNames.size();i++){
+                String[] nodeNamesArray = new String[nodeNames.size()];
+                for (int i = 0; i < nodeNames.size(); i++) {
                     nodeNamesArray[i] = nodeNames.get(i);
                 }
                 iterator.setDisplayText(nodeNamesArray);
@@ -303,13 +270,13 @@ public class CentralActivity extends AppCompatActivity  {
                 Picasso.get().load(obra.getGenericActions()[iterator.getIdGeneric() - 1].getActionIconUrl()).resize(120, 120).into(IBAccion);
 
                 LLHAcciones.addView(IBAccion);
-                actionButtons[iterator.getIdGeneric()-1] = IBAccion;
+                actionButtons[iterator.getIdGeneric() - 1] = IBAccion;
                 IBAccion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         IBAccion.setBackgroundColor(v.getResources().getColor(R.color.pressed_color));
                         IBAccion.setTag(iterator.getIdGeneric());
-                        latestActionId = iterator.getIdGeneric()-1;
+                        latestActionId = iterator.getIdGeneric() - 1;
                         startActionActivities(idEscena, iterator.getId(), iterator.getIdGeneric());
                     }
                 });
@@ -357,10 +324,10 @@ public class CentralActivity extends AppCompatActivity  {
 
             String parameter = data.getStringExtra("parameter");
             assert parameter != null;
-            if(parameter.equals("Ninguno")){
+            if (parameter.equals("Ninguno")) {
                 actionButtons[latestActionId].setBackgroundColor(Color.rgb(255, 255, 255));
                 unBlockActions(latestActionId);
-            }else{
+            } else {
                 blockActions(latestActionId);
             }
             actionsSelected.put(LatestActionSelectedId, parameter);
@@ -368,90 +335,36 @@ public class CentralActivity extends AppCompatActivity  {
 
         }
     }
-/*
-    @Override
-    public void onClick(View v) {
 
-        switch (v.getId()) {
-
-            case R.id.IBMuyTriste:
-                setFocus(btn_unfocus, btn[0]);
-                emotionSelected = "TooSad";
-                emotionIntensitySelected = 10;
-                break;
-            case R.id.IBTriste:
-                setFocus(btn_unfocus, btn[1]);
-                emotionSelected = "Sad";
-                emotionIntensitySelected = 25;
-                break;
-            case R.id.IBNormal:
-                setFocus(btn_unfocus, btn[2]);
-                emotionSelected = "Normal";
-                emotionIntensitySelected = 50;
-                break;
-            case R.id.IBFeliz:
-                setFocus(btn_unfocus, btn[3]);
-                emotionSelected = "Happy";
-                emotionIntensitySelected = 75;
-                break;
-            case R.id.IBMuyFeliz:
-                setFocus(btn_unfocus, btn[4]);
-                emotionSelected = "TooHappy";
-                emotionIntensitySelected = 100;
-                break;
-        }
-    }
-<<<<<<< HEAD:Android/app/src/main/java/com/example/cobot/Activities/CentralActivity.java
-
-
-
-=======
-*/
-    public void blockActions(int idActionGeneric){
+    public void blockActions(int idActionGeneric) {
         GenericAction genericAction = obra.getGenericActions()[idActionGeneric];
         for (int i = 0; i < genericAction.getBlocks().length; i++) {
             for (int j = 0; j < actionButtons.length; j++) {
-                Log.i(TAG, "blockActions: "+genericAction.getBlocks()[i]+", "+j);
-                if(genericAction.getBlocks()[i]-1 == j && actionButtons[j] != null){
+                Log.i(TAG, "blockActions: " + genericAction.getBlocks()[i] + ", " + j);
+                if (genericAction.getBlocks()[i] - 1 == j && actionButtons[j] != null) {
                     actionButtons[j].setEnabled(false);
                 }
             }
         }
     }
 
-    public void unBlockActions(int idActionGeneric){
+    public void unBlockActions(int idActionGeneric) {
         GenericAction genericAction = obra.getGenericActions()[idActionGeneric];
         for (int i = 0; i < genericAction.getBlocks().length; i++) {
             for (int j = 0; j < actionButtons.length; j++) {
-                Log.i(TAG, "blockActions: "+genericAction.getBlocks()[i]+", "+j);
-                if(genericAction.getBlocks()[i]-1 == j && actionButtons[j] != null){
+                Log.i(TAG, "blockActions: " + genericAction.getBlocks()[i] + ", " + j);
+                if (genericAction.getBlocks()[i] - 1 == j && actionButtons[j] != null) {
                     actionButtons[j].setEnabled(true);
                 }
             }
         }
     }
-    /*
-    @SuppressLint("ResourceAsColor")
-    private void setFocus(ImageButton btn_unfocus, ImageButton btn_focus) {
-        btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
-        btn_focus.setBackgroundColor(R.color.pressed_color);
-        this.btn_unfocus = btn_focus;
-        isEmotionSelected = true;
-    }
-     */
 
     @SuppressLint("ResourceAsColor")
     private void setFocusSceneButtons(Button btn_unfocus, Button btn_focus) {
         btn_unfocus.setBackgroundColor(Color.rgb(255, 255, 255));
         btn_focus.setBackgroundColor(R.color.pressed_color);
         this.BEscenaUnFocus = btn_focus;
-    }
-
-    static <T> T[] append(T[] arr, T element) {
-        final int N = arr.length;
-        arr = Arrays.copyOf(arr, N + 1);
-        arr[N] = element;
-        return arr;
     }
 
     @Override
@@ -489,6 +402,41 @@ public class CentralActivity extends AppCompatActivity  {
         doUnbindService();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.buttonAE:
+                try {
+                    enviarAccionEmergente(boton.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.BEjecutarCentral:
+                if (actionsSelected.size() > 0) {
+
+                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+
+                    Log.i(TAG2, "Se ha seleccionado lo siguiente:");
+                    Log.i(TAG2, actionsSelected.keySet().toString());
+                    Log.i(TAG2, actionsSelected.values().toString());
+                    Log.i(TAG2, em.print());
+
+                    try {
+                        enviarSocket(actionsSelected, em);
+                        //mBoundService.sendMessage(Writer.writeJSON(actionsSelected, em).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Por favor selecciona una acción de la escena", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+
+    }
+
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -497,7 +445,7 @@ public class CentralActivity extends AppCompatActivity  {
             if (extras != null) {
                 if (extras.containsKey(SocketClient.SERVER_RESPONSE)) {
                     message = intent.getStringExtra(SocketClient.SERVER_RESPONSE);
-                }else{
+                } else {
                     message = intent.getStringExtra(SocketClient.SERVER_CONNECTION);
                 }
             }
@@ -516,15 +464,26 @@ public class CentralActivity extends AppCompatActivity  {
     }
 
     public void enviarSocket(Map<Integer, String> actionsSelected, Emotion em) throws JSONException {
-        if(isNetworkConnected()){
+        if (isNetworkConnected()) {
             SocketClient.setJsonToSend(Writer.writeJSON(actionsSelected, em).toString());
-            Log.i("Enviando", "C: Enviando"+SocketClient.jsonToSend);
+            Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
             startService(new Intent(CentralActivity.this, SocketClient.class));
             doBindService();
             //mBoundService.sendMessage(Writer.writeConnectionJSON(ip.getText().toString(), Integer.parseInt(port.getText().toString())).toString());
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "No hay conexión a internet", Toast.LENGTH_LONG).show();
         }
     }
 
+    public void enviarAccionEmergente(String accion) throws JSONException {
+        if (isNetworkConnected()) {
+            SocketClient.setJsonToSend(Writer.writeEmergentAction(accion).toString());
+            Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
+            startService(new Intent(CentralActivity.this, SocketClient.class));
+            doBindService();
+            //mBoundService.sendMessage(Writer.writeConnectionJSON(ip.getText().toString(), Integer.parseInt(port.getText().toString())).toString());
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexión a internet", Toast.LENGTH_LONG).show();
+        }
+    }
 }
