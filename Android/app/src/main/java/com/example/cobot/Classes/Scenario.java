@@ -9,6 +9,7 @@ public class Scenario implements Serializable {
     private int nodes;
     private int[][]adjacencyMatrix;
     private String[] node_names;
+    private Node[]node;
 
     public int getId() {
         return id;
@@ -42,11 +43,19 @@ public class Scenario implements Serializable {
         this.adjacencyMatrix = adjacencyMatrix;
     }
 
-    public String[] getNodeNames() {
+    public String[] getNode_names() {
         return node_names;
     }
 
-    public void setNodeNames(String[] node_names) {
+    public void setNode_names(String[] node_names) {
         this.node_names = node_names;
+    }
+
+    public Node[] getNode() {
+        return node;
+    }
+
+    public void setNode(Node[] node) {
+        this.node = node;
     }
 }

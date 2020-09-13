@@ -38,6 +38,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     private boolean mIsBound;
 
     private SocketClient mBoundService;
+    private String robot;
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         //EDITED PART
@@ -59,7 +60,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_choose_robot);
 
         try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Haciendo conexion con el servidor de Python").toString());
+            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -85,10 +86,12 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()){
             case R.id.imgbtn_1 :
+                robot = "nao";
                 setFocus(btn_unfocus, btn[0]);
                 createDialogForConnection();
                 break;
             case R.id.imgbtn_2 :
+                robot = "quyca";
                 setFocus(btn_unfocus, btn[1]);
                 createDialogForConnection();
                 break;
@@ -120,7 +123,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 try{
-                    SocketClient.getConnectionInstance(ip.getText().toString(),Integer.parseInt(port.getText().toString()));
+                    SocketClient.getConnectionInstance(ip.getText().toString(),Integer.parseInt(port.getText().toString()), robot);
                     enviarSocket(ip.getText().toString(), Integer.parseInt(port.getText().toString()));
                     BListo.setVisibility(View.VISIBLE);
                 }catch (final NumberFormatException | JSONException e) {
@@ -179,7 +182,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     public void onResume() {
         super.onResume();
         try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Volviendo a hacer conexion con el servidor de Python").toString());
+            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
             startService(new Intent(ChooseRobotActivity.this, SocketClient.class));
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(SocketClient.ACTION);
@@ -228,7 +231,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
 
     public void enviarSocket(String ip, int port) throws JSONException {
         if(isNetworkConnected()){
-            SocketClient.setJsonToSend(Writer.writeConnectionJSON(ip, port).toString());
+            SocketClient.setJsonToSend(Writer.writeConnectionJSON(ip, port, robot).toString());
             Log.i("Enviando", "C: Enviando"+SocketClient.jsonToSend);
             startService(new Intent(ChooseRobotActivity.this, SocketClient.class));
             doBindService();

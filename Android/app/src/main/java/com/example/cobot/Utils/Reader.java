@@ -5,10 +5,12 @@ import android.util.Log;
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Character;
 import com.example.cobot.Classes.GenericAction;
+import com.example.cobot.Classes.Node;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Position;
 import com.example.cobot.Classes.Scenario;
 import com.example.cobot.Classes.Scene;
+import com.example.cobot.Classes.SignOfLife;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,9 +166,25 @@ public class Reader {
                 nodeNames[j] = arrayOfNodeNames.getString(j);
             }
 
+            JSONArray arrayOfNodeInformation = jsonTemp.getJSONArray("node");
+            Node[]node = new Node[arrayOfNodeInformation.length()];
+
+            for (int j = 0; j < arrayOfNodeInformation.length(); j++) {
+
+                node[j] = new Node();
+                JSONObject jsonTempNode = arrayOfNodeInformation.getJSONObject(j);
+
+                node[j].setId(jsonTempNode.getInt("id"));
+                node[j].setName(jsonTempNode.getString("name"));
+                node[j].setXaxis(jsonTempNode.getDouble("xaxis"));
+                node[j].setYaxis(jsonTempNode.getDouble("yaxis"));
+            }
+
             scenarios[i].setAdjacencyMatrix(adjacencyMatrix);
-            scenarios[i].setNodeNames(nodeNames);
+            scenarios[i].setNode_names(nodeNames);
+            scenarios[i].setNode(node);
         }
+
         for (int i = 0; i < arrayOfGenericActions.length(); i++) {
             genericActions[i] = new GenericAction();
             JSONObject jsonTemp = arrayOfGenericActions.getJSONObject(i);
@@ -185,14 +203,37 @@ public class Reader {
 
             genericActions[i].setBlocks(blocks);
         }
+
+        SignOfLife[] signOfLife = new SignOfLife[arrayOfLifeSigns.length()];
+        for (int i = 0; i < arrayOfLifeSigns.length(); i++) {
+
+            signOfLife[i] = new SignOfLife();
+            JSONObject jsonTemp = arrayOfLifeSigns.getJSONObject(i);
+
+            signOfLife[i].setId(jsonTemp.getInt("id"));
+            signOfLife[i].setName(jsonTemp.getString("name"));
+            signOfLife[i].setGenericActionId(jsonTemp.getInt("genericActionId"));
+
+            JSONArray arrayOfCharacterids = jsonTemp.getJSONArray("characterId");
+            int[] characterid = new int[arrayOfCharacterids.length()];
+
+            for (int j = 0; j < arrayOfCharacterids.length(); j++) {
+                characterid[j] = arrayOfCharacterids.getInt(j);
+            }
+
+            signOfLife[i].setCharacterId(characterid);
+        }
+
         //Creación del objeto obra
-        Obra obra =
-                new Obra(jsonObject.getString("Title"),
-                        jsonObject.getInt("SceneAmount"),
-                        characters,
-                        scenes,
-                        scenarios,
-                        genericActions, arrayOfScenarios.toString(), arrayOfLifeSigns.toString());
+        Obra obra = new Obra();
+        obra.setTitle(jsonObject.getString("Title"));
+        obra.setSceneAmount(jsonObject.getInt("SceneAmount"));
+        obra.setCharacters(characters);
+        obra.setScenes(scenes);
+        obra.setScenarios(scenarios);
+        obra.setGenericActions(genericActions);
+        obra.setSignsOfLife(signOfLife);
+
         Log.i(TAG, "Obra:\n" + obra.toString());
         return obra;
     }

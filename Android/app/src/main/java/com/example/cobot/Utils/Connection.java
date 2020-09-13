@@ -5,13 +5,15 @@ public class Connection {
 
     private String ip;
     private int port;
+    private String robot;
 
     public Connection() {
     }
 
-    public Connection(String ip, int port) {
+    public Connection(String ip, int port, String robot) {
         this.ip = ip;
         this.port = port;
+        this.robot = robot;
     }
 
     public String getIp() {
@@ -28,5 +30,13 @@ public class Connection {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getRobot() {
+        return robot;
+    }
+
+    public void setRobot(String robot) {
+        this.robot = robot;
     }
 }

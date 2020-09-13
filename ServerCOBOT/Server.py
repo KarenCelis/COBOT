@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import socket
-import json
 import GestorDeObra
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,7 +18,7 @@ while True:
 
     data = clientsocket.recv(buffer_size)
     print(data)
-    instrucciones = GestorDeObra.jsonObject(data)
+    Instrucciones = GestorDeObra.JsonObject(data)
     # clientsocket.send(bytes("Welcome to the python server"))
 
     # clientsocket.send(jdata)

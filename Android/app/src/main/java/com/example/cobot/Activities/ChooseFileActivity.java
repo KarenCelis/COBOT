@@ -1,10 +1,7 @@
 package com.example.cobot.Activities;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,12 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.R;
 import com.example.cobot.Utils.Reader;
-import com.example.cobot.Utils.SocketClient;
 
 import org.json.JSONException;
 
