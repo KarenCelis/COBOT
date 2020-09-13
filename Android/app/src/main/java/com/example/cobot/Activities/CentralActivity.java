@@ -31,6 +31,7 @@ import com.example.cobot.Classes.Emotion;
 import com.example.cobot.Classes.GenericAction;
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.Classes.Position;
+import com.example.cobot.Classes.Scenario;
 import com.example.cobot.Classes.Scene;
 import com.example.cobot.R;
 import com.example.cobot.Utils.SocketClient;
@@ -78,8 +79,8 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     //Variables para la recolección de los datos al momento de ejecutar
     private int LatestActionSelectedId;
-    private String emotionSelected;
-    private int emotionIntensitySelected;
+    private String emotionSelected = "Normal";
+    private int emotionIntensitySelected = 50;
     private Map<Integer, String> actionsSelected;
 
     private static final String TAG = "ViewsCreation";
@@ -205,6 +206,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onClick(View v) {
                             setFocusSceneButtons(BEscenaUnFocus, BEscena);
+                            obtenerModeloDelMundo(iterator.getId());
                             establecerAccionesDisponibles(iterator.getId());
                         }
                     });
@@ -242,7 +244,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
             //Si son nulas las opciones entonces es caminar o correr, se asignan los lugares del mapa excepto en donde está
             if (iterator.getDisplayText() == null) {
-                String[] originalNodes = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNodeNames();
+                String[] originalNodes = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNode_names();
                 ArrayList<String> nodeNames = new ArrayList<>();
                 for (int i = 0; i < originalNodes.length; i++) {
                     //remover la posición actual
@@ -404,7 +406,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.buttonAE:
                 try {
                     enviarAccionEmergente(boton.getText().toString());
@@ -413,7 +415,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.BEjecutarCentral:
-                if (actionsSelected.size() > 0) {
+                if (actionsSelected.size() > 0 && verificarAccionesSeleccionadas()) {
 
                     Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
 
@@ -430,7 +432,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Por favor selecciona una acción de la escena", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Por favor selecciona al menos una acción", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
@@ -465,7 +467,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     public void enviarSocket(Map<Integer, String> actionsSelected, Emotion em) throws JSONException {
         if (isNetworkConnected()) {
-            SocketClient.setJsonToSend(Writer.writeJSON(actionsSelected, em).toString());
+            SocketClient.setJsonToSend(Writer.writeSimpleActionsJSON(actionsSelected, em).toString());
             Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
             startService(new Intent(CentralActivity.this, SocketClient.class));
             doBindService();
@@ -478,6 +480,62 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     public void enviarAccionEmergente(String accion) throws JSONException {
         if (isNetworkConnected()) {
             SocketClient.setJsonToSend(Writer.writeEmergentAction(accion).toString());
+            Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
+            startService(new Intent(CentralActivity.this, SocketClient.class));
+            doBindService();
+            //mBoundService.sendMessage(Writer.writeConnectionJSON(ip.getText().toString(), Integer.parseInt(port.getText().toString())).toString());
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexión a internet", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public boolean verificarAccionesSeleccionadas(){
+
+        for (Map.Entry<Integer, String> entry : actionsSelected.entrySet()) {
+            if(!entry.getValue().equals("Ninguno")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void obtenerModeloDelMundo(int idEscena) {
+        try {
+
+            Position positionToSend = new Position();
+            Scenario scenarioToSend = new Scenario();
+
+            for (Scene scene : obra.getScenes()) {
+
+                if (scene.getId() == idEscena) {
+
+                    for (Position position : scene.getPositions()) {
+
+                        if (position.getCharacterId() == idPersonaje) {
+
+                            positionToSend = position;
+                        }
+                    }
+                    for (Scenario scenario : obra.getScenarios()) {
+
+                        if (scenario.getId() == scene.getScenario()) {
+
+                            scenarioToSend = scenario;
+                        }
+                    }
+                }
+            }
+
+            enviarModeloDelMundo(scenarioToSend, positionToSend);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void enviarModeloDelMundo(Scenario scenario, Position position) throws JSONException {
+        if (isNetworkConnected()) {
+            SocketClient.setJsonToSend(Writer.writeWorldModel(scenario, position).toString());
             Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
             startService(new Intent(CentralActivity.this, SocketClient.class));
             doBindService();

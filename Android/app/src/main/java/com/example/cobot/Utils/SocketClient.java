@@ -32,9 +32,9 @@ public class SocketClient extends Service {
     public SocketClient() {
     }
 
-    public static void getConnectionInstance(String ip, int port) {
+    public static void getConnectionInstance(String ip, int port, String robot) {
         if (connection == null) {
-            connection = new Connection(ip, port);
+            connection = new Connection(ip, port, robot);
         }
     }
 

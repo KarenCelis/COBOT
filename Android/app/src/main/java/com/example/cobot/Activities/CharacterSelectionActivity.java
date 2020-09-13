@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class CharacterSelectionActivity extends AppCompatActivity {
 
     private Obra obra;
-    private int itemSelected;
+    private int itemSelected = 1;
 
     private CharacterSelectionActivity.MyReceiver myReceiver;
     private boolean mIsBound;
@@ -60,6 +60,12 @@ public class CharacterSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_character_selection);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        try {
+            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Button BContinuar = findViewById(R.id.BContinuar);
         BContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +88,11 @@ public class CharacterSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 itemSelected = position+1;
+                try {
+                    enviarSocket();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -163,7 +174,7 @@ public class CharacterSelectionActivity extends AppCompatActivity {
 
     public void enviarSocket() throws JSONException {
         if(isNetworkConnected()){
-            SocketClient.setJsonToSend(Writer.writePlayInfo(obra).toString());
+            SocketClient.setJsonToSend(Writer.writeSignsOfLife(obra.getSignsOfLife(), itemSelected).toString());
             Log.i("Enviando", "C: Enviando"+SocketClient.jsonToSend);
             startService(new Intent(CharacterSelectionActivity.this, SocketClient.class));
             doBindService();
