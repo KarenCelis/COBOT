@@ -310,8 +310,8 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
         startActivityForResult(intentTest, idAccion - 1);
 
-        LatestActionSelectedId = idActionGeneric - 1;
-        actionsSelected.put(LatestActionSelectedId, "none");
+        LatestActionSelectedId = idActionGeneric;
+        actionsSelected.put(LatestActionSelectedId, "Ninguno");
     }
 
     @Override
