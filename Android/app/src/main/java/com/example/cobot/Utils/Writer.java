@@ -17,14 +17,20 @@ import java.util.Map;
 public class Writer {
     private static final String TAG = "JSON writing";
 
+    //code 0
     public static JSONObject writeServerCommunicationJSON(String message) throws JSONException {
+        JSONObject serverConnectionMessage = new JSONObject();
         JSONObject objectToSend = new JSONObject();
         objectToSend.put("info", message);
-        return objectToSend;
+        serverConnectionMessage.put("code", 0);
+        serverConnectionMessage.put("data", objectToSend);
+        return serverConnectionMessage;
     }
 
+    //code 1
     public static JSONObject writeConnectionJSON(String ip, int port, String robot) throws JSONException {
 
+        JSONObject connectionMessage = new JSONObject();
         JSONObject objectInfo = new JSONObject();
 
         objectInfo.put("ip", ip);
@@ -34,61 +40,26 @@ public class Writer {
         JSONObject objectToSend = new JSONObject();
         objectToSend.put("Connection", objectInfo);
 
-        Log.d(TAG, "writeJSON: "+objectToSend.toString());
-
-        return objectToSend;
-    }
-
-    public static JSONObject writeSimpleActionsJSON(Map<Integer, String> actionsSelected, Emotion emotion) throws JSONException {
-
-        JSONArray arrayOfActions = new JSONArray();
-
-        for(Map.Entry<Integer, String> entry : actionsSelected.entrySet()){
-
-            JSONObject actionObject = new JSONObject();
-
-            actionObject.put("id", entry.getKey());
-            actionObject.put("value", entry.getValue());
-
-            arrayOfActions.put(actionObject);
-        }
-
-        JSONObject emotionObject = new JSONObject();
-        emotionObject.put("name", emotion.getEmotionName());
-        emotionObject.put("value", emotion.getIntensity());
-
-        JSONObject objectToSend = new JSONObject();
-        objectToSend.put("Actions", arrayOfActions);
-        objectToSend.put("Emotion", emotionObject);
+        connectionMessage.put("code", 1);
+        connectionMessage.put("data", objectToSend);
 
         Log.d(TAG, "writeJSON: "+objectToSend.toString());
 
-        return objectToSend;
+        return connectionMessage;
     }
 
-    public static JSONObject writeEmergentAction(String action) throws JSONException {
-
-        JSONObject objectInfo = new JSONObject();
-        objectInfo.put("name", action);
-
-        JSONObject objectToSend = new JSONObject();
-        objectToSend.put("EmergentAction", objectInfo);
-
-        Log.d(TAG, "writeJSON: "+objectToSend.toString());
-
-        return objectToSend;
-    }
-
+    //code 2
     public static JSONObject writeSignsOfLife(SignOfLife[] signsOfLife, int characterSelected) throws JSONException {
 
+        JSONObject signsMessage = new JSONObject();
         JSONArray signArray = new JSONArray();
 
         for (SignOfLife sign: signsOfLife) {
 
             JSONObject signObject = new JSONObject();
-            signObject.put("id", sign.getId());
+            signObject.put("signid", sign.getId());
             signObject.put("name", sign.getName());
-            signObject.put("genericActionId", sign.getGenericActionId());
+                signObject.put("genericactionid", sign.getGenericActionId());
 
             JSONArray characterIdsArray = new JSONArray();
 
@@ -96,7 +67,7 @@ public class Writer {
                 characterIdsArray.put(sign.getCharacterId()[i]);
             }
 
-            signObject.put("characterId", characterIdsArray);
+            signObject.put("characterid", characterIdsArray);
 
             signArray.put(signObject);
         }
@@ -105,16 +76,21 @@ public class Writer {
         objectToSend.put("characterSelected", characterSelected);
         objectToSend.put("SignsOfLife", signArray);
 
+        signsMessage.put("code", 2);
+        signsMessage.put("data", objectToSend);
+
         Log.d(TAG, "writeJSON: "+objectToSend.toString());
 
-        return objectToSend;
+        return signsMessage;
     }
 
+    //code 3
     public static JSONObject writeWorldModel(Scenario scenario, Position position) throws JSONException {
 
+        JSONObject worldModelMessage = new JSONObject();
         JSONObject scenarioToSend = new JSONObject();
 
-        scenarioToSend.put("id", scenario.getId());
+        scenarioToSend.put("scenarioid", scenario.getId());
         scenarioToSend.put("name", scenario.getName());
         scenarioToSend.put("nodes", scenario.getNodes());
 
@@ -131,7 +107,7 @@ public class Writer {
             arrayOfMatrixRows.put(arrayOfMatrixSingleRow);
 
         }
-        scenarioToSend.put("adjacencyMatrix", arrayOfMatrixRows);
+        scenarioToSend.put("adjacencymatrix", arrayOfMatrixRows);
 
         JSONArray arrayOfNodeNames = new JSONArray();
 
@@ -145,7 +121,7 @@ public class Writer {
         for(Node node: scenario.getNode()){
 
             JSONObject nodeObject = new JSONObject();
-            nodeObject.put("id", node.getId());
+            nodeObject.put("nodeid", node.getId());
             nodeObject.put("name", node.getName());
             nodeObject.put("xaxis", node.getXaxis());
             nodeObject.put("yaxis",node.getYaxis());
@@ -157,17 +133,74 @@ public class Writer {
 
         JSONObject positionToSend = new JSONObject();
 
-        positionToSend.put("CharacterId", position.getCharacterId());
-        positionToSend.put("NodeId", position.getNodeId());
+        positionToSend.put("characterid", position.getCharacterId());
+        positionToSend.put("nodeid", position.getNodeId());
 
         JSONObject objectToSend = new JSONObject();
 
         objectToSend.put("scenario", scenarioToSend);
         objectToSend.put("position", positionToSend);
 
+        worldModelMessage.put("code", 3);
+        worldModelMessage.put("data", objectToSend);
+
         Log.d(TAG, "writeJSON: "+objectToSend.toString());
 
-        return objectToSend;
+        return worldModelMessage;
+    }
+
+    //code 4
+    public static JSONObject writeSimpleActionsJSON(Map<Integer, String> actionsSelected, Emotion emotion) throws JSONException {
+
+        JSONObject actionsMessage = new JSONObject();
+        JSONArray arrayOfActions = new JSONArray();
+
+        for(Map.Entry<Integer, String> entry : actionsSelected.entrySet()){
+
+            if(!entry.getValue().equalsIgnoreCase("Ninguno")){
+
+                JSONObject actionObject = new JSONObject();
+
+                actionObject.put("actionid", entry.getKey());
+                actionObject.put("value", entry.getValue());
+
+                arrayOfActions.put(actionObject);
+            }
+
+        }
+
+        JSONObject emotionObject = new JSONObject();
+        emotionObject.put("name", emotion.getEmotionName());
+        emotionObject.put("value", emotion.getIntensity());
+
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("Actions", arrayOfActions);
+        objectToSend.put("Emotion", emotionObject);
+
+        actionsMessage.put("code", 4);
+        actionsMessage.put("data", objectToSend);
+
+        Log.d(TAG, "writeJSON: "+objectToSend.toString());
+
+        return actionsMessage;
+    }
+
+    //code 5
+    public static JSONObject writeEmergentAction(String action) throws JSONException {
+
+        JSONObject actionsMessage = new JSONObject();
+        JSONObject objectInfo = new JSONObject();
+        objectInfo.put("name", action);
+
+        JSONObject objectToSend = new JSONObject();
+        objectToSend.put("EmergentAction", objectInfo);
+
+        actionsMessage.put("code", 5);
+        actionsMessage.put("data", objectToSend);
+
+        Log.d(TAG, "writeJSON: "+objectToSend.toString());
+
+        return actionsMessage;
     }
 
 }
