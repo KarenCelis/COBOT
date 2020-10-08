@@ -150,7 +150,7 @@ public class SocketClient extends Service {
         public void run() {
             try {
                 //Accesses settings for the ip address
-                String ipAddress = "192.168.0.101";
+                String ipAddress = "192.168.0.104";
                 InetAddress serverAddr = InetAddress.getByName(ipAddress);
                 int serverPortInt = 1235;
                 Log.i("TCP Client", "C: Connecting...");

@@ -2,9 +2,9 @@ package com.example.cobot.Classes;
 
 public class Emotion {
     private String EmotionName;
-    private int intensity;
+    private double intensity;
 
-    public Emotion(String emotionName, int intensity) {
+    public Emotion(String emotionName, double intensity) {
         EmotionName = emotionName;
         this.intensity = intensity;
     }
@@ -17,11 +17,11 @@ public class Emotion {
         EmotionName = emotionName;
     }
 
-    public int getIntensity() {
+    public double getIntensity() {
         return intensity;
     }
 
-    public void setIntensity(int intensity) {
+    public void setIntensity(double intensity) {
         this.intensity = intensity;
     }
 
