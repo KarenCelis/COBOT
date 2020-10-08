@@ -1,5 +1,6 @@
 # coding=utf-8
 import json
+import ActionExecutor
 import ActionModulator
 import WorldModel
 
@@ -18,15 +19,22 @@ class Gestor(object):
 
         self.applicationip = applicationip
         self.connection = None
+
         self.characterselected = 0
+
         self.emocion = None
         self.acciones = []
         self.emergentaction = None
         self.signsoflife = []
+
         self.worldmodel = WorldModel.WorldModel.getinstance()
         self.position = None
+
         self.momento = CONFIGURACION
         self.actionmodulator = None
+
+        self.actionexecutor = None
+
         self.data_received = None
 
     def loadcontent(self, data_received, option):
@@ -93,24 +101,23 @@ class Gestor(object):
 
         if "Actions" in self.data_received:
 
-            iscaminar = False
             nuevas_acciones = []
             for accion in self.data_received["Actions"]:
                 json_data = json.dumps(accion)
                 nuevas_acciones.append(ActionObject(**json.loads(json_data)))
-                print("debug accion de id: ", nuevas_acciones[-1].id, ", value: ", nuevas_acciones[-1].value)
-                if nuevas_acciones[-1].id == 1:
-                    print("a caminar")
-                    iscaminar = True
+                print("debug accion de id: ", nuevas_acciones[-1].actionid, ", value: ", nuevas_acciones[-1].value)
 
             if self.isexecutoravailable(nuevas_acciones):
+
                 self.acciones = nuevas_acciones
-                if iscaminar:
-                    self.actionmodulator = ActionModulator.Modulator(self.acciones, self.emocion, self.connection.robot,
-                                                                     self.position)
-                else:
-                    self.actionmodulator = ActionModulator.Modulator(self.acciones, self.emocion, self.connection.robot)
-                self.actionmodulator.calculateIntensity()
+                self.actionmodulator = ActionModulator.Modulator(self.acciones, self.emocion, self.connection.robot)
+                self.actionmodulator.modulateactions()
+
+                self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
+                                                              self.position)
+                self.momento = EJECUTANDO_ACCIONES_SIMPLES
+                self.actionexecutor.executeactions()
+
             else:
                 return ACCIONES_ENTRANTES_BLOQUEADAS
 
@@ -155,7 +162,7 @@ class EmotionObject(object):
 
 class ActionObject(object):
     def __init__(self, actionid, value):
-        self.id = actionid
+        self.actionid = actionid
         self.value = value
 
 

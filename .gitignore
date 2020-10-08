@@ -90,3 +90,7 @@ lint/tmp/
 __pycache__/
 *.py[cod]
 *$py.class
+
+#.idea pycharm
+ServerCOBOT/.idea/workspace.xml
+ServerCOBOT/.idea/inspectionProfiles/profiles_settings.xml

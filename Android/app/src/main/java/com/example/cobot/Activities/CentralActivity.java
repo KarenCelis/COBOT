@@ -80,7 +80,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     //Variables para la recolección de los datos al momento de ejecutar
     private int LatestActionSelectedId;
     private String emotionSelected = "Normal";
-    private int emotionIntensitySelected = 50;
+    private double emotionIntensitySelected = 0.0;
     private Map<Integer, String> actionsSelected;
 
     private static final String TAG = "ViewsCreation";
@@ -130,8 +130,9 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                 boton.setText(num2[y]);
                 img.setImageResource(arrimg[y]);
 
-                emotionSelected = num[y];
-                emotionIntensitySelected = seekParams.progress;
+
+                emotionIntensitySelected = (seekParams.progress-50.0)/50.0;
+                emotionSelected = "happyness_sadness";
 
             }
 
