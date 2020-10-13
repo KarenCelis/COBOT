@@ -171,6 +171,7 @@
             app:isb_tick_texts_array="@array/tick_below_text_length_5"
             app:isb_tick_texts_color="@color/black"
             app:isb_tick_texts_typeface="sans"
+            app:isb_tick_texts_size="12dp"
             app:isb_ticks_count="5"
             app:isb_track_background_color="?attr/actionModeSplitBackground"
             app:isb_track_progress_color="@color/pressed_color"

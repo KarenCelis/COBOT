@@ -11,6 +11,7 @@ public class Obra implements Serializable {
     private Scenario[]Scenarios;
     private GenericAction[]GenericActions;
     private SignOfLife[]SignsOfLife;
+    private EmergentAction[]EmergentActions;
 
     //El escenario de la obra es un grafo, aún no se crearán las instancias de los nodos por lo que no aparecerá el escenario hasta entonces.
 
@@ -72,6 +73,14 @@ public class Obra implements Serializable {
 
     public void setSignsOfLife(SignOfLife[] signsOfLife) {
         SignsOfLife = signsOfLife;
+    }
+
+    public EmergentAction[] getEmergentActions() {
+        return EmergentActions;
+    }
+
+    public void setEmergentActions(EmergentAction[] emergentActions) {
+        EmergentActions = emergentActions;
     }
 
     @Override

@@ -11,13 +11,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 
 public class SocketClient extends Service {
 
     public final static String SERVER_RESPONSE = "com.example.cobot.Utils.SocketClient.MESSAGE";
     public final static String SERVER_CONNECTION = "com.example.cobot.Utils.SocketClient.CONNECTION";
+    public final static String SERVER_SET_CONNECTION = "com.example.cobot.Utils.SocketClient.SET_CONNECTION";
     public final static String ACTION = "ACTION";
     public static boolean isServiceRunning = false;
     private final IBinder myBinder = new LocalBinder();
@@ -27,6 +33,7 @@ public class SocketClient extends Service {
     boolean init = false;
 
     public static Connection connection;
+    public static Connection serverConnection;
     public static String jsonToSend;
 
     public SocketClient() {
@@ -35,6 +42,12 @@ public class SocketClient extends Service {
     public static void getConnectionInstance(String ip, int port, String robot) {
         if (connection == null) {
             connection = new Connection(ip, port, robot);
+        }
+    }
+
+    public static void getServerConnectionInstance(String ip, int port) {
+        if (serverConnection == null) {
+            serverConnection = new Connection(ip, port, "server");
         }
     }
 
@@ -135,7 +148,11 @@ public class SocketClient extends Service {
                 if (incomingMessage != null) {
                     Intent intent = new Intent();
                     intent.setAction(ACTION);
-                    intent.putExtra(SERVER_RESPONSE, incomingMessage);
+                    if(incomingMessage.equalsIgnoreCase("")){
+                        intent.putExtra(SERVER_SET_CONNECTION, incomingMessage);
+                    }else{
+                        intent.putExtra(SERVER_RESPONSE, incomingMessage);
+                    }
                     sendBroadcast(intent);
                     Log.i("Response", incomingMessage);
                     incomingMessage = null;
@@ -149,13 +166,15 @@ public class SocketClient extends Service {
         @Override
         public void run() {
             try {
-                //Accesses settings for the ip address
-                String ipAddress = "192.168.0.104";
-                InetAddress serverAddr = InetAddress.getByName(ipAddress);
-                int serverPortInt = 1235;
+                InetSocketAddress ina = new InetSocketAddress(serverConnection.getIp(), serverConnection.getPort());
+
                 Log.i("TCP Client", "C: Connecting...");
                 //create a socket to make the connection with the server
-                socket = new Socket(serverAddr, serverPortInt);
+
+                socket = new Socket();
+                socket.setSoTimeout(10*1000);
+                socket.connect(ina, serverConnection.getPort());
+
                 //send the message to the server
                 out = new OutputStreamWriter(
                         socket.getOutputStream(), StandardCharsets.UTF_8);
@@ -171,11 +190,18 @@ public class SocketClient extends Service {
                     receiveMessage.exe();
                 }
 
-            } catch (Exception e) {
+            } catch (SocketTimeoutException | SocketException e) {
                 Intent intent = new Intent();
                 intent.setAction(ACTION);
                 intent.putExtra(SERVER_CONNECTION, "Cannot connect to Server");
                 sendBroadcast(intent);
+                Log.e("TCP", "C: Error", e);
+            } catch (IOException e) {
+                Intent intent = new Intent();
+                intent.setAction(ACTION);
+                intent.putExtra(SERVER_CONNECTION, "Hubo un error al enviar");
+                sendBroadcast(intent);
+                Log.e("TCP", "C: Error", e);
                 Log.e("TCP", "C: Error", e);
             }
         }

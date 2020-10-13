@@ -235,13 +235,13 @@
                 {
                     "id": 4,
                     "name": "Entrada al parque",
-                    "xaxis": 1,
+                    "xaxis": 0,
                     "yaxis": 1
                 },
                 {
                     "id": 5,
                     "name": "A la derecha de la entrada al parque",
-                    "xaxis": 0,
+                    "xaxis": 1,
                     "yaxis": 1
                 },
                 {
@@ -345,13 +345,15 @@
             "id": 1,
             "name": "caminar",
             "ActionIcon": "https://i.imgur.com/vFrXtl2.png",
-            "blocks": [2, 6]
+            "blocks": [2, 6],
+            "displacement": 1
         },
         {
             "id": 2,
             "name": "correr",
             "ActionIcon": "https://i.imgur.com/TXO3sAT.png",
-            "blocks": [1, 6]
+            "blocks": [1, 6],
+            "displacement": 1
         },
         {
             "id": 3,
@@ -378,17 +380,42 @@
             "blocks": [1, 2]
         }
     ],
+    "EmergentActions": [
+        {
+            "id": 1,
+            "name": "Llorar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Suspirar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 3,
+            "name": "Normal",
+            "characterId": [1,2]
+        },
+        {
+            "id": 4,
+            "name": "¡Yei!",
+            "characterId": [1,2]
+        },
+        {
+            "id": 5,
+            "name": "¡¡Yupi!!",
+            "characterId": [1,2]
+        }
+    ],
     "SignsOfLife": [
         {
             "id": 1,
             "name": "Mirar alrededor",
-            "genericActionId": 4,
             "characterId": [1,2]
         },
         {
             "id": 2,
             "name": "Girar pausadamente",
-            "genericActionId": 6,
             "characterId": [1,2]
         }
     ]

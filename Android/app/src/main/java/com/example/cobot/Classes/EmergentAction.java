@@ -2,7 +2,7 @@ package com.example.cobot.Classes;
 
 import java.io.Serializable;
 
-public class SignOfLife implements Serializable {
+public class EmergentAction implements Serializable {
 
     private int id;
     private String name;
