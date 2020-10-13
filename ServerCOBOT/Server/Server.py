@@ -3,12 +3,27 @@
 import socket
 import json
 import GestorDeObra
+import threading
 
 
 class Server(object):
     def __init__(self):
         self.gestores = []
         self.direcciones = []
+        self.timers = []
+
+    def ejecutarsignosdevida(self, indice):
+        self.gestores[indice].sendsingsoflife()
+        self.timers[indice] = threading.Timer(8, self.ejecutarsignosdevida, [indice])
+        starttimer(self.timers[indice])
+
+
+def starttimer(timer):
+    timer.start()
+
+
+def canceltimer(timer):
+    timer.cancel()
 
 
 def main():
@@ -23,17 +38,17 @@ def main():
 
     while True:
         try:
-            print("server listening!")
+            print("Servidor escuchando!")
             clientsocket, address = serversocket.accept()
-            print("Connection received from %s..." % str(address))
+            print("Conexión recibida desde %s..." % str(address))
             host, port = clientsocket.getpeername()
 
-            clientsocket.settimeout(3)
+            clientsocket.settimeout(5)
             data = clientsocket.recv(buffer_size).decode('utf-8')
+
             if not data:
                 print("El contenido del mensaje está vacío, verifica la conexión")
             else:
-                # print(data)
 
                 jdata = json.loads(data)
                 option = 0
@@ -48,18 +63,36 @@ def main():
                     if host in servidor.direcciones:
                         print("accediendo al gestor de ", host)
                         indice = servidor.direcciones.index(host)
+
+                        if servidor.timers[indice].is_alive() and (option == 4 or option == 5 or option == 6):
+                            canceltimer(servidor.timers[indice])
+                            print "cancelando timer para el gestor {}".format(servidor.direcciones[indice])
+
                         result = servidor.gestores[indice].loadcontent(json.loads(data), option)
 
-                        if result == GestorDeObra.ACCIONES_ENTRANTES_ACEPTADAS:
-                            clientsocket.send("acciones aceptadas")
+                        if servidor.gestores[indice].momento == GestorDeObra.INACTIVO:
+                            if not servidor.timers[indice].is_alive():
+                                servidor.timers[indice] = threading.Timer(8, servidor.ejecutarsignosdevida, [indice])
+                                starttimer(servidor.timers[indice])
+                                print "iniciando timer para el gestor {}".format(servidor.direcciones[indice])
+
+                        if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
+                            clientsocket.send("acciones ejecutadas exitosamente")
                         elif result == GestorDeObra.ACCIONES_ENTRANTES_BLOQUEADAS:
-                            clientsocket.send("acciones bloqueadas")
+                            clientsocket.send("acciones bloqueadas, intente de nuevo")
                     else:
                         print("creando un nuevo gestor con ip ", host)
                         servidor.direcciones.append(host)
                         servidor.gestores.append(GestorDeObra.Gestor(host))
+
+                        indice = servidor.direcciones.index(host)
+                        servidor.timers.append(threading.Timer(8, servidor.ejecutarsignosdevida, [indice]))
+
                         servidor.gestores[-1].loadcontent(json.loads(data), option)
+
                     clientsocket.send("información enviada")
+                else:
+                    clientsocket.send("Servidor conectado")
             clientsocket.close()
 
         except socket.timeout as timeout:

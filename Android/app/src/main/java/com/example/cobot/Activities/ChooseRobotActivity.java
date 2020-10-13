@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cobot.R;
@@ -40,6 +42,11 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     private SocketClient mBoundService;
     private String robot;
 
+    private String server_port;
+    private String ipAddress;
+    private SharedPreferences preferences;
+    private TextView TVServerip;
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         //EDITED PART
         @Override
@@ -59,11 +66,6 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_robot);
 
-        try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         for(int i = 0; i < btn.length; i++){
             btn[i] = findViewById(btn_id[i]);
             btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
@@ -74,6 +76,17 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         BListo.setOnClickListener(this);
 
         btn_unfocus = btn[0];
+
+        preferences = this.getSharedPreferences(getString(R.string.pref_file_key), Context.MODE_PRIVATE);
+        ipAddress = preferences.getString(getString(R.string.pref_ip_address), getString(R.string.pref_ip_address_default));
+        server_port = preferences.getString(getString(R.string.pref_port), getString(R.string.pref_port_default));
+
+        TVServerip = findViewById(R.id.TVServerip);
+        String texto = "Conectado al servidor "+ ipAddress;
+        TVServerip.setText(texto);
+
+        Button BCambiaripServer = findViewById(R.id.BCambiaripServer);
+        BCambiaripServer.setOnClickListener(this);
 
         myReceiver = new ChooseRobotActivity.MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -99,6 +112,9 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(v.getContext(), ChooseFileActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.BCambiaripServer:
+                createDialogForConnectionToServer();
+                break;
         }
     }
 
@@ -123,8 +139,9 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 try{
+                    SocketClient.getServerConnectionInstance(ipAddress,Integer.parseInt(server_port));
                     SocketClient.getConnectionInstance(ip.getText().toString(),Integer.parseInt(port.getText().toString()), robot);
-                    enviarSocket(ip.getText().toString(), Integer.parseInt(port.getText().toString()));
+                    enviarSocket(ip.getText().toString(), Integer.parseInt(port.getText().toString()),1);
                     BListo.setVisibility(View.VISIBLE);
                 }catch (final NumberFormatException | JSONException e) {
                     Toast.makeText(getApplicationContext(), "Ingrese una ip y puerto válidos", Toast.LENGTH_LONG).show();
@@ -136,6 +153,55 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         });
         dialog.show();
 
+    }
+
+    public void createDialogForConnectionToServer(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View actionPopup = getLayoutInflater().inflate(R.layout.layout_connection, null);
+        final EditText ip = actionPopup.findViewById(R.id.edtxt_ip);
+        ip.setText(ipAddress);
+        final EditText port = actionPopup.findViewById(R.id.edtxt_port);
+        port.setText(server_port);
+        ip.setFilters(setIpFilter());
+        Button connect = actionPopup.findViewById(R.id.btn_connect);
+
+        dialogBuilder.setView(actionPopup);
+        final AlertDialog dialog = dialogBuilder.create();
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+
+                    String newIp = ip.getText().toString();
+                    String newPort = port.getText().toString();
+
+                    if(!newIp.equals(ipAddress)){
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(getString(R.string.pref_ip_address), ip.getText()+"");
+                        editor.apply();
+                        ipAddress = ip.getText()+"";
+                        String texto = "conectado al servidor "+ipAddress;
+                        TVServerip.setText(texto);
+                    }
+                    if(!newPort.equals(server_port)){
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(getString(R.string.pref_port), port.getText()+"");
+                        editor.apply();
+                        server_port = port.getText()+"";
+                    }
+
+                    SocketClient.getServerConnectionInstance(ip.getText().toString(),Integer.parseInt(port.getText().toString()));
+                    enviarSocket(ip.getText().toString(), Integer.parseInt(port.getText().toString()), 0);
+                }catch (final NumberFormatException | JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Ingrese una ip y puerto válidos", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }finally{
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.show();
     }
 
     public InputFilter[] setIpFilter(){
@@ -182,12 +248,12 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     public void onResume() {
         super.onResume();
         try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
-            startService(new Intent(ChooseRobotActivity.this, SocketClient.class));
+            //SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
+            //startService(new Intent(ChooseRobotActivity.this, SocketClient.class));
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(SocketClient.ACTION);
             registerReceiver(myReceiver, intentFilter);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -208,6 +274,8 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
             if (extras != null) {
                 if (extras.containsKey(SocketClient.SERVER_RESPONSE)) {
                     message = intent.getStringExtra(SocketClient.SERVER_RESPONSE);
+                }else if(extras.containsKey(SocketClient.SERVER_SET_CONNECTION)){
+                    message = intent.getStringExtra(SocketClient.SERVER_SET_CONNECTION);
                 }else{
                     message = intent.getStringExtra(SocketClient.SERVER_CONNECTION);
                 }
@@ -229,9 +297,13 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         doUnbindService();
     }
 
-    public void enviarSocket(String ip, int port) throws JSONException {
+    public void enviarSocket(String ip, int port, int option) throws JSONException {
         if(isNetworkConnected()){
-            SocketClient.setJsonToSend(Writer.writeConnectionJSON(ip, port, robot).toString());
+            if(option == 0){
+                SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON(ip, port).toString());
+            }else{
+                SocketClient.setJsonToSend(Writer.writeConnectionJSON(ip, port, robot).toString());
+            }
             Log.i("Enviando", "C: Enviando"+SocketClient.jsonToSend);
             startService(new Intent(ChooseRobotActivity.this, SocketClient.class));
             doBindService();

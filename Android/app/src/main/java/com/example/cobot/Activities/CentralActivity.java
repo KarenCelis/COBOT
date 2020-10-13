@@ -51,8 +51,6 @@ import java.util.Map;
 
 public class CentralActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String[] num = {"Muy Triste", "Triste", "Normal", "Feliz", "Muy Feliz"};
-    String[] num2 = {"Llorar", "Suspirar", "Normal", "Yei!!", "Yupi!!"};
     int[] arrimg = {
             R.drawable.emotionb,
             R.drawable.emot,
@@ -66,6 +64,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     ImageView img;
 
     private Button BEscenaUnFocus;
+    private int idEscena = 1;
 
     private ImageButton[] actionButtons;
     private int latestActionId;
@@ -79,9 +78,10 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     //Variables para la recolección de los datos al momento de ejecutar
     private int LatestActionSelectedId;
-    private String emotionSelected = "Normal";
-    private double emotionIntensitySelected = 0.0;
+    private String emotionSelected = "happyness_sadness";
+    private double emotionIntensitySelected = 50.0;
     private Map<Integer, String> actionsSelected;
+    private int emergentSelected = 0;
 
     private static final String TAG = "ViewsCreation";
     private static final String TAG2 = "DataCollection";
@@ -111,6 +111,18 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_central);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        obra = (Obra) getIntent().getSerializableExtra("obra");
+        idPersonaje = (int) getIntent().getSerializableExtra("itemSelected");
+
+        final ArrayList<String> emergentesPermitidas = new ArrayList<>();
+        for(int i = 0; i < obra.getEmergentActions().length; i++){
+            for(int j = 0; j < obra.getEmergentActions()[i].getCharacterId().length; j++){
+                if(obra.getEmergentActions()[i].getCharacterId()[j] == idPersonaje){
+                    emergentesPermitidas.add(obra.getEmergentActions()[i].getName());
+                }
+            }
+        }
+
         boton = findViewById(R.id.buttonAE);
         boton.setOnClickListener(this);
         img = findViewById(R.id.imageView);
@@ -118,20 +130,21 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         seekBarWithTickText.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
             public void onSeeking(SeekParams seekParams) {
-                int y = 0;
+                int y;
 
                 if (seekParams.progress <= 50) {
-                    y = seekParams.progress / (100 / (num.length - 1));
+                    y = seekParams.progress / (100 / (emergentesPermitidas.size() - 1));
                 } else {
-                    y = (int) Math.ceil((seekParams.progress * 1.0) / (100.0 / ((num.length * 1.0) - 1.0)));
+                    y = (int) Math.ceil((seekParams.progress * 1.0) / (100.0 / ((emergentesPermitidas.size() * 1.0) - 1.0)));
                 }
 
-                seekBarWithTickText.setIndicatorTextFormat(num[y] + " : " + "${PROGRESS}");
-                boton.setText(num2[y]);
+                //seekBarWithTickText.setIndicatorTextFormat(num[y] + " : " + "${PROGRESS}");
+                seekBarWithTickText.setIndicatorTextFormat("${PROGRESS}");
+                boton.setText(emergentesPermitidas.get(y));
+                emergentSelected = y;
                 img.setImageResource(arrimg[y]);
 
-
-                emotionIntensitySelected = (seekParams.progress-50.0)/50.0;
+                emotionIntensitySelected = (seekParams.progress - 50.0) / 50.0;
                 emotionSelected = "happyness_sadness";
 
             }
@@ -144,10 +157,6 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
             public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
             }
         });
-
-
-        obra = (Obra) getIntent().getSerializableExtra("obra");
-        idPersonaje = (int) getIntent().getSerializableExtra("itemSelected");
 
         if (Picasso.get() == null) {
             Picasso picasso = new Picasso.Builder(getApplicationContext())
@@ -221,6 +230,8 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void establecerAccionesDisponibles(final int idEscena) {
+
+        this.idEscena = idEscena;
 
         for (Position p : obra.getScenes()[idEscena - 1].getPositions()) {
             for (Character c : obra.getCharacters()) {
@@ -333,6 +344,17 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
             } else {
                 blockActions(latestActionId);
             }
+            Log.i(TAG2, "nombre del nodo:" + parameter);
+            if (obra.getGenericActions()[latestActionId].isDisplacement()) {
+                for (int i = 0; i< obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names().length; i++) {
+                    if (obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names()[i].equalsIgnoreCase(parameter)){
+                        parameter = (i+1)+"";
+                    }
+                    Log.i(TAG2, "nombre del arreglo:" + obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names()[i]);
+                }
+            }else{
+                Log.i(TAG2, "nada:" + parameter);
+            }
             actionsSelected.put(LatestActionSelectedId, parameter);
             Log.i(TAG2, "Se ha actualizado lo siguiente:" + actionsSelected.get(LatestActionSelectedId));
 
@@ -374,12 +396,12 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     public void onResume() {
         super.onResume();
         try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Volviendo a hacer conexion con el servidor de Python").toString());
-            startService(new Intent(CentralActivity.this, SocketClient.class));
+            //SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Volviendo a hacer conexion con el servidor de Python").toString());
+            //startService(new Intent(CentralActivity.this, SocketClient.class));
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(SocketClient.ACTION);
             registerReceiver(myReceiver, intentFilter);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -410,7 +432,8 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.buttonAE:
                 try {
-                    enviarAccionEmergente(boton.getText().toString());
+                    Emotion em = new Emotion(emotionSelected, emotionIntensitySelected);
+                    enviarAccionEmergente(boton.getText().toString(), em);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -478,9 +501,9 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void enviarAccionEmergente(String accion) throws JSONException {
+    public void enviarAccionEmergente(String accion, Emotion em) throws JSONException {
         if (isNetworkConnected()) {
-            SocketClient.setJsonToSend(Writer.writeEmergentAction(accion).toString());
+            SocketClient.setJsonToSend(Writer.writeEmergentAction(emergentSelected, accion, em).toString());
             Log.i("Enviando", "C: Enviando" + SocketClient.jsonToSend);
             startService(new Intent(CentralActivity.this, SocketClient.class));
             doBindService();
@@ -490,10 +513,10 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public boolean verificarAccionesSeleccionadas(){
+    public boolean verificarAccionesSeleccionadas() {
 
         for (Map.Entry<Integer, String> entry : actionsSelected.entrySet()) {
-            if(!entry.getValue().equals("Ninguno")){
+            if (!entry.getValue().equals("Ninguno")) {
                 return true;
             }
         }

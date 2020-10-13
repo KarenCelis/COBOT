@@ -3,14 +3,19 @@ import json
 import ActionExecutor
 import ActionModulator
 import WorldModel
+import threading
+import random
 
 EJECUTANDO_SIGNOS_DE_VIDA = 1
 EJECUTANDO_ACCIONES_SIMPLES = 2
 EJECUTANDO_ACCION_EMERGENTE = 3
 CONFIGURACION = 0
+INACTIVO = -1
 
 ACCIONES_ENTRANTES_BLOQUEADAS = 0
-ACCIONES_ENTRANTES_ACEPTADAS = 1
+ACCIONES_ENTRANTES_EJECUTADAS = 1
+
+print_lock = threading.Lock()
 
 
 # Clase que recibe la información desde la app y la mapea con sus elementos respectivos
@@ -24,7 +29,7 @@ class Gestor(object):
 
         self.emocion = None
         self.acciones = []
-        self.emergentaction = None
+        self.emergentaction = []
         self.signsoflife = []
 
         self.worldmodel = WorldModel.WorldModel.getinstance()
@@ -51,6 +56,8 @@ class Gestor(object):
             self.loadsimpleactions()
         elif option == 5:
             self.loademergentactions()
+        elif option == 6:
+            self.sendsingsoflife()
         else:
             print("opción inválida")
 
@@ -71,6 +78,28 @@ class Gestor(object):
                 json_data = json.dumps(sign)
                 self.signsoflife.append(SignsOfLifeObject(**json.loads(json_data)))
                 print("debug accion", self.signsoflife[-1].name)
+            self.momento = INACTIVO
+
+    def sendsingsoflife(self):
+        # Modular signos de vida
+        if self.momento == CONFIGURACION:
+            # Se envía solo un valor de los signos de vida y se fija como arreglo ya que el action modulator funciona
+            # genéricamente para todos los tipos de acción, y las acciones simples pueden ser más de una, por lo que se
+            # hace un ciclo y es necesario un arreglo siempre. En este caso, el ciclo se hará sobre una única acción.
+            sign = [random.choice(self.signsoflife)]
+            self.actionmodulator = ActionModulator.Modulator(sign,
+                                                             self.emocion, self.connection.robot)
+            self.actionmodulator.setprofile(self.signsoflife)
+            self.actionmodulator.modulateactions()
+
+            # Ejecutar signos de vida
+            self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
+                                                          self.position)
+            self.momento = EJECUTANDO_SIGNOS_DE_VIDA
+        else:
+            print_lock.acquire()
+            print "ejecutando signos de vida para {}".format(self.applicationip)
+            print_lock.release()
 
     def loadworldmodel(self):
 
@@ -107,44 +136,71 @@ class Gestor(object):
                 nuevas_acciones.append(ActionObject(**json.loads(json_data)))
                 print("debug accion de id: ", nuevas_acciones[-1].actionid, ", value: ", nuevas_acciones[-1].value)
 
-            if self.isexecutoravailable(nuevas_acciones):
+            if self.isexecutoravailable():
 
+                self.momento = EJECUTANDO_ACCIONES_SIMPLES
                 self.acciones = nuevas_acciones
                 self.actionmodulator = ActionModulator.Modulator(self.acciones, self.emocion, self.connection.robot)
+                # Se le ordena al action modulator cargar el perfil del robot para acciones simples, por eso se manda
+                # una de ellas para que el modulador compruebe que es una instancia de una acción simple y no una
+                # emergente o un signo de vida
+
+                self.actionmodulator.setprofile(self.acciones[0])
                 self.actionmodulator.modulateactions()
 
-                self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
-                                                              self.position)
-                self.momento = EJECUTANDO_ACCIONES_SIMPLES
-                self.actionexecutor.executeactions()
+                self.callexecutor()
 
             else:
                 return ACCIONES_ENTRANTES_BLOQUEADAS
 
-        return ACCIONES_ENTRANTES_ACEPTADAS
+        return ACCIONES_ENTRANTES_EJECUTADAS
 
     def loademergentactions(self):
 
+        if "Emotion" in self.data_received:
+            json_data = json.dumps(self.data_received["Emotion"])
+            self.emocion = EmotionObject(**json.loads(json_data))
+            print("debug emocion ", self.emocion.name)
+
         if "EmergentAction" in self.data_received:
             json_data = json.dumps(self.data_received["EmergentAction"])
-            self.emergentaction = EmergentActionObject(**json.loads(json_data))
-            print("debug accion emergente ", self.emergentaction.name)
+            self.emergentaction.append(EmergentActionObject(**json.loads(json_data)))
+            print("debug accion emergente ", self.emergentaction[-1].name)
 
-    def isexecutoravailable(self, nuevas_acciones):
-        if self.momento == CONFIGURACION:
+            if self.isexecutoravailable():
+                self.momento = EJECUTANDO_ACCION_EMERGENTE
+                self.actionmodulator = ActionModulator.Modulator(self.emergentaction, self.emocion,
+                                                                 self.connection.robot)
+
+                self.actionmodulator.setprofile(self.emergentaction[-1])
+                self.actionmodulator.modulateactions()
+                self.callexecutor()
+
+            self.emergentaction = []
+
+    def isexecutoravailable(self):
+
+        if self.momento == EJECUTANDO_ACCIONES_SIMPLES:
+            return False
+        elif self.momento == INACTIVO:
             return True
         elif self.momento == EJECUTANDO_SIGNOS_DE_VIDA:
             return True
         elif self.momento == EJECUTANDO_ACCION_EMERGENTE:
             return False
-        elif self.momento == EJECUTANDO_ACCIONES_SIMPLES:
-            # verificar que se pueda ejecutar una accion mientras se ejecutan otras
-            # se verifica que las acciones no tengan la misma prioridad o no sean las mismas que alguna en ejecución
-            for accion in self.acciones:
-                for accion_nueva in nuevas_acciones:
-                    if accion.id == accion_nueva.id:
-                        return False
-            return True
+        elif self.momento == CONFIGURACION:
+            return False
+
+    def callexecutor(self):
+        self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
+                                                      self.position)
+        result, theta, nodeid = self.actionexecutor.executeactions()
+
+        if result:
+            self.connection.theta = theta
+            self.position.NodeId = nodeid
+
+            self.momento = INACTIVO
 
 
 class ConnectionObject(object):
@@ -152,6 +208,7 @@ class ConnectionObject(object):
         self.ip = ip
         self.port = port
         self.robot = robot
+        self.theta = 0
 
 
 class EmotionObject(object):
@@ -167,15 +224,14 @@ class ActionObject(object):
 
 
 class EmergentActionObject(object):
-    def __init__(self, name):
+    def __init__(self, actionid, name):
+        self.actionid = actionid
         self.name = name
 
 
 class SignsOfLifeObject(object):
-    def __init__(self, characterid, genericactionid, signid, name):
-        self.characterId = characterid
-        self.genericActionId = genericactionid
-        self.id = signid
+    def __init__(self, actionid, name):
+        self.actionid = actionid
         self.name = name
 
 

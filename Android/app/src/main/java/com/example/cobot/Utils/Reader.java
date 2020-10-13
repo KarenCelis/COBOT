@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.cobot.Classes.Action;
 import com.example.cobot.Classes.Character;
+import com.example.cobot.Classes.EmergentAction;
 import com.example.cobot.Classes.GenericAction;
 import com.example.cobot.Classes.Node;
 import com.example.cobot.Classes.Obra;
@@ -29,6 +30,7 @@ public class Reader {
         JSONArray arrayOfGenericActions = jsonObject.getJSONArray("GenericActions");
         JSONArray arrayOfScenarios = jsonObject.getJSONArray("Scenarios");
         JSONArray arrayOfLifeSigns = jsonObject.getJSONArray("SignsOfLife");
+        JSONArray arrayOfEmergentActions = jsonObject.getJSONArray("EmergentActions");
 
         Character[] characters = new Character[arrayOfCharacters.length()];
         Scene[] scenes = new Scene[arrayOfScenes.length()];
@@ -202,6 +204,7 @@ public class Reader {
             }
 
             genericActions[i].setBlocks(blocks);
+            genericActions[i].setDisplacement(jsonTemp.has("displacement"));
         }
 
         SignOfLife[] signOfLife = new SignOfLife[arrayOfLifeSigns.length()];
@@ -212,7 +215,6 @@ public class Reader {
 
             signOfLife[i].setId(jsonTemp.getInt("id"));
             signOfLife[i].setName(jsonTemp.getString("name"));
-            signOfLife[i].setGenericActionId(jsonTemp.getInt("genericActionId"));
 
             JSONArray arrayOfCharacterids = jsonTemp.getJSONArray("characterId");
             int[] characterid = new int[arrayOfCharacterids.length()];
@@ -224,6 +226,25 @@ public class Reader {
             signOfLife[i].setCharacterId(characterid);
         }
 
+        EmergentAction[] emergentActions = new EmergentAction[arrayOfEmergentActions.length()];
+        for (int i = 0; i < arrayOfEmergentActions.length(); i++) {
+
+            emergentActions[i] = new EmergentAction();
+            JSONObject jsonTemp = arrayOfEmergentActions.getJSONObject(i);
+
+            emergentActions[i].setId(jsonTemp.getInt("id"));
+            emergentActions[i].setName(jsonTemp.getString("name"));
+
+            JSONArray arrayOfCharacterids = jsonTemp.getJSONArray("characterId");
+            int[] characterid = new int[arrayOfCharacterids.length()];
+
+            for (int j = 0; j < arrayOfCharacterids.length(); j++) {
+                characterid[j] = arrayOfCharacterids.getInt(j);
+            }
+
+            emergentActions[i].setCharacterId(characterid);
+        }
+
         //Creación del objeto obra
         Obra obra = new Obra();
         obra.setTitle(jsonObject.getString("Title"));
@@ -233,6 +254,7 @@ public class Reader {
         obra.setScenarios(scenarios);
         obra.setGenericActions(genericActions);
         obra.setSignsOfLife(signOfLife);
+        obra.setEmergentActions(emergentActions);
 
         Log.i(TAG, "Obra:\n" + obra.toString());
         return obra;

@@ -60,17 +60,16 @@ public class CharacterSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_character_selection);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        try {
-            SocketClient.setJsonToSend(Writer.writeServerCommunicationJSON("Conectando con el servidor...").toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         Button BContinuar = findViewById(R.id.BContinuar);
         BContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IniciarActividadCentral();
+                try {
+                    enviarSocket();
+                    IniciarActividadCentral();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -88,11 +87,6 @@ public class CharacterSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 itemSelected = position+1;
-                try {
-                    enviarSocket();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -115,12 +109,12 @@ public class CharacterSelectionActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         try {
-            startService(new Intent(CharacterSelectionActivity.this, SocketClient.class));
+            //startService(new Intent(CharacterSelectionActivity.this, SocketClient.class));
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(SocketClient.ACTION);
             registerReceiver(myReceiver, intentFilter);
-            enviarSocket();
-        } catch (JSONException e) {
+            //enviarSocket();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -9,6 +9,9 @@ class RobotProfile(object):
     secondary_maping = None
     emotional_axis_information = None
     source_code = None
+    emergent_actions = None
+    signs_of_life = None
+    no_modulation_maping = None
 
     @staticmethod
     def getinstance():
@@ -24,20 +27,83 @@ class RobotProfile(object):
 
     @staticmethod
     def setmaping(robot):
+
+        RobotProfile.setparallelinfo(robot)
+
         if robot == "nao":
-            RobotProfile.loadfromfile("../Nao/NaoProfile.json")
+            RobotProfile.loadmapingfromfile("../Nao/NaoProfile.json")
 
         elif robot == "quyca":
-            RobotProfile.loadfromfile("../Quyca/QuycaProfile.json")
+            RobotProfile.loadmapingfromfile("../Quyca/QuycaProfile.json")
 
         else:
             return None
 
     @staticmethod
-    def loadfromfile(filename):
+    def setemergent(robot):
 
+        RobotProfile.setparallelinfo(robot)
+
+        if robot == "nao":
+            RobotProfile.loademergentfromfile("../Nao/NaoProfile.json")
+
+        elif robot == "quyca":
+            RobotProfile.loademergentfromfile("../Quyca/QuycaProfile.json")
+
+        else:
+            return None
+
+    @staticmethod
+    def setsigns(robot):
+
+        RobotProfile.setparallelinfo(robot)
+
+        if robot == "nao":
+            RobotProfile.loadsignsfromfile("../Nao/NaoProfile.json")
+
+        elif robot == "quyca":
+            RobotProfile.loadsignsfromfile("../Quyca/QuycaProfile.json")
+
+        else:
+            return None
+
+    @staticmethod
+    def setparallelinfo(robot):
+
+        if robot == "nao":
+            RobotProfile.loadparallelinfo("../Nao/NaoProfile.json")
+
+        elif robot == "quyca":
+            RobotProfile.loadparallelinfo("../Quyca/QuycaProfile.json")
+
+        else:
+            return None
+
+    @staticmethod
+    def loademergentfromfile(filename):
         with open(filename) as f:
+            data = json.load(f)
 
+            if "emergent_actions" in data:
+                RobotProfile.emergent_actions = RobotProfile.loadmaping("emergent_actions", data)
+
+            if "secondary_maping" in data:
+                RobotProfile.secondary_maping = RobotProfile.loadmaping("secondary_maping", data)
+
+    @staticmethod
+    def loadsignsfromfile(filename):
+        with open(filename) as f:
+            data = json.load(f)
+
+            if "signs_of_life" in data:
+                RobotProfile.signs_of_life = RobotProfile.loadmaping("signs_of_life", data)
+
+            if "secondary_maping" in data:
+                RobotProfile.secondary_maping = RobotProfile.loadmaping("secondary_maping", data)
+
+    @staticmethod
+    def loadparallelinfo(filename):
+        with open(filename) as f:
             data = json.load(f)
 
             if "source_code" in data:
@@ -45,6 +111,13 @@ class RobotProfile(object):
 
             if "emotional_axis_information" in data:
                 RobotProfile.emotional_axis_information = RobotProfile.loademotioninfo(data)
+
+    @staticmethod
+    def loadmapingfromfile(filename):
+
+        with open(filename) as f:
+
+            data = json.load(f)
 
             if "maping" in data:
                 RobotProfile.maping = RobotProfile.loadmaping("maping", data)
@@ -61,10 +134,10 @@ class RobotProfile(object):
 
             json_data = json.dumps(actionmap)
 
-            if maping == "maping":
-                newmaping.append(Maping(**json.loads(json_data)))
-            else:
+            if maping == "secondary_maping":
                 newmaping.append(SecondaryMaping(**json.loads(json_data)))
+            else:
+                newmaping.append(Maping(**json.loads(json_data)))
 
             maping_data = json.loads(json_data)
 
@@ -126,7 +199,6 @@ class RobotProfile(object):
                 newsecondaryparams = []
 
                 for secondary in maping_data["secondary_parameters"]:
-
                     json_secondary = json.dumps(secondary)
                     newsecondaryparams.append(SecondaryParameters(**json.loads(json_secondary)))
 
@@ -220,3 +292,5 @@ class EmotionRanges(object):
     def __init__(self, name, emotion_range):
         self.name = name
         self.emotion_range = emotion_range
+
+# Clases para la carga del mapeo no modulado

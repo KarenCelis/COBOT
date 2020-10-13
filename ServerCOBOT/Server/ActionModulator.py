@@ -2,6 +2,7 @@
 from __future__ import division
 
 import RobotProfile
+import GestorDeObra
 import time
 
 
@@ -37,9 +38,18 @@ class Modulator(object):
         self.robotname = robotname
         self.commands = []
         self.parameterset = []
+        self.robotprofile = None
 
+    def setprofile(self, accion):
+        # El action modulator cuando se ejecuta únicamente hará que el perfil del robot cargue la información del
+        # tipo de acción que llega, de esa forma no carga el contenido completo del json sino sólo lo necesario
         self.robotprofile = RobotProfile.RobotProfile.getinstance()
-        RobotProfile.RobotProfile.setmaping(self.robotname)
+        if isinstance(accion, GestorDeObra.ActionObject):
+            RobotProfile.RobotProfile.setmaping(self.robotname)
+        elif isinstance(accion, GestorDeObra.EmergentActionObject):
+            RobotProfile.RobotProfile.setemergent(self.robotname)
+        elif isinstance(accion, GestorDeObra.SignsOfLifeObject):
+            RobotProfile.RobotProfile.setsigns(self.robotname)
 
     def modulateactions(self):
 
@@ -52,9 +62,15 @@ class Modulator(object):
 
                 if accion.actionid == mapeo.actionid:
 
-                    moduledparameters = [Parameters(0, mapeo.commandname, mapeo.commandname, accion.value)]
-
-                    self.parameterset.append(moduledparameters[-1])
+                    if isinstance(accion, GestorDeObra.ActionObject):
+                        # Si el objeto es una acción simple, esta tendrá un valor correspondiente a la opción
+                        # Seleccionada. Por ejemplo, caminar <hacia la puerta> o girar <hacia la derecha>
+                        moduledparameters = [Parameters(0, mapeo.commandname, mapeo.commandname, accion.value)]
+                        self.parameterset.append(moduledparameters[-1])
+                    else:
+                        # Si el objeto no es una acción simple, entonces es una acción emergente o un signo de vida
+                        # Por lo tanto no hay un valor correspondiente a una opción de esta
+                        moduledparameters = []
 
                     for eje in mapeo.emotional_axis:
 
@@ -62,7 +78,7 @@ class Modulator(object):
 
                             for emocion in eje.emotions:
 
-                                if emotionalinfo.emotion_name in emocion.name:
+                                if emotionalinfo.emotion_name == emocion.name:
 
                                     for parametro in emocion.parameters:
                                         moduledparameters.append(
@@ -82,7 +98,7 @@ class Modulator(object):
 
                                         for emocion in eje.emotions:
 
-                                            if emotionalinfo.emotion_name in emocion.name:
+                                            if emotionalinfo.emotion_name == emocion.name:
 
                                                 if emocion.parameters is not None:
 
@@ -137,7 +153,7 @@ class Modulator(object):
 
                 for emocion in eje.emotions:
 
-                    if emocion.emotion_range[0] < self.emocion.value < emocion.emotion_range[-1]:
+                    if emocion.emotion_range[0] <= self.emocion.value <= emocion.emotion_range[-1]:
                         emotion_range = emocion.emotion_range
                         emotion_name = emocion.name
 

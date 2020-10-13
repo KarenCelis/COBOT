@@ -1,1 +1,1 @@
-from NaoExecutor import Executor
+from .NaoExecutor import Executor

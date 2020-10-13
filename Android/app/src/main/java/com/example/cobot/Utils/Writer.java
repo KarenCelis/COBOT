@@ -18,13 +18,23 @@ public class Writer {
     private static final String TAG = "JSON writing";
 
     //code 0
-    public static JSONObject writeServerCommunicationJSON(String message) throws JSONException {
-        JSONObject serverConnectionMessage = new JSONObject();
+    public static JSONObject writeServerCommunicationJSON(String ip, int port) throws JSONException {
+
+        JSONObject connectionMessage = new JSONObject();
+        JSONObject objectInfo = new JSONObject();
+
+        objectInfo.put("ip", ip);
+        objectInfo.put("port", port);
+
         JSONObject objectToSend = new JSONObject();
-        objectToSend.put("info", message);
-        serverConnectionMessage.put("code", 0);
-        serverConnectionMessage.put("data", objectToSend);
-        return serverConnectionMessage;
+        objectToSend.put("Connection", objectInfo);
+
+        connectionMessage.put("code", 0);
+        connectionMessage.put("data", objectToSend);
+
+        Log.d(TAG, "writeJSON: "+objectToSend.toString());
+
+        return connectionMessage;
     }
 
     //code 1
@@ -56,20 +66,17 @@ public class Writer {
 
         for (SignOfLife sign: signsOfLife) {
 
-            JSONObject signObject = new JSONObject();
-            signObject.put("signid", sign.getId());
-            signObject.put("name", sign.getName());
-                signObject.put("genericactionid", sign.getGenericActionId());
-
-            JSONArray characterIdsArray = new JSONArray();
-
             for(int i = 0; i < sign.getCharacterId().length; i++){
-                characterIdsArray.put(sign.getCharacterId()[i]);
+                //Se envían únicamente los signos de vida del personaje seleccionado, el resto no
+                //porque no es necesario enviar información que no ejecutará el personaje escogido
+                if(characterSelected == sign.getCharacterId()[i]){
+                    JSONObject signObject = new JSONObject();
+                    signObject.put("actionid", sign.getId());
+                    signObject.put("name", sign.getName());
+
+                    signArray.put(signObject);
+                }
             }
-
-            signObject.put("characterid", characterIdsArray);
-
-            signArray.put(signObject);
         }
 
         JSONObject objectToSend = new JSONObject();
@@ -186,14 +193,20 @@ public class Writer {
     }
 
     //code 5
-    public static JSONObject writeEmergentAction(String action) throws JSONException {
+    public static JSONObject writeEmergentAction(int emergentSelected, String action, Emotion emotion) throws JSONException {
 
         JSONObject actionsMessage = new JSONObject();
         JSONObject objectInfo = new JSONObject();
+        objectInfo.put("actionid", emergentSelected);
         objectInfo.put("name", action);
+
+        JSONObject emotionObject = new JSONObject();
+        emotionObject.put("name", emotion.getEmotionName());
+        emotionObject.put("value", emotion.getIntensity());
 
         JSONObject objectToSend = new JSONObject();
         objectToSend.put("EmergentAction", objectInfo);
+        objectToSend.put("Emotion", emotionObject);
 
         actionsMessage.put("code", 5);
         actionsMessage.put("data", objectToSend);
