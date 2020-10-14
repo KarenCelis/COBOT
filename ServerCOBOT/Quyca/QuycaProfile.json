@@ -1,0 +1,1428 @@
+{
+  "source_code": "python",
+  "emotional_axis_information": [
+    {
+      "identifier": 1,
+      "name": "happyness_sadness",
+      "axis_range": [
+        -1,
+        1
+      ],
+      "emotions": [
+        {
+          "name": "happyness",
+          "emotion_range": [
+            0.1,
+            1
+          ]
+        },
+        {
+          "name": "sadness",
+          "emotion_range": [
+            -1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": 2,
+      "name": "angriness_calmness",
+      "axis_range": [
+        -1,
+        1
+      ],
+      "emotions": [
+        {
+          "name": "angriness",
+          "emotion_range": [
+            0.1,
+            1
+          ]
+        },
+        {
+          "name": "calmness",
+          "emotion_range": [
+            -1,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "maping": [
+    {
+      "actionid": 1,
+      "action": "caminar",
+      "commandname": "avanzar",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    },
+    {
+      "actionid": 3,
+      "action": "hablar",
+      "commandname": "reproducir",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    180,
+                    300
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    2,
+                    3.5
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    1.5,
+                    2.5
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    3,
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    2,
+                    2.9
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    },
+    {
+      "actionid": 4,
+      "action": "mirar",
+      "commandname": "mirar",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.70,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    },
+    {
+      "actionid": 5,
+      "action": "sonido",
+      "commandname": "reproducir",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "volume",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "volume",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "volume",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "volume",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    },
+    {
+      "actionid": 6,
+      "action": "girar",
+      "commandname": "avanzar",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    }
+  ],
+  "secondary_maping": [
+    {
+      "parameterid": 1,
+      "parametername": "ledcolor",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "rgb_values": [
+                {
+                  "name": "R",
+                  "values": [
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "name": "G",
+                  "values": [
+                    255,
+                    255
+                  ]
+                },
+                {
+                  "name": "B",
+                  "values": [
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "rgb_values": [
+                {
+                  "name": "R",
+                  "values": [
+                    33,
+                    33
+                  ]
+                },
+                {
+                  "name": "G",
+                  "values": [
+                    33,
+                    33
+                  ]
+                },
+                {
+                  "name": "B",
+                  "values": [
+                    33,
+                    128
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "rgb_values": [
+                {
+                  "name": "R",
+                  "values": [
+                    255,
+                    255
+                  ]
+                },
+                {
+                  "name": "G",
+                  "values": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "name": "B",
+                  "values": [
+                    128,
+                    255
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "rgb_values": [
+                {
+                  "name": "R",
+                  "values": [
+                    255,
+                    255
+                  ]
+                },
+                {
+                  "name": "G",
+                  "values": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "name": "B",
+                  "values": [
+                    0,
+                    128
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "parameterid": 2,
+      "parametername": "arms",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "parametername": "LShoulderPitch",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LShoulderRoll",
+                  "values": [
+                    -18,
+                    76
+                  ]
+                },
+                {
+                  "parametername": "LElbowYaw",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LElbowRoll",
+                  "values": [
+                    -88.5,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "parametername": "LShoulderPitch",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LShoulderRoll",
+                  "values": [
+                    -18,
+                    76
+                  ]
+                },
+                {
+                  "parametername": "LElbowYaw",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LElbowRoll",
+                  "values": [
+                    -88.5,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "parametername": "LShoulderPitch",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LShoulderRoll",
+                  "values": [
+                    -18,
+                    76
+                  ]
+                },
+                {
+                  "parametername": "LElbowYaw",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LElbowRoll",
+                  "values": [
+                    -88.5,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "parametername": "LShoulderPitch",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LShoulderRoll",
+                  "values": [
+                    -18,
+                    76
+                  ]
+                },
+                {
+                  "parametername": "LElbowYaw",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "parametername": "LElbowRoll",
+                  "values": [
+                    -88.5,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "emergent_actions": [
+    {
+      "actionid": 1,
+      "action": "emergent",
+      "commandname": "emergent",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    180,
+                    300
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    2,
+                    3.5
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    1.5,
+                    2.5
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    3,
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "pitch",
+                  "values": [
+                    2,
+                    2.9
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    }
+  ],
+  "signs_of_life": [
+    {
+      "actionid": 1,
+      "action": "Mirar alrededor",
+      "commandname": "mirar",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.70,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "head_speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_angle",
+                  "values": [
+                    -119.5,
+                    119.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_angle",
+                  "values": [
+                    -38.5,
+                    29.5
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    },
+    {
+      "actionid": 2,
+      "action": "Girar pausadamente",
+      "commandname": "avanzar",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "happyness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.50,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.1,
+                    0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "axis_identifier": 2,
+          "name": "angriness_calmness",
+          "emotions": [
+            {
+              "name": "angriness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.7,
+                    1
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "calmness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "speed",
+                  "values": [
+                    0.4,
+                    0.69
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "rotation",
+                  "values": [
+                    0,
+                    180,
+                    -90,
+                    90
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        },
+        {
+          "priority": 1,
+          "parametername": "armsmovement",
+          "secondary_maping_id": 2
+        }
+      ]
+    }
+  ],
+  "no_modulation_maping": [
+    {
+      "actionid": 1,
+      "action": "mirar",
+      "commandname": "mirar",
+      "parameters": [
+        {
+          "priority": 0,
+          "parameterid": 1,
+          "parametername": "head_rotation",
+          "options": [
+            {
+              "name": "Al frente",
+              "values": [
+                0,
+                0
+              ]
+            },
+            {
+              "name": "Hacia la derecha",
+              "values": [
+                0,
+                -90
+              ]
+            },
+            {
+              "name": "Hacia la izquierda",
+              "values": [
+                0,
+                90
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "actionid": 2,
+      "action": "girar",
+      "commandname": "avanzar",
+      "parameters": [
+        {
+          "priority": 0,
+          "parameterid": 1,
+          "parametername": "body_rotation",
+          "options": [
+            {
+              "name": "Al frente",
+              "values": [
+                0,
+                0
+              ]
+            },
+            {
+              "name": "Hacia atrás",
+              "values": [
+                0,
+                180
+              ]
+            },
+            {
+              "name": "Hacia la derecha",
+              "values": [
+                0,
+                -90
+              ]
+            },
+            {
+              "name": "Hacia la izquierda",
+              "values": [
+                0,
+                90
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
