@@ -45,7 +45,8 @@
         android:layout_alignParentStart="false"
         android:layout_marginTop="30dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/naoicon" />
+        app:srcCompat="@drawable/naoicon"
+        android:tooltipText="Send an email"/>
 
     <ImageButton
         android:id="@+id/imgbtn_2"
@@ -55,7 +56,8 @@
         android:layout_alignEnd="@id/textView5"
         android:layout_marginTop="31dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/robot_con_los_ojos_y_las_ruedas_en_un_fondo_blanco_internacional_artificial_113929772" />
+        app:srcCompat="@drawable/quycaicon"
+        android:tooltipText="Send an email"/>
 
     <Button
         android:id="@+id/BListo"
@@ -69,21 +71,33 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TVServerip"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="10dp"
+        android:text="conectado al servidor de ip: " />
+
+    <TextView
         android:id="@+id/TVServerip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="conectado al servidor de ip: " />
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="35dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="................................." />
 
     <Button
         android:id="@+id/BCambiaripServer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/TVServerip"
         android:text="CAMBIAR" />
 
