@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">COBOT</string>
-    <string name="texto_de_bienvenida">¡BIENVENIDO!</string>
-    <string name="texto_seleccion_de_robot">Para comenzar elija su actor:</string>
+    <string name="texto_de_bienvenida">¡BIENVENIDO A COBOT!</string>
+    <string name="texto_seleccion_de_robot">Para comenzar elija su robot actor:</string>
     <string name="boton_conexion_lista">¡LISTO!</string>
     <string name="hint_texto_de_archivo_seleccionado">Primero seleccione una obra:</string>
     <string name="boton_abrir_archivo">Seleccionar Obra</string>
@@ -18,6 +18,8 @@
     <string name="boton_accion_emergente">Acción emergente</string>
     <string name="texto_de_datos_conexion">Ingrese los datos: </string>
     <string name="texto_de_accion_emergente">Normal </string>
+    <string name="texto_de_informacion_de_la_conexion">Información de la conexión </string>
+    <string name="texto_de_informacion_de_la_conexion_ip"> Conectado al servidor con ip: </string>
 
     <string name="pref_file_key">com.example.cobot.activities.activitychooserobot.PREFERENCE_FILE_KEY</string>
     <string name="pref_ip_address_default">127.0.0.1</string>

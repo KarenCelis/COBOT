@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_robot);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         for(int i = 0; i < btn.length; i++){
             btn[i] = findViewById(btn_id[i]);
             btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
@@ -101,6 +102,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.imgbtn_1 :
                 robot = "nao";
+
                 setFocus(btn_unfocus, btn[0]);
                 createDialogForConnection();
                 ////quuitar esto
