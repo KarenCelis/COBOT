@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cobot.Classes.Obra;
 import com.example.cobot.R;
 import com.example.cobot.Utils.Reader;
@@ -24,7 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-public class ChooseFileActivity extends Activity {
+public class ChooseFileActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
     private static final String TAG = "FileRead";
@@ -54,6 +56,7 @@ public class ChooseFileActivity extends Activity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
 
@@ -76,8 +79,7 @@ public class ChooseFileActivity extends Activity {
                     }
                 });
             }
-        }
-        else{
+        } else {
             Log.i(TAG, "No se pudo obtener la dirección del archivo");
         }
     }
