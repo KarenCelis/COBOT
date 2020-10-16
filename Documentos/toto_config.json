@@ -5,12 +5,12 @@
         {
             "id":1,
             "Name":"Totó",
-            "CharacterIcon":"https://i.imgur.com/PQ575vR.jpg"
+            "CharacterIcon":"https://i.imgur.com/QxFRTwS.png"
         },
         {
             "id":2,
             "Name":"Libia",
-            "CharacterIcon":"https://i.imgur.com/Oa4i38D.jpg"
+            "CharacterIcon":"https://i.imgur.com/gtjTE0Q.png"
         }
     ],
     "Scenes":[
@@ -35,9 +35,9 @@
                     "CharacterId":2,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":["¡Totó entrate! ", 
-                    "Ajá niña, te estoy hablando! ", 
-                    "¡Totó ven!", 
+                    "DisplayText":["¡Totó entrate! ",
+                    "Ajá niña, te estoy hablando! ",
+                    "¡Totó ven!",
                     "Totó, acércate"],
                     "hasImages": false,
                     "optionImagesUrl":[]
@@ -76,10 +76,10 @@
                     "idGeneric": 5,
                     "CharacterId":0,
                     "ActionName":"sonido",
-                    "DisplayText":["Cantar La Candela Viva", 
-                        "Cantar El Pescador", 
-                        "risa", 
-                        "grito", 
+                    "DisplayText":["Cantar La Candela Viva",
+                        "Cantar El Pescador",
+                        "risa",
+                        "grito",
                         "tarareo"],
                     "Duration":0,
                     "hasImages": false,
@@ -92,13 +92,13 @@
                     "ActionName":"hablar",
                     "Duration":1,
                     "DisplayText":["No mamá no quiero entrar",
-                    "¡ya voy mamá!", 
-                    "Ay mami, me vas a dejar sin orejas", 
-                    "escucho un ruido que viene del parque", 
+                    "¡ya voy mamá!",
+                    "Ay mami, me vas a dejar sin orejas",
+                    "escucho un ruido que viene del parque",
                     "¡iré al parque mamá!"],
                     "hasImages": false,
                     "optionImagesUrl":[]
-                }       
+                }
             ]
         },
         {
@@ -123,10 +123,10 @@
                     "ActionName":"hablar",
                     "Duration":1,
                     "DisplayText":["¿Por qué paras?",
-                    "Pero estabas cantando", 
-                    "Lo siento, mi hija está un poco indispuesta y no quiere jugar, hasta luego", 
-                    "¿Concurso?", 
-                    "No, la niña está aburrida. Tiene el corazón triste. Ven acá este niño… ¿Sabes qué? Tú vete al parque y esperas allí. ¡Ya vas a ver!", 
+                    "Pero estabas cantando",
+                    "Lo siento, mi hija está un poco indispuesta y no quiere jugar, hasta luego",
+                    "¿Concurso?",
+                    "No, la niña está aburrida. Tiene el corazón triste. Ven acá este niño… ¿Sabes qué? Tú vete al parque y esperas allí. ¡Ya vas a ver!",
                     "Mi niña, ¡tú tienes que cantar!",
                     "Totó está ocupada no puede salir",
                     "Ella irá luego de que termine sus quehaceres"
@@ -168,10 +168,10 @@
                     "idGeneric": 5,
                     "CharacterId":0,
                     "ActionName":"sonido",
-                    "DisplayText":["Cantar La Candela Viva", 
-                        "Cantar El Pescador", 
-                        "risa", 
-                        "grito", 
+                    "DisplayText":["Cantar La Candela Viva",
+                        "Cantar El Pescador",
+                        "risa",
+                        "grito",
                         "tarareo"],
                     "Duration":0,
                     "hasImages": false,
@@ -183,16 +183,16 @@
                     "CharacterId":1,
                     "ActionName":"hablar",
                     "Duration":1,
-                    "DisplayText":["No, ya terminé de barrer", 
-                        "¿Cantando? No, yo estaba barriendo. Barriendo, y me falta la cocina. Permiso", 
-                        "¡No estoy! ", "Sí mami, cantaba El Pescador", 
-                        "No, estaba pensando en voz alta", 
-                        "¡Espérenme!", 
-                        "Adiós mami", 
+                    "DisplayText":["No, ya terminé de barrer",
+                        "¿Cantando? No, yo estaba barriendo. Barriendo, y me falta la cocina. Permiso",
+                        "¡No estoy! ", "Sí mami, cantaba El Pescador",
+                        "No, estaba pensando en voz alta",
+                        "¡Espérenme!",
+                        "Adiós mami",
                         "mejor me voy a la cocina"],
                     "hasImages": false,
                     "optionImagesUrl":[]
-                }       
+                }
             ]
         }
     ],
@@ -207,11 +207,11 @@
                 [0, 1, 0, 0, 1, 0],
                 [0, 0, 1, 1, 0, 1],
                 [0, 0, 0, 0, 1, 0]],
-            "node_names":["Puerta de la casa", 
-                "A la derecha de la fachada", 
-                "Fachada de la casa", 
-                "Entrada al parque", 
-                "A la derecha de la entrada al parque", 
+            "node_names":["Puerta de la casa",
+                "A la derecha de la fachada",
+                "Fachada de la casa",
+                "Entrada al parque",
+                "A la derecha de la entrada al parque",
                 "Tarima"],
             "node": [
                 {
@@ -266,15 +266,15 @@
                 [0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]],
-            "node_names":["sofá", 
-                "frente al sofá", 
-                "junto a la cocina", 
-                "cocina", 
-                "silla", 
-                "frente a la silla", 
-                "frente a la puerta", 
-                "a la izquierda de la puerta", 
-                "puerta", 
+            "node_names":["sofá",
+                "frente al sofá",
+                "junto a la cocina",
+                "cocina",
+                "silla",
+                "frente a la silla",
+                "frente a la puerta",
+                "a la izquierda de la puerta",
+                "puerta",
                 "fachada"],
             "node": [
                 {
@@ -344,39 +344,39 @@
         {
             "id": 1,
             "name": "caminar",
-            "ActionIcon": "https://i.imgur.com/vFrXtl2.png",
+            "ActionIcon": "https://i.imgur.com/1c0kQGCt.png",
             "blocks": [2, 6],
             "displacement": 1
         },
         {
             "id": 2,
             "name": "correr",
-            "ActionIcon": "https://i.imgur.com/TXO3sAT.png",
+            "ActionIcon": "https://i.imgur.com/AZzKem6s.png",
             "blocks": [1, 6],
             "displacement": 1
         },
         {
             "id": 3,
             "name": "hablar",
-            "ActionIcon": "https://i.imgur.com/jV8kVFv.png",
+            "ActionIcon": "https://i.imgur.com/da43YyOt.png",
             "blocks": [5]
         },
         {
             "id": 4,
             "name": "mirar",
-            "ActionIcon": "https://i.imgur.com/82mMq92.png",
+            "ActionIcon": "https://i.imgur.com/wM30Rvot.png",
             "blocks": [4]
         },
         {
             "id": 5,
             "name": "sonido",
-            "ActionIcon": "https://i.imgur.com/fU7wWyW.png",
+            "ActionIcon": "https://i.imgur.com/e3IcMg5s.png",
             "blocks": [3]
         },
         {
             "id": 6,
             "name": "girar",
-            "ActionIcon": "https://i.imgur.com/mBFXvEU.png",
+            "ActionIcon": "https://i.imgur.com/LBq3Z3kt.png",
             "blocks": [1, 2]
         }
     ],

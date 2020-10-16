@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_robot);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         for(int i = 0; i < btn.length; i++){
             btn[i] = findViewById(btn_id[i]);
             btn[i].setBackgroundColor(Color.rgb(207, 207, 207));
@@ -82,7 +83,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         server_port = preferences.getString(getString(R.string.pref_port), getString(R.string.pref_port_default));
 
         TVServerip = findViewById(R.id.TVServerip);
-        String texto = "Conectado al servidor "+ ipAddress;
+        String texto = ipAddress;
         TVServerip.setText(texto);
 
         Button BCambiaripServer = findViewById(R.id.BCambiaripServer);
@@ -98,15 +99,21 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v){
 
         switch (v.getId()){
+
             case R.id.imgbtn_1 :
                 robot = "nao";
+
                 setFocus(btn_unfocus, btn[0]);
                 createDialogForConnection();
+                ////quuitar esto
+                BListo.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgbtn_2 :
                 robot = "quyca";
                 setFocus(btn_unfocus, btn[1]);
                 createDialogForConnection();
+                ////quuitar esto
+                BListo.setVisibility(View.VISIBLE);
                 break;
             case R.id.BListo:
                 Intent intent = new Intent(v.getContext(), ChooseFileActivity.class);
