@@ -344,39 +344,39 @@
         {
             "id": 1,
             "name": "caminar",
-            "ActionIcon": "https://i.imgur.com/1c0kQGCs.png",
+            "ActionIcon": "https://i.imgur.com/1c0kQGCt.png",
             "blocks": [2, 6],
             "displacement": 1
         },
         {
             "id": 2,
             "name": "correr",
-            "ActionIcon": "https://i.imgur.com/TXO3sAT.png",
+            "ActionIcon": "https://i.imgur.com/AZzKem6s.png",
             "blocks": [1, 6],
             "displacement": 1
         },
         {
             "id": 3,
             "name": "hablar",
-            "ActionIcon": "https://i.imgur.com/jV8kVFv.png",
+            "ActionIcon": "https://i.imgur.com/da43YyOt.png",
             "blocks": [5]
         },
         {
             "id": 4,
             "name": "mirar",
-            "ActionIcon": "https://i.imgur.com/82mMq92.png",
+            "ActionIcon": "https://i.imgur.com/wM30Rvot.png",
             "blocks": [4]
         },
         {
             "id": 5,
             "name": "sonido",
-            "ActionIcon": "https://i.imgur.com/fU7wWyW.png",
+            "ActionIcon": "https://i.imgur.com/e3IcMg5s.png",
             "blocks": [3]
         },
         {
             "id": 6,
             "name": "girar",
-            "ActionIcon": "https://i.imgur.com/mBFXvEU.png",
+            "ActionIcon": "https://i.imgur.com/LBq3Z3kt.png",
             "blocks": [1, 2]
         }
     ],
