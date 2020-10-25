@@ -2,6 +2,7 @@
 from __future__ import division
 
 import WorldModel
+import GestorDeObra
 
 
 class Executor(object):
@@ -22,25 +23,51 @@ class Executor(object):
 
             nao = Executor(self.comandos, self.connection)
             # Se inicializa el valor en caso de no haber desplazamiento, no cambia el ángulo
-            theta = self.connection.theta
-            position = int(self.posicion.NodeId)
+
+            return_message = GestorDeObra.ExecutorReturn(False, self.connection.theta, None)
+            if self.posicion is not None:
+                return_message.new_position = self.posicion.NodeId
 
             for i in range(len(self.comandos)):
 
                 if self.comandos[i].commandname == "avanzar":
+
                     for parametro in self.comandos[i].parameters:
+
                         if parametro.parametername == "avanzar":
+
                             path = WorldModel.WorldModel.dijkstra(int(self.posicion.NodeId) - 1,
                                                                   int(parametro.values) - 1)
-                            result, theta = nao.avanzar(self.comandos[i], path)
-                            position = parametro.values
+
+                            # print "el path es: {}".format(path)
+                            returns, theta = nao.avanzar(self.comandos[i], path)
+                            return_message.status = returns
+                            return_message.new_theta = theta
+
+                            if returns:
+                                return_message.new_position = int(parametro.values)
+
+                if self.comandos[i].commandname == "rotar":
+
+                    returns, theta = nao.rotar(self.comandos[i])
+                    return_message.status = returns
+
+                    if returns:
+                        return_message.new_theta = theta
 
                 if self.comandos[i].commandname == "reproducir":
-                    print "código para reproducir..."
-                if self.comandos[i].commandname == "mirar":
-                    print "código para mirar..."
 
-            return True, theta, position
+                    return_message.status = nao.reproducir(self.comandos[i])
+
+                if self.comandos[i].commandname == "mirar":
+
+                    return_message.status = nao.mirar(self.comandos[i])
+
+                if self.comandos[i].commandname == "signo" or self.comandos[i].commandname == "emergent":
+
+                    return_message.status = nao.signo_o_emergente(self.comandos[i])
+
+            return return_message
 
         elif self.connection.robot == "quyca":
 

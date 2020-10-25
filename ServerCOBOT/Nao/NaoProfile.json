@@ -70,6 +70,14 @@
                     0.50,
                     1
                   ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [
+                    -10.0,
+                    -15.0
+                  ]
                 }
               ]
             },
@@ -82,6 +90,14 @@
                   "values": [
                     0.1,
                     0.49
+                  ]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [
+                    29.5,
+                    -10.0
                   ]
                 }
               ]
@@ -132,7 +148,8 @@
           "parametername": "armsmovement",
           "secondary_maping_id": 2
         }
-      ]
+      ],
+      "no_modulation_maping_id": 0
     },
     {
       "actionid": 3,
@@ -247,7 +264,8 @@
           "parametername": "armsmovement",
           "secondary_maping_id": 2
         }
-      ]
+      ],
+      "no_modulation_maping_id": 0
     },
     {
       "actionid": 4,
@@ -263,36 +281,26 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0.50,
-                    1
+                    -10.0,
+                    -15.0
                   ]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
+                  "parametername": "HeadPitch_time",
                   "values": [
-                    -119.5,
-                    119.5
+                    3.0,
+                    2.0
                   ]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
+                  "parametername": "HeadYaw_time",
                   "values": [
-                    -38.5,
-                    29.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    3.0,
+                    2.0
                   ]
                 }
               ]
@@ -302,36 +310,26 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0.1,
-                    0.49
+                    29.5,
+                    -10.0
                   ]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
+                  "parametername": "HeadPitch_time",
                   "values": [
-                    -119.5,
-                    119.5
+                    5.0,
+                    4.0
                   ]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
+                  "parametername": "HeadYaw_time",
                   "values": [
-                    -38.5,
-                    29.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    4.0,
+                    2.5
                   ]
                 }
               ]
@@ -352,32 +350,6 @@
                     0.70,
                     1
                   ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
                 }
               ]
             },
@@ -391,32 +363,6 @@
                     0.4,
                     0.69
                   ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
-                },
-                {
-                  "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
                 }
               ]
             }
@@ -428,13 +374,9 @@
           "priority": 2,
           "parametername": "ledcolor",
           "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
         }
-      ]
+      ],
+      "no_modulation_maping_id": 1
     },
     {
       "actionid": 5,
@@ -517,12 +459,13 @@
           "parametername": "armsmovement",
           "secondary_maping_id": 2
         }
-      ]
+      ],
+      "no_modulation_maping_id": 0
     },
     {
       "actionid": 6,
       "action": "girar",
-      "commandname": "avanzar",
+      "commandname": "rotar",
       "emotional_axis": [
         {
           "axis_identifier": 1,
@@ -541,12 +484,10 @@
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    -10.0,
+                    -15.0
                   ]
                 }
               ]
@@ -564,12 +505,10 @@
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    29.5,
+                    -10.0
                   ]
                 }
               ]
@@ -593,12 +532,10 @@
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    -10.0,
+                    -15.0
                   ]
                 }
               ]
@@ -616,12 +553,10 @@
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
+                  "parametername": "HeadPitch",
                   "values": [
-                    0,
-                    180,
-                    -90,
-                    90
+                    29.5,
+                    -10.0
                   ]
                 }
               ]
@@ -634,13 +569,9 @@
           "priority": 2,
           "parametername": "ledcolor",
           "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
         }
-      ]
+      ],
+      "no_modulation_maping_id": 2
     }
   ],
   "secondary_maping": [
@@ -920,7 +851,167 @@
   "emergent_actions": [
     {
       "actionid": 1,
-      "action": "emergent",
+      "action": "Llorar",
+      "commandname": "emergent",
+      "emotional_axis": [
+        {
+          "axis_identifier": 1,
+          "name": "happyness_sadness",
+          "emotions": [
+            {
+              "name": "sadness",
+              "parameters": [
+                {
+                  "priority": 0,
+                  "parametername": "LHipYawPitch",
+                  "values": [-20.0, -10.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHipYawPitch_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LShoulderPitch",
+                  "values": [48.0, 90.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LShoulderPitch_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LShoulderRoll",
+                  "values": [0.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LShoulderRoll_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [-60.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderPitch",
+                  "values": [48.0, 90.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderPitch_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderRoll",
+                  "values": [0.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderRoll_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowRoll",
+                  "values": [88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowRoll_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowYaw",
+                  "values": [60.0, 70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowYaw_time",
+                  "values": [4.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [20.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_time",
+                  "values": [2.7]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw",
+                  "values": [5.0, -20.0, 20.0, -20.0, 20.0, -20.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadYaw_time",
+                  "values": [2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHand",
+                  "values": [1.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHand_time",
+                  "values": [2.0, 4.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHand",
+                  "values": [1.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHand_time",
+                  "values": [2.0, 4.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "reproducir",
+                  "values": "estoy muy triste"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "secondary_parameters": [
+        {
+          "priority": 2,
+          "parametername": "ledcolor",
+          "secondary_maping_id": 1
+        }
+      ]
+    },
+    {
+      "actionid": 5,
+      "action": "¡¡Yupi!!",
       "commandname": "emergent",
       "emotional_axis": [
         {
@@ -932,88 +1023,208 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    180,
-                    300
-                  ]
+                  "parametername": "LShoulderPitch",
+                  "values": [-20.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "pitch",
-                  "values": [
-                    2,
-                    3.5
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "sadness",
-              "parameters": [
-                {
-                  "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.1,
-                    0.49
-                  ]
+                  "parametername": "LShoulderPitch_time",
+                  "values": [1.0, 5.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "pitch",
-                  "values": [
-                    1.5,
-                    2.5
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "axis_identifier": 2,
-          "name": "angriness_calmness",
-          "emotions": [
-            {
-              "name": "angriness",
-              "parameters": [
-                {
-                  "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.7,
-                    1
-                  ]
+                  "parametername": "RShoulderPitch",
+                  "values": [-20.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "pitch",
-                  "values": [
-                    3,
-                    4
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "calmness",
-              "parameters": [
-                {
-                  "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.4,
-                    0.69
-                  ]
+                  "parametername": "RShoulderPitch_time",
+                  "values": [1.0, 5.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "pitch",
-                  "values": [
-                    2,
-                    2.9
-                  ]
+                  "parametername": "LShoulderRoll",
+                  "values": [10.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LShoulderRoll_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderRoll",
+                  "values": [-10.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RShoulderRoll_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-20.0, -20.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowRoll",
+                  "values": [20.0, 20.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowRoll_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [-60.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowYaw",
+                  "values": [60.0, 70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RElbowYaw_time",
+                  "values": [1.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LAnklePitch",
+                  "values": [-10.0, -10.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LAnklePitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RAnklePitch",
+                  "values": [-21.8, -21.8]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RAnklePitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHipPitch",
+                  "values": [-16.7, -16.7]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHipPitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHipPitch",
+                  "values": [-16.7, -16.7]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHipPitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHipRoll",
+                  "values": [-2.8, -2.8]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHipRoll_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHipRoll",
+                  "values": [-5.8, -5.8]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHipRoll_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LAnkleRoll",
+                  "values": [-1.05, -1.05]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LAnkleRoll_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RAnkleRoll",
+                  "values": [2.29, 2.29]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RAnkleRoll_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LKneePitch",
+                  "values": [30.5, 30.5]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LKneePitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RKneePitch",
+                  "values": [42.3, 42.3]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RKneePitch_time",
+                  "values": [1.2, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHand",
+                  "values": [1.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "RHand_time",
+                  "values": [2.0, 4.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHand",
+                  "values": [1.0, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LHand_time",
+                  "values": [2.0, 4.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "reproducir",
+                  "values": "Yupi"
                 }
               ]
             }
@@ -1025,11 +1236,6 @@
           "priority": 2,
           "parametername": "ledcolor",
           "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
         }
       ]
     }
@@ -1038,7 +1244,7 @@
     {
       "actionid": 1,
       "action": "Mirar alrededor",
-      "commandname": "mirar",
+      "commandname": "signo",
       "emotional_axis": [
         {
           "axis_identifier": 1,
@@ -1049,37 +1255,23 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
-                  "values": [
-                    0.50,
-                    1
-                  ]
+                  "parametername": "HeadYaw",
+                  "values": [0.0, 60.0, -60.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
+                  "parametername": "HeadYaw_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
+                  "parametername": "HeadPitch",
+                  "values": [-15.0, -15.0, -15.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "HeadPitch_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 }
               ]
             },
@@ -1088,37 +1280,23 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
-                  "values": [
-                    0.1,
-                    0.49
-                  ]
+                  "parametername": "HeadYaw",
+                  "values": [0.0, 60.0, -60.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
+                  "parametername": "HeadYaw_time",
+                  "values": [1.0, 3.0, 5.0, 7.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
+                  "parametername": "HeadPitch",
+                  "values": [15.0, 15.0, 15.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "HeadPitch_time",
+                  "values": [1.0, 3.0, 5.0, 7.0]
                 }
               ]
             }
@@ -1133,37 +1311,23 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
-                  "values": [
-                    0.70,
-                    1
-                  ]
+                  "parametername": "HeadYaw",
+                  "values": [57.3, 0.0, -57.3, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
+                  "parametername": "HeadYaw_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
+                  "parametername": "HeadPitch",
+                  "values": [-23.0, 0.0, -23.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "HeadPitch_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 }
               ]
             },
@@ -1172,37 +1336,23 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "head_speed",
-                  "values": [
-                    0.4,
-                    0.69
-                  ]
+                  "parametername": "HeadYaw",
+                  "values": [57.3, 0.0, -57.3, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadYaw_angle",
-                  "values": [
-                    -119.5,
-                    119.5
-                  ]
+                  "parametername": "HeadYaw_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "HeadPitch_angle",
-                  "values": [
-                    -38.5,
-                    29.5
-                  ]
+                  "parametername": "HeadPitch",
+                  "values": [-23.0, 0.0, -23.0, 0.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "HeadPitch_time",
+                  "values": [1.0, 2.0, 3.0, 4.0]
                 }
               ]
             }
@@ -1214,18 +1364,13 @@
           "priority": 2,
           "parametername": "ledcolor",
           "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
         }
       ]
     },
     {
       "actionid": 2,
-      "action": "Girar pausadamente",
-      "commandname": "avanzar",
+      "action": "Mirar la hora",
+      "commandname": "signo",
       "emotional_axis": [
         {
           "axis_identifier": 1,
@@ -1236,21 +1381,43 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.50,
-                    1
-                  ]
+                  "parametername": "LShoulderPitch",
+                  "values": [73.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "LShoulderPitch_time",
+                  "values": [1.0, 7.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [2.0, 7.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [-33.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [2.0, 7.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [29.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_time",
+                  "values": [2.0, 7.0]
                 }
               ]
             },
@@ -1259,21 +1426,43 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.1,
-                    0.49
-                  ]
+                  "parametername": "LShoulderPitch",
+                  "values": [50.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "LShoulderPitch_time",
+                  "values": [1.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [2.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [10.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [2.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [29.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_time",
+                  "values": [2.0, 5.0]
                 }
               ]
             }
@@ -1288,21 +1477,43 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.7,
-                    1
-                  ]
+                  "parametername": "LShoulderPitch",
+                  "values": [50.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "LShoulderPitch_time",
+                  "values": [1.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [2.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [10.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [2.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [29.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_time",
+                  "values": [2.0, 5.0]
                 }
               ]
             },
@@ -1311,21 +1522,43 @@
               "parameters": [
                 {
                   "priority": 0,
-                  "parametername": "speed",
-                  "values": [
-                    0.4,
-                    0.69
-                  ]
+                  "parametername": "LShoulderPitch",
+                  "values": [50.0, 90.0]
                 },
                 {
                   "priority": 0,
-                  "parametername": "rotation",
-                  "values": [
-                    0,
-                    180,
-                    -90,
-                    90
-                  ]
+                  "parametername": "LShoulderPitch_time",
+                  "values": [1.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll",
+                  "values": [-88.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowRoll_time",
+                  "values": [2.0, 5.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw",
+                  "values": [10.0, -70.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "LElbowYaw_time",
+                  "values": [2.0, 6.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch",
+                  "values": [29.5, 0.0]
+                },
+                {
+                  "priority": 0,
+                  "parametername": "HeadPitch_time",
+                  "values": [2.0, 5.0]
                 }
               ]
             }
@@ -1337,11 +1570,6 @@
           "priority": 2,
           "parametername": "ledcolor",
           "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
         }
       ]
     }
@@ -1355,28 +1583,19 @@
         {
           "priority": 0,
           "parameterid": 1,
-          "parametername": "head_rotation",
+          "parametername": "HeadYaw",
           "options": [
             {
               "name": "Al frente",
-              "values": [
-                0,
-                0
-              ]
+              "values": 0
             },
             {
               "name": "Hacia la derecha",
-              "values": [
-                0,
-                -90
-              ]
+              "values": -90
             },
             {
               "name": "Hacia la izquierda",
-              "values": [
-                0,
-                90
-              ]
+              "values": 90
             }
           ]
         }
@@ -1385,7 +1604,7 @@
     {
       "actionid": 2,
       "action": "girar",
-      "commandname": "avanzar",
+      "commandname": "rotar",
       "parameters": [
         {
           "priority": 0,
@@ -1395,28 +1614,24 @@
             {
               "name": "Al frente",
               "values": [
-                0,
                 0
               ]
             },
             {
               "name": "Hacia atrás",
               "values": [
-                0,
                 180
               ]
             },
             {
               "name": "Hacia la derecha",
               "values": [
-                0,
                 -90
               ]
             },
             {
               "name": "Hacia la izquierda",
               "values": [
-                0,
                 90
               ]
             }

@@ -29,12 +29,24 @@ class RobotProfile(object):
     def setmaping(robot):
 
         RobotProfile.setparallelinfo(robot)
+        RobotProfile.setnotmodulationmaping(robot)
 
         if robot == "nao":
             RobotProfile.loadmapingfromfile("../Nao/NaoProfile.json")
 
         elif robot == "quyca":
             RobotProfile.loadmapingfromfile("../Quyca/QuycaProfile.json")
+
+        else:
+            return None
+
+    @staticmethod
+    def setnotmodulationmaping(robot):
+        if robot == "nao":
+            RobotProfile.loadnomodulationmapingfromfile("../Nao/NaoProfile.json")
+
+        elif robot == "quyca":
+            RobotProfile.loadnomodulationmapingfromfile("../Quyca/QuycaProfile.json")
 
         else:
             return None
@@ -85,7 +97,7 @@ class RobotProfile(object):
             data = json.load(f)
 
             if "emergent_actions" in data:
-                RobotProfile.emergent_actions = RobotProfile.loadmaping("emergent_actions", data)
+                RobotProfile.maping = RobotProfile.loadmaping("emergent_actions", data)
 
             if "secondary_maping" in data:
                 RobotProfile.secondary_maping = RobotProfile.loadmaping("secondary_maping", data)
@@ -96,7 +108,7 @@ class RobotProfile(object):
             data = json.load(f)
 
             if "signs_of_life" in data:
-                RobotProfile.signs_of_life = RobotProfile.loadmaping("signs_of_life", data)
+                RobotProfile.maping = RobotProfile.loadmaping("signs_of_life", data)
 
             if "secondary_maping" in data:
                 RobotProfile.secondary_maping = RobotProfile.loadmaping("secondary_maping", data)
@@ -107,7 +119,7 @@ class RobotProfile(object):
             data = json.load(f)
 
             if "source_code" in data:
-                RobotProfile.source_code = json.dumps(data["source_code"])
+                RobotProfile.source_code = json.dumps(data["source_code"]).decode('utf-8')
 
             if "emotional_axis_information" in data:
                 RobotProfile.emotional_axis_information = RobotProfile.loademotioninfo(data)
@@ -126,13 +138,21 @@ class RobotProfile(object):
                 RobotProfile.secondary_maping = RobotProfile.loadmaping("secondary_maping", data)
 
     @staticmethod
+    def loadnomodulationmapingfromfile(filename):
+        with open(filename) as f:
+            data = json.load(f)
+
+            if "no_modulation_maping" in data:
+                RobotProfile.no_modulation_maping = RobotProfile.loadnomodulationmaping(data)
+
+    @staticmethod
     def loadmaping(maping, data):
 
         newmaping = []
 
         for actionmap in data[maping]:
 
-            json_data = json.dumps(actionmap)
+            json_data = json.dumps(actionmap).decode('utf-8')
 
             if maping == "secondary_maping":
                 newmaping.append(SecondaryMaping(**json.loads(json_data)))
@@ -147,7 +167,7 @@ class RobotProfile(object):
 
                 for axis in maping_data["emotional_axis"]:
 
-                    json_axis = json.dumps(axis)
+                    json_axis = json.dumps(axis).decode('utf-8')
                     newemotionalaxis.append(EmotionalAxis(**json.loads(json_axis)))
 
                     axis_data = json.loads(json_axis)
@@ -158,7 +178,7 @@ class RobotProfile(object):
 
                         for emotion in axis_data["emotions"]:
 
-                            json_emotion = json.dumps(emotion)
+                            json_emotion = json.dumps(emotion).decode('utf-8')
                             newemotionparameters.append(EmotionParameters(**json.loads(json_emotion)))
 
                             emotion_data = json.loads(json_emotion)
@@ -168,7 +188,7 @@ class RobotProfile(object):
                                 newparameters = []
 
                                 for parameter in emotion_data["parameters"]:
-                                    json_data_parameters = json.dumps(parameter)
+                                    json_data_parameters = json.dumps(parameter).decode('utf-8')
                                     newparameters.append(Parameters(**json.loads(json_data_parameters)))
 
                                 newemotionparameters[-1].parameters = newparameters
@@ -179,7 +199,7 @@ class RobotProfile(object):
                                 newrgb = []
 
                                 for rgb in emotion_data["rgb_values"]:
-                                    json_data_rgb = json.dumps(rgb)
+                                    json_data_rgb = json.dumps(rgb).decode('utf-8')
                                     newrgb.append(RGBValues(**json.loads(json_data_rgb)))
 
                                 newemotionparameters[-1].rgb_values = newrgb
@@ -189,20 +209,53 @@ class RobotProfile(object):
 
                 newmaping[-1].emotional_axis = newemotionalaxis
 
-            if newmaping[-1].emotional_axis[-1].emotions[-1].parameters is not None:
-                print(newmaping[-1].emotional_axis[-1].emotions[-1].parameters[-1].parametername)
-            else:
-                print(newmaping[-1].emotional_axis[-1].emotions[-1].rgb_values[-1].name)
-
             if "secondary_parameters" in maping_data:
 
                 newsecondaryparams = []
 
                 for secondary in maping_data["secondary_parameters"]:
-                    json_secondary = json.dumps(secondary)
+                    json_secondary = json.dumps(secondary).decode('utf-8')
                     newsecondaryparams.append(SecondaryParameters(**json.loads(json_secondary)))
 
                 newmaping[-1].secondary_parameters = newsecondaryparams
+
+        return newmaping
+
+    @staticmethod
+    def loadnomodulationmaping(data):
+
+        newmaping = []
+
+        for actionmap in data["no_modulation_maping"]:
+
+            json_data = json.dumps(actionmap).decode('utf-8')
+
+            newmaping.append(NoModulationMaping(**json.loads(json_data)))
+
+            maping_data = json.loads(json_data)
+
+            if "parameters" in maping_data:
+
+                newparameters = []
+
+                for param in maping_data["parameters"]:
+
+                    json_param = json.dumps(param).decode('utf-8')
+                    newparameters.append(NoModulationParams(**json.loads(json_param)))
+
+                    param_data = json.loads(json_param)
+
+                    if "options" in param_data:
+
+                        newoptions = []
+
+                        for option in param_data["options"]:
+                            json_option = json.dumps(option).decode('utf-8')
+                            newoptions.append(Options(**json.loads(json_option)))
+
+                        newparameters[-1].options = newoptions
+
+                newmaping[-1].parameters = newparameters
 
         return newmaping
 
@@ -213,7 +266,7 @@ class RobotProfile(object):
 
         for axismap in data["emotional_axis_information"]:
 
-            json_data = json.dumps(axismap)
+            json_data = json.dumps(axismap).decode('utf-8')
             newinfo.append(EmotionalAxisInformation(**json.loads(json_data)))
             axis_data = json.loads(json_data)
 
@@ -222,7 +275,7 @@ class RobotProfile(object):
                 newemotions = []
 
                 for emotion in axis_data["emotions"]:
-                    json_emotion = json.dumps(emotion)
+                    json_emotion = json.dumps(emotion).decode('utf-8')
                     newemotions.append(EmotionRanges(**json.loads(json_emotion)))
 
                 newinfo[-1].emotions = newemotions
@@ -231,12 +284,14 @@ class RobotProfile(object):
 
 
 class Maping(object):
-    def __init__(self, actionid, action, commandname, emotional_axis, secondary_parameters=None):
+    def __init__(self, actionid, action, commandname, emotional_axis, secondary_parameters=None,
+                 no_modulation_maping_id=None):
         self.actionid = actionid
         self.action = action
         self.commandname = commandname
         self.emotional_axis = emotional_axis
         self.secondary_parameters = secondary_parameters
+        self.no_modulation_maping_id = no_modulation_maping_id
 
 
 class EmotionalAxis(object):
@@ -293,4 +348,26 @@ class EmotionRanges(object):
         self.name = name
         self.emotion_range = emotion_range
 
+
 # Clases para la carga del mapeo no modulado
+
+class NoModulationMaping(object):
+    def __init__(self, actionid, action, commandname, parameters=None):
+        self.actionid = actionid
+        self.action = action
+        self.commandname = commandname
+        self.parameters = parameters
+
+
+class NoModulationParams(object):
+    def __init__(self, priority, parameterid, parametername, options=None):
+        self.priority = priority
+        self.parameterid = parameterid
+        self.parametername = parametername
+        self.options = options
+
+
+class Options(object):
+    def __init__(self, name, values):
+        self.name = name
+        self.values = values

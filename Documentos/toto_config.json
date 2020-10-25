@@ -415,7 +415,7 @@
         },
         {
             "id": 2,
-            "name": "Girar pausadamente",
+            "name": "Mirar la hora",
             "characterId": [1,2]
         }
     ]

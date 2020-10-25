@@ -42,12 +42,10 @@ class WorldModel(object):
                     # print matriz[i][j]
 
         WorldModel.model = Graph(vertices, matriz, indices)
-        WorldModel.model.print_graph()
+        # WorldModel.model.print_graph()
 
     @staticmethod
     def dijkstra(src, dstn):
-        print("hallando camino entre {}".format(src)),
-        print(" y {}".format(dstn))
 
         row = len(WorldModel.model.edges)
         col = len(WorldModel.model.edges[0])
@@ -60,10 +58,8 @@ class WorldModel(object):
 
         for i in range(row):
             queue.append(i)
-            print i
         while queue:
             u = WorldModel.minDistance(dist, queue)
-            print u
             queue.remove(u)
             for i in range(col):
 
@@ -79,8 +75,6 @@ class WorldModel(object):
     def printSolution(path, dstn):
         finalpath = []
         WorldModel.printPath(path, dstn, finalpath)
-        for vertex in finalpath:
-            print "{} ".format(vertex.nodeid),
         return finalpath
 
     @staticmethod
@@ -88,11 +82,9 @@ class WorldModel(object):
 
         # Base Case : If j is source
         if path[j] == -1:
-            print j,
             finalpath.append(WorldModel.model.vertices[j])
             return
         WorldModel.printPath(path, path[j], finalpath)
-        print j,
         finalpath.append(WorldModel.model.vertices[j])
 
     @staticmethod
