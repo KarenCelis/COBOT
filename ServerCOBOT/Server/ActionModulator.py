@@ -23,9 +23,11 @@ def selectprioritycommand(commands):
 def printcontent(parameters):
     for result in parameters:
         if result.values is not None:
-            print("Command: ", result.command, "parameter name: ", result.parametername, ", value: ", result.values)
+            print("Command: {}".format(result.command), ", parameter name: {}".format(result.parametername),
+                  ", value: {}".format(result.values))
         else:
-            print("Command: ", result.command, "parameter name: ", result.parametername, ", value RGB: ("),
+            print("Command: {}".format(result.command), ", parameter name: {}".format(result.parametername),
+                  ", value RGB: ("),
             for rgb in result.rgb_values:
                 print(rgb.values, ", "),
             print(")")
@@ -50,6 +52,8 @@ class Modulator(object):
             RobotProfile.RobotProfile.setemergent(self.robotname)
         elif isinstance(accion, GestorDeObra.SignsOfLifeObject):
             RobotProfile.RobotProfile.setsigns(self.robotname)
+        else:
+            print "No se encontró el tipo de acción enviada"
 
     def modulateactions(self):
 
@@ -62,15 +66,7 @@ class Modulator(object):
 
                 if accion.actionid == mapeo.actionid:
 
-                    if isinstance(accion, GestorDeObra.ActionObject):
-                        # Si el objeto es una acción simple, esta tendrá un valor correspondiente a la opción
-                        # Seleccionada. Por ejemplo, caminar <hacia la puerta> o girar <hacia la derecha>
-                        moduledparameters = [Parameters(0, mapeo.commandname, mapeo.commandname, accion.value)]
-                        self.parameterset.append(moduledparameters[-1])
-                    else:
-                        # Si el objeto no es una acción simple, entonces es una acción emergente o un signo de vida
-                        # Por lo tanto no hay un valor correspondiente a una opción de esta
-                        moduledparameters = []
+                    moduledparameters = []
 
                     for eje in mapeo.emotional_axis:
 
@@ -81,50 +77,88 @@ class Modulator(object):
                                 if emotionalinfo.emotion_name == emocion.name:
 
                                     for parametro in emocion.parameters:
-                                        moduledparameters.append(
-                                            Parameters(parametro.priority, parametro.parametername, mapeo.commandname,
-                                                       self.applyequation(parametro)))
+                                        if isinstance(accion, GestorDeObra.ActionObject):
+                                            moduledparameters.append(
+                                                Parameters(parametro.priority, parametro.parametername,
+                                                           mapeo.commandname, self.applyequation(parametro)))
+                                        else:
+                                            if type(parametro.values) is unicode:
+
+                                                moduledparameters.append(
+                                                    Parameters(parametro.priority, parametro.parametername,
+                                                               mapeo.commandname,
+                                                               parametro.values))
+                                            else:
+                                                moduledparameters.append(
+                                                    Parameters(parametro.priority, parametro.parametername,
+                                                               mapeo.commandname, parametro.values))
+
                                         self.parameterset.append(moduledparameters[-1])
 
-                    for secundarios in mapeo.secondary_parameters:
+                    if mapeo.secondary_parameters is not None:
+                        for secundarios in mapeo.secondary_parameters:
 
-                        for parametros_sec in RobotProfile.RobotProfile.secondary_maping:
+                            for sec_params in RobotProfile.RobotProfile.secondary_maping:
 
-                            if secundarios.secondary_maping_id == parametros_sec.parameterid:
+                                if secundarios.secondary_maping_id == sec_params.parameterid:
 
-                                for eje in parametros_sec.emotional_axis:
+                                    for eje in sec_params.emotional_axis:
 
-                                    if emotionalinfo.axis == eje.name:
+                                        if emotionalinfo.axis == eje.name:
 
-                                        for emocion in eje.emotions:
+                                            for emocion in eje.emotions:
 
-                                            if emotionalinfo.emotion_name == emocion.name:
+                                                if emotionalinfo.emotion_name == emocion.name:
 
-                                                if emocion.parameters is not None:
+                                                    if emocion.parameters is not None:
 
-                                                    for parametro in emocion.parameters:
+                                                        for parametro in emocion.parameters:
+                                                            moduledparameters.append(
+                                                                Parameters(secundarios.priority,
+                                                                           parametro.parametername, mapeo.commandname,
+                                                                           self.applyequation(parametro)))
+                                                            self.parameterset.append(moduledparameters[-1])
+
+                                                    elif emocion.rgb_values is not None:
+
+                                                        values = []
+
+                                                        for rgb in emocion.rgb_values:
+                                                            values.append(self.applyequation(rgb))
+
                                                         moduledparameters.append(
-                                                            Parameters(secundarios.priority, parametro.parametername,
-                                                                       mapeo.commandname,
-                                                                       self.applyequation(parametro)))
+                                                            Parameters(secundarios.priority, sec_params.parametername,
+                                                                       mapeo.commandname, values))
                                                         self.parameterset.append(moduledparameters[-1])
 
-                                                elif emocion.rgb_values is not None:
+                    if mapeo.no_modulation_maping_id is not None:
 
-                                                    values = []
+                        if mapeo.no_modulation_maping_id == 0:
+                            # Significa que no hay parámetros que no se modulan con el valor que llegó de la acción,
+                            # por lo tanto, se almacena el valor sin más. Esto permite ingresar el nodo destino de
+                            # caminar y correr, el diálogo o audio en sonido o hablar.
 
-                                                    for rgb in emocion.rgb_values:
-                                                        values.append(RobotProfile.RGBValues(
-                                                            rgb.name, self.applyequation(rgb)))
+                            moduledparameters = [Parameters(0, mapeo.commandname,
+                                                            mapeo.commandname, accion.value.encode('utf-8'))]
+                            self.parameterset.append(moduledparameters[-1])
 
-                                                    moduledparameters.append(
-                                                        Parameters(secundarios.priority, parametros_sec.parametername,
-                                                                   mapeo.commandname, None, values))
-                                                    self.parameterset.append(moduledparameters[-1])
+                        else:
+                            for no_mod_action in RobotProfile.RobotProfile.no_modulation_maping:
+
+                                if mapeo.no_modulation_maping_id == no_mod_action.actionid:
+
+                                    for param in no_mod_action.parameters:
+
+                                        for option in param.options:
+
+                                            if option.name == accion.value:
+                                                moduledparameters.append(
+                                                    Parameters(param.priority, param.parametername,
+                                                               no_mod_action.commandname, option.values))
+                                                self.parameterset.append(moduledparameters[-1])
 
                     # print("parámetros modulados para la acción ", accion.actionid, ": ")
                     # printcontent(moduledparameters)
-
         self.parameterset = self.managePriority()
         # print("-- Gestionando prioridades --")
         # printcontent(self.parameterset)

@@ -74,28 +74,36 @@ class Gestor(object):
             self.characterselected = self.data_received["characterSelected"]
 
         if "SignsOfLife" in self.data_received:
+            self.signsoflife = []
             for sign in self.data_received["SignsOfLife"]:
                 json_data = json.dumps(sign)
                 self.signsoflife.append(SignsOfLifeObject(**json.loads(json_data)))
-                print("debug accion", self.signsoflife[-1].name)
             self.momento = INACTIVO
 
     def sendsingsoflife(self):
         # Modular signos de vida
-        if self.momento == CONFIGURACION:
+        if self.momento == INACTIVO:
+
+            self.momento = EJECUTANDO_SIGNOS_DE_VIDA
+            print_lock.acquire()
+            print "ejecutando signos de vida para {}".format(self.applicationip)
+            print_lock.release()
+
             # Se envía solo un valor de los signos de vida y se fija como arreglo ya que el action modulator funciona
             # genéricamente para todos los tipos de acción, y las acciones simples pueden ser más de una, por lo que se
             # hace un ciclo y es necesario un arreglo siempre. En este caso, el ciclo se hará sobre una única acción.
             sign = [random.choice(self.signsoflife)]
+            if self.emocion is None:
+                self.emocion = EmotionObject("happyness_sadness", 0.11)
             self.actionmodulator = ActionModulator.Modulator(sign,
                                                              self.emocion, self.connection.robot)
-            self.actionmodulator.setprofile(self.signsoflife)
+            self.actionmodulator.setprofile(sign[-1])
             self.actionmodulator.modulateactions()
 
             # Ejecutar signos de vida
-            self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
-                                                          self.position)
-            self.momento = EJECUTANDO_SIGNOS_DE_VIDA
+            self.callexecutor()
+
+            self.momento = INACTIVO
         else:
             print_lock.acquire()
             print "ejecutando signos de vida para {}".format(self.applicationip)
@@ -107,7 +115,7 @@ class Gestor(object):
             json_data = json.dumps(self.data_received["scenario"])
             data = json.loads(json_data)
             scenariostructure = WorldModelStructureObject(**json.loads(json_data))
-            print("debug escenario", scenariostructure.name)
+            print("debug escenario {}".format(scenariostructure.name))
             if "node" in data:
                 nodos = []
                 for nodeiterator in data["node"]:
@@ -119,14 +127,14 @@ class Gestor(object):
         if "position" in self.data_received:
             json_data = json.dumps(self.data_received["position"])
             self.position = PositionObject(**json.loads(json_data))
-            print("debug posicion", self.position.CharacterId)
+            print("debug posicion {}".format(self.position.CharacterId))
 
     def loadsimpleactions(self):
 
         if "Emotion" in self.data_received:
             json_data = json.dumps(self.data_received["Emotion"])
             self.emocion = EmotionObject(**json.loads(json_data))
-            print("debug emocion ", self.emocion.name)
+            print("debug emocion {}".format(self.emocion.name))
 
         if "Actions" in self.data_received:
 
@@ -134,7 +142,8 @@ class Gestor(object):
             for accion in self.data_received["Actions"]:
                 json_data = json.dumps(accion)
                 nuevas_acciones.append(ActionObject(**json.loads(json_data)))
-                print("debug accion de id: ", nuevas_acciones[-1].actionid, ", value: ", nuevas_acciones[-1].value)
+                print("debug accion de id: {}, value: {}".format(nuevas_acciones[-1].actionid,
+                                                                 nuevas_acciones[-1].value))
 
             if self.isexecutoravailable():
 
@@ -160,12 +169,12 @@ class Gestor(object):
         if "Emotion" in self.data_received:
             json_data = json.dumps(self.data_received["Emotion"])
             self.emocion = EmotionObject(**json.loads(json_data))
-            print("debug emocion ", self.emocion.name)
+            print("debug emocion {}".format(self.emocion.name))
 
         if "EmergentAction" in self.data_received:
             json_data = json.dumps(self.data_received["EmergentAction"])
             self.emergentaction.append(EmergentActionObject(**json.loads(json_data)))
-            print("debug accion emergente ", self.emergentaction[-1].name)
+            print("debug accion emergente {}".format(self.emergentaction[-1].actionid))
 
             if self.isexecutoravailable():
                 self.momento = EJECUTANDO_ACCION_EMERGENTE
@@ -194,13 +203,21 @@ class Gestor(object):
     def callexecutor(self):
         self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
                                                       self.position)
-        result, theta, nodeid = self.actionexecutor.executeactions()
 
-        if result:
-            self.connection.theta = theta
-            self.position.NodeId = nodeid
+        returned_message = self.actionexecutor.executeactions()
 
-            self.momento = INACTIVO
+        if returned_message.status:
+            print "acciones ejecutadas correctamente!"
+            self.connection.theta = returned_message.new_theta
+            print "El robot se encuentra mirando hacia el ángulo {}".format(self.connection.theta)
+            if self.position is not None:
+                self.position.NodeId = returned_message.new_position
+                print "El robot se encuentra en el nodo {}".format(self.position.NodeId)
+
+        else:
+            print "Hubo un error al ejecutar las acciones, verifique la información enviada"
+
+        self.momento = INACTIVO
 
 
 class ConnectionObject(object):
@@ -225,7 +242,7 @@ class ActionObject(object):
 
 class EmergentActionObject(object):
     def __init__(self, actionid, name):
-        self.actionid = actionid
+        self.actionid = actionid + 1
         self.name = name
 
 
@@ -260,3 +277,10 @@ class PositionObject(object):
     def __init__(self, characterid, nodeid):
         self.CharacterId = characterid
         self.NodeId = nodeid
+
+
+class ExecutorReturn(object):
+    def __init__(self, status, new_theta, new_position):
+        self.status = status
+        self.new_theta = new_theta
+        self.new_position = new_position

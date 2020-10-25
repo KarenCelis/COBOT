@@ -16,9 +16,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.ActionActivity"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
            />
         <activity android:name=".Activities.ChooseFileActivity"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
            />
         <service
             android:name=".Utils.SocketClient"
@@ -32,11 +34,12 @@
         <activity
             android:name=".Activities.CharacterSelectionActivity"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
              />
         <activity
             android:name=".Activities.CentralActivity"
             android:screenOrientation="landscape"
-
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             >
             <meta-data
                 android:name="preloaded_fonts"
@@ -45,6 +48,7 @@
         <activity
             android:name=".Activities.ChooseRobotActivity"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

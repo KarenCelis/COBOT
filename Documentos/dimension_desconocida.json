@@ -1,0 +1,319 @@
+{
+    "Title":"En la dimensión desconocida",
+    "SceneAmount": 2,
+    "Characters":[
+        {
+            "id":1,
+            "Name":"Amara",
+            "CharacterIcon":"https://i.imgur.com/L4tXbIx.png"
+        }
+    ],
+    "Scenes":[
+        {
+            "id":1,
+            "Scenario":1,
+            "CharacterIds":[1],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":1
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["¡Oh! Que planeta más raro, jamás había visto uno igual ",
+                    "¿Qué asombrosos misterios tendrá este planeta? ",
+                    "¡Totó ven!",
+                    "Voy a averiguarlo, voy a ir atenta a mi camino",
+                    "¡Wow!",
+                    "¿Y esta piedra tan rara?",
+                    "Me encantan las cosas viscosas, creo que me gusta este planeta",
+                    "Explorar este planeta me dio sed, voy a buscar si por aquí tienen un poco de agua",
+                    "Me encantaría que mi familia estuviera aquí conmigo",
+                    "Los extraño bastante"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":1,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":1,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":1,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":1,
+                    "ActionName":"sonido",
+                    "DisplayText":["¡Crash!",
+                        "risa",
+                        "grito",
+                        "tarareo"],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }
+            ]
+        },
+        {
+            "id":2,
+            "Scenario":1,
+            "CharacterIds":[1],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":5
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":["¡Hola mucho gusto mi nombre es Amara y soy astronauta! ",
+                    "¿Disculpe, sabe si por aquí existe alguna fuente de agua?",
+                    "Vengo desde muy lejos y estoy muy cansada",
+                    "Wow que hermosa luz, y que ser tan particular",
+                    "¡Qué planeta es este!",
+                    "¡A dónde vine a parar!"
+                    ],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":1,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":1,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":1,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":1,
+                    "ActionName":"sonido",
+                    "DisplayText":["¡Crash!",
+                        "risa",
+                        "grito",
+                        "tarareo"],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }
+            ]
+        }
+    ],
+    "Scenarios":[
+        {
+            "id":1,
+            "name":"Planeta Itaki",
+            "nodes":9,
+            "adjacency_matrix":[
+                [0, 1, 1, 0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 1, 0, 1, 0, 0, 0],
+                [0, 0, 1, 0, 1, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0, 0, 1],
+                [0, 0, 1, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1],
+                [0, 0, 0, 0, 1, 0, 0, 1, 0]],
+            "node_names":["Frente a la nave",
+                "Nave espacial",
+                "Roca amarilla",
+                "Frente al monstruo morado",
+                "Junto al monstruo morado",
+                "Roca roja",
+                "Frente a la roca roja",
+                "Roca verde",
+                "A la derecha de la roca verde"],
+            "node": [
+                {
+                    "id": 1,
+                    "name": "Frente a la nave",
+                    "xaxis": 0,
+                    "yaxis": 3
+                },
+                {
+                    "id": 2,
+                    "name": "Nave espacial",
+                    "xaxis": 1,
+                    "yaxis": 3
+                },
+                {
+                    "id": 3,
+                    "name": "Roca amarilla",
+                    "xaxis": 0,
+                    "yaxis": 2
+                },
+                {
+                    "id": 4,
+                    "name": "Frente al monstruo morado",
+                    "xaxis": 1,
+                    "yaxis": 2
+                },
+                {
+                    "id": 5,
+                    "name": "Junto al monstruo morado",
+                    "xaxis": 2,
+                    "yaxis": 2
+                },
+                {
+                    "id": 6,
+                    "name": "Roca roja",
+                    "xaxis": 0,
+                    "yaxis": 1
+                },
+                {
+                    "id": 7,
+                    "name": "Frente a la roca roja",
+                    "xaxis": 1,
+                    "yaxis": 1
+                },
+                {
+                    "id": 8,
+                    "name": "Roca verde",
+                    "xaxis": 1,
+                    "yaxis": 0
+                },
+                {
+                    "id": 9,
+                    "name": "A la derecha de la roca verde",
+                    "xaxis": 2,
+                    "yaxis": 0
+                }
+            ]
+        }
+    ],
+    "GenericActions": [
+        {
+            "id": 1,
+            "name": "caminar",
+            "ActionIcon": "https://i.imgur.com/1c0kQGCt.png",
+            "blocks": [2, 6],
+            "displacement": 1
+        },
+        {
+            "id": 2,
+            "name": "correr",
+            "ActionIcon": "https://i.imgur.com/AZzKem6s.png",
+            "blocks": [1, 6],
+            "displacement": 1
+        },
+        {
+            "id": 3,
+            "name": "hablar",
+            "ActionIcon": "https://i.imgur.com/da43YyOt.png",
+            "blocks": [5]
+        },
+        {
+            "id": 4,
+            "name": "mirar",
+            "ActionIcon": "https://i.imgur.com/wM30Rvot.png",
+            "blocks": [4]
+        },
+        {
+            "id": 5,
+            "name": "sonido",
+            "ActionIcon": "https://i.imgur.com/e3IcMg5s.png",
+            "blocks": [3]
+        },
+        {
+            "id": 6,
+            "name": "girar",
+            "ActionIcon": "https://i.imgur.com/LBq3Z3kt.png",
+            "blocks": [1, 2]
+        }
+    ],
+    "EmergentActions": [
+        {
+            "id": 1,
+            "name": "Llorar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Suspirar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 3,
+            "name": "Normal",
+            "characterId": [1,2]
+        },
+        {
+            "id": 4,
+            "name": "¡Yei!",
+            "characterId": [1,2]
+        },
+        {
+            "id": 5,
+            "name": "¡¡Yupi!!",
+            "characterId": [1,2]
+        }
+    ],
+    "SignsOfLife": [
+        {
+            "id": 1,
+            "name": "Mirar alrededor",
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Mirar la hora",
+            "characterId": [1,2]
+        }
+    ]
+}

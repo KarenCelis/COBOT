@@ -44,7 +44,9 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
     private String robot;
 
     private String server_port;
-    private String ipAddress;
+    private String server_ipAddress;
+    private String robot_ipAddress;
+    private String robot_port;
     private SharedPreferences preferences;
     private TextView TVServerip;
 
@@ -79,11 +81,13 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         btn_unfocus = btn[0];
 
         preferences = this.getSharedPreferences(getString(R.string.pref_file_key), Context.MODE_PRIVATE);
-        ipAddress = preferences.getString(getString(R.string.pref_ip_address), getString(R.string.pref_ip_address_default));
-        server_port = preferences.getString(getString(R.string.pref_port), getString(R.string.pref_port_default));
+        server_ipAddress = preferences.getString(getString(R.string.pref_server_ip_address), getString(R.string.pref_server_ip_address_default));
+        server_port = preferences.getString(getString(R.string.pref_server_port), getString(R.string.pref_server_port_default));
+        robot_ipAddress = preferences.getString(getString(R.string.pref_robot_ip_address), getString(R.string.pref_robot_ip_address_default));
+        robot_port = preferences.getString(getString(R.string.pref_robot_port), getString(R.string.pref_robot_port_default));
 
         TVServerip = findViewById(R.id.TVServerip);
-        String texto = ipAddress;
+        String texto = server_ipAddress;
         TVServerip.setText(texto);
 
         Button BCambiaripServer = findViewById(R.id.BCambiaripServer);
@@ -135,7 +139,9 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_connection, null);
         final EditText ip = actionPopup.findViewById(R.id.edtxt_ip);
+        ip.setText(robot_ipAddress);
         final EditText port = actionPopup.findViewById(R.id.edtxt_port);
+        port.setText(robot_port);
         ip.setFilters(setIpFilter());
         Button connect = actionPopup.findViewById(R.id.btn_connect);
 
@@ -146,7 +152,23 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 try{
-                    SocketClient.getServerConnectionInstance(ipAddress,Integer.parseInt(server_port));
+
+                    String newIp = ip.getText().toString();
+                    String newPort = port.getText().toString();
+                    if(!newIp.equals(robot_ipAddress)){
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(getString(R.string.pref_robot_ip_address), ip.getText()+"");
+                        editor.apply();
+                        robot_ipAddress = ip.getText()+"";
+                    }
+                    if(!newPort.equals(robot_port)){
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(getString(R.string.pref_robot_port), port.getText()+"");
+                        editor.apply();
+                        robot_port = port.getText()+"";
+                    }
+
+                    SocketClient.getServerConnectionInstance(server_ipAddress,Integer.parseInt(server_port));
                     SocketClient.getConnectionInstance(ip.getText().toString(),Integer.parseInt(port.getText().toString()), robot);
                     enviarSocket(ip.getText().toString(), Integer.parseInt(port.getText().toString()),1);
                     BListo.setVisibility(View.VISIBLE);
@@ -166,7 +188,7 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View actionPopup = getLayoutInflater().inflate(R.layout.layout_connection, null);
         final EditText ip = actionPopup.findViewById(R.id.edtxt_ip);
-        ip.setText(ipAddress);
+        ip.setText(server_ipAddress);
         final EditText port = actionPopup.findViewById(R.id.edtxt_port);
         port.setText(server_port);
         ip.setFilters(setIpFilter());
@@ -183,17 +205,17 @@ public class ChooseRobotActivity extends AppCompatActivity implements View.OnCli
                     String newIp = ip.getText().toString();
                     String newPort = port.getText().toString();
 
-                    if(!newIp.equals(ipAddress)){
+                    if(!newIp.equals(server_ipAddress)){
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(getString(R.string.pref_ip_address), ip.getText()+"");
+                        editor.putString(getString(R.string.pref_server_ip_address), ip.getText()+"");
                         editor.apply();
-                        ipAddress = ip.getText()+"";
-                        String texto = "conectado al servidor "+ipAddress;
+                        server_ipAddress = ip.getText()+"";
+                        String texto = "conectado al servidor "+ server_ipAddress;
                         TVServerip.setText(texto);
                     }
                     if(!newPort.equals(server_port)){
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(getString(R.string.pref_port), port.getText()+"");
+                        editor.putString(getString(R.string.pref_server_port), port.getText()+"");
                         editor.apply();
                         server_port = port.getText()+"";
                     }

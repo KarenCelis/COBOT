@@ -79,7 +79,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     //Variables para la recolección de los datos al momento de ejecutar
     private int LatestActionSelectedId;
     private String emotionSelected = "happyness_sadness";
-    private double emotionIntensitySelected = 50.0;
+    private double emotionIntensitySelected = 0.0;
     private Map<Integer, String> actionsSelected;
     private int emergentSelected = 0;
 
@@ -188,10 +188,9 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
         LinearLayout LLHEscenas = findViewById(R.id.LLHEscenas);
         LLHEscenas.removeAllViews();
-        Scene[] escenas = obra.getScenes();
         int assignOnce = 0;
 
-        for (final Scene iterator : escenas) {
+        for (final Scene iterator : obra.getScenes()) {
             for (int i = 0; i < iterator.getCharacterIds().length; i++) {
                 if (iterator.getCharacterIds()[i] == idPersonaje) {
 
@@ -244,24 +243,22 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         Log.i(TAG, "Estableciendo acciones para la escena " + idEscena + " y el personaje " + idPersonaje);
         LinearLayout LLHAcciones = findViewById(R.id.LLHAcciones);
         LLHAcciones.removeAllViews();
-        final Scene escenaEscogida = obra.getScenes()[idEscena - 1];
 
         //Se crean tantos enteros de acciones como acciones hayan y se inicia en -1 para identificar la primera vez.
-        actionReturns = new int[escenaEscogida.getActions().length];
+        actionReturns = new int[obra.getScenes()[idEscena - 1].getActions().length];
         Arrays.fill(actionReturns, -1);
         //Se crean tantos tags de botones de acciones como acciones haya y se nombran según su posición
-        actionButtons = new ImageButton[escenaEscogida.getActions().length];
+        actionButtons = new ImageButton[obra.getScenes()[idEscena - 1].getActions().length];
 
-        for (final Action iterator : escenaEscogida.getActions()) {
+        for (final Action iterator : obra.getScenes()[idEscena - 1].getActions()) {
 
             //Si son nulas las opciones entonces es caminar o correr, se asignan los lugares del mapa excepto en donde está
             if (iterator.getDisplayText() == null) {
-                String[] originalNodes = obra.getScenarios()[escenaEscogida.getScenario() - 1].getNode_names();
                 ArrayList<String> nodeNames = new ArrayList<>();
-                for (int i = 0; i < originalNodes.length; i++) {
+                for (int i = 0; i < obra.getScenarios()[obra.getScenes()[idEscena - 1].getScenario() - 1].getNode_names().length; i++) {
                     //remover la posición actual
                     if (i != obra.getCharacters()[idPersonaje - 1].getNodeId() - 1) {
-                        nodeNames.add(originalNodes[i]);
+                        nodeNames.add(obra.getScenarios()[obra.getScenes()[idEscena - 1].getScenario() - 1].getNode_names()[i]);
                     }
                 }
                 nodeNames.add("Ninguno");
@@ -270,11 +267,12 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                     nodeNamesArray[i] = nodeNames.get(i);
                 }
                 iterator.setDisplayText(nodeNamesArray);
+                nodeNames.clear();
             }
 
             if (iterator.getCharacterId() == 0 || iterator.getCharacterId() == idPersonaje) {
 
-                Log.i(TAG, "Acciones encontrada para el personaje " + idPersonaje);
+                Log.i(TAG, "Acciones encontradas para el personaje " + idPersonaje);
                 final ImageButton IBAccion = new ImageButton(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(130, 130);
 
@@ -300,24 +298,21 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     public void startActionActivities(int idScene, int idAccion, int idActionGeneric) {
 
-        Action accion = obra.getScenes()[idScene - 1].getActions()[idAccion - 1];
-        String[] options = accion.getDisplayText();
+        String[] options = obra.getScenes()[idScene - 1].getActions()[idAccion - 1].getDisplayText();
         String[] imageResourceIds;
 
         Log.d(TAG, "startActionActivities: " + Arrays.toString(options));
 
-        if (accion.isHasImages() && accion.getImageUrls() != null) {
-            imageResourceIds = accion.getImageUrls();
-        } else {
-            imageResourceIds = new String[1];
-            imageResourceIds[0] = obra.getGenericActions()[idActionGeneric - 1].getActionIconUrl();
-        }
-
         Intent intentTest = new Intent(getApplicationContext(), ActionActivity.class);
 
+        if (obra.getScenes()[idScene - 1].getActions()[idAccion - 1].isHasImages() && obra.getScenes()[idScene - 1].getActions()[idAccion - 1].getImageUrls() != null) {
+            intentTest.putExtra("imageResourceIds", obra.getScenes()[idScene - 1].getActions()[idAccion - 1].getImageUrls());
+        } else {
+            intentTest.putExtra("imageResourceIds", obra.getGenericActions()[idActionGeneric - 1].getActionIconUrl());
+        }
+
         intentTest.putExtra("options", options);
-        intentTest.putExtra("hasImages", accion.isHasImages());
-        intentTest.putExtra("imageResourceIds", imageResourceIds);
+        intentTest.putExtra("hasImages", obra.getScenes()[idScene - 1].getActions()[idAccion - 1].isHasImages());
         intentTest.putExtra("id", actionReturns[idAccion - 1]);
 
         startActivityForResult(intentTest, idAccion - 1);
