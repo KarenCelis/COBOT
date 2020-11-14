@@ -1,0 +1,367 @@
+{
+    "Title":"Rescate Galáctico",
+    "SceneAmount": 2,
+    "Characters":[
+        {
+            "id":1,
+            "Name":"NAO",
+            "CharacterIcon":"https://i.imgur.com/ho4pJ4p.png"
+        }
+    ],
+    "Scenes":[
+        {
+            "id":1,
+            "Scenario":1,
+            "CharacterIds":[1],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":1
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":[
+                        "No me quiero quedar aquí atrapado, espero me rescaten...",
+                        "Estoy en 0-0",
+                        "Está bien, voy a llegar lo prometo", "Sí, aquí estoy",
+                        "Estoy en las coordenadas 1-1",
+                        "Está bien",
+                        "Ya llegué, ya estoy aquí equipo",
+                        "¿Cuánto tiempo nos queda? ",
+                        "¿Hola? ¿Me oyen?",
+                        "Ahm, hay alguien ahí?",
+                        "No me quiero quedar aquí, por favor, ¡lleguen!",
+                        "¡Sí lo hicieron!, ¡gracias por salvarme!"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":0,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":0,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":0,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":0,
+                    "ActionName":"sonido",
+                    "DisplayText":[],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }
+            ]
+        },
+        {
+            "id":2,
+            "Scenario":1,
+            "CharacterIds":[1],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":6
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":[
+                        "No me quiero quedar aquí atrapado, espero me rescaten...",
+                        "Estoy en 0-0",
+                        "Está bien, voy a llegar lo prometo", "Sí, aquí estoy",
+                        "Estoy en las coordenadas 1-1",
+                        "Está bien",
+                        "Ya llegué, ya estoy aquí equipo",
+                        "¿Cuánto tiempo nos queda? ",
+                        "¿Hola? ¿Me oyen?",
+                        "Ahm, hay alguien ahí?",
+                        "No me quiero quedar aquí, por favor, ¡lleguen!",
+                        "¡Sí lo hicieron!, ¡gracias por salvarme!"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":0,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":0,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":0,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":0,
+                    "ActionName":"sonido",
+                    "DisplayText":[],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }
+            ]
+        },
+        {
+            "id":3,
+            "Scenario":1,
+            "CharacterIds":[1],
+            "Positions":[
+                {
+                    "CharacterId":1,
+                    "NodeId":12
+                }
+            ],
+            "actions":[
+                {
+                    "id":1,
+                    "idGeneric": 3,
+                    "CharacterId":1,
+                    "ActionName":"hablar",
+                    "Duration":1,
+                    "DisplayText":[
+                        "No me quiero quedar aquí atrapado, espero me rescaten...",
+                        "Estoy en 0-0",
+                        "Está bien, voy a llegar lo prometo", "Sí, aquí estoy",
+                        "Estoy en las coordenadas 1-1",
+                        "Está bien",
+                        "Ya llegué, ya estoy aquí equipo",
+                        "¿Cuánto tiempo nos queda? ",
+                        "¿Hola? ¿Me oyen?",
+                        "Ahm, hay alguien ahí?",
+                        "No me quiero quedar aquí, por favor, ¡lleguen!",
+                        "¡Sí lo hicieron!, ¡gracias por salvarme!"],
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":2,
+                    "idGeneric": 1,
+                    "CharacterId":0,
+                    "ActionName":"caminar",
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":3,
+                    "idGeneric": 4,
+                    "CharacterId":0,
+                    "ActionName":"mirar",
+                    "DisplayText":["Al frente", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":4,
+                    "idGeneric": 6,
+                    "CharacterId":0,
+                    "ActionName":"girar",
+                    "DisplayText":["Al frente", "Hacia atrás", "Hacia la derecha", "Hacia la izquierda"],
+                    "Duration":1,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                },
+                {
+                    "id":5,
+                    "idGeneric": 5,
+                    "CharacterId":0,
+                    "ActionName":"sonido",
+                    "DisplayText":["Corte de comunicación", "despegue de nave"],
+                    "Duration":0,
+                    "hasImages": false,
+                    "optionImagesUrl":[]
+                }
+            ]
+        }
+    ],
+    "Scenarios":[
+        {
+            "id":1,
+            "name":"Agujero Negro",
+            "nodes":16,
+            "adjacency_matrix":[
+                [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]
+            ],
+            "node_names":[
+                "Hacia la coordenada 0-0", "Hacia la coordenada 0-1", "Hacia la coordenada 0-2", "0-3",
+                "Hacia la coordenada 1-0", "1-1", "1-2", "1-3",
+                "2-0", "2-1", "2-2", "2-3",
+                "3-0", "3-1", "3-2", "3-3"
+            ],
+            "node": [
+                {"id": 1, "name": "0-0", "xaxis": 0, "yaxis": 0},
+                {"id": 2, "name": "0-1", "xaxis": 0, "yaxis": 1},
+                {"id": 3, "name": "0-2", "xaxis": 0, "yaxis": 2},
+                {"id": 4, "name": "0-3", "xaxis": 0, "yaxis": 3},
+                {"id": 5, "name": "1-0", "xaxis": 1, "yaxis": 0},
+                {"id": 6, "name": "1-1", "xaxis": 1, "yaxis": 1},
+                {"id": 7, "name": "1-2", "xaxis": 1, "yaxis": 2},
+                {"id": 8, "name": "1-3", "xaxis": 1, "yaxis": 3},
+                {"id": 9, "name": "2-0", "xaxis": 2, "yaxis": 0},
+                {"id": 10, "name": "2-1", "xaxis": 2, "yaxis": 1},
+                {"id": 11, "name": "2-2", "xaxis": 2, "yaxis": 2},
+                {"id": 12, "name": "2-3", "xaxis": 2, "yaxis": 3},
+                {"id": 13, "name": "3-0", "xaxis": 3, "yaxis": 0},
+                {"id": 14, "name": "3-1", "xaxis": 3, "yaxis": 1},
+                {"id": 15, "name": "3-2", "xaxis": 3, "yaxis": 2},
+                {"id": 16, "name": "3-3", "xaxis": 3, "yaxis": 3}
+            ]
+        }
+    ],
+    "GenericActions": [
+        {
+            "id": 1,
+            "name": "caminar",
+            "ActionIcon": "https://i.imgur.com/1c0kQGCt.png",
+            "blocks": [2, 6],
+            "displacement": 1
+        },
+        {
+            "id": 2,
+            "name": "correr",
+            "ActionIcon": "https://i.imgur.com/AZzKem6s.png",
+            "blocks": [1, 6],
+            "displacement": 1
+        },
+        {
+            "id": 3,
+            "name": "hablar",
+            "ActionIcon": "https://i.imgur.com/da43YyOt.png",
+            "blocks": [5],
+            "sounds": 1
+        },
+        {
+            "id": 4,
+            "name": "mirar",
+            "ActionIcon": "https://i.imgur.com/wM30Rvot.png",
+            "blocks": [4]
+        },
+        {
+            "id": 5,
+            "name": "sonido",
+            "ActionIcon": "https://i.imgur.com/e3IcMg5s.png",
+            "blocks": [3],
+            "sounds": 1
+        },
+        {
+            "id": 6,
+            "name": "girar",
+            "ActionIcon": "https://i.imgur.com/LBq3Z3kt.png",
+            "blocks": [1, 2]
+        }
+    ],
+    "EmergentActions": [
+        {
+            "id": 1,
+            "name": "Llorar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Suspirar",
+            "characterId": [1,2]
+        },
+        {
+            "id": 3,
+            "name": "Normal",
+            "characterId": [1,2]
+        },
+        {
+            "id": 4,
+            "name": "¡Yei!",
+            "characterId": [1,2]
+        },
+        {
+            "id": 5,
+            "name": "¡¡Yupi!!",
+            "characterId": [1,2]
+        }
+    ],
+    "SignsOfLife": [
+        {
+            "id": 1,
+            "name": "Mirar alrededor",
+            "characterId": [1,2]
+        },
+        {
+            "id": 2,
+            "name": "Mirar la hora",
+            "characterId": [1,2]
+        },
+        {
+            "id": 3,
+            "name": "Pensar",
+            "characterId": [1,2]
+        }
+    ]
+}

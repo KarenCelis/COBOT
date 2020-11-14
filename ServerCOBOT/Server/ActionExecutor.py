@@ -65,7 +65,7 @@ class Executor(object):
 
                 if self.comandos[i].commandname == "signo" or self.comandos[i].commandname == "emergent":
 
-                    return_message.status = nao.signo_o_emergente(self.comandos[i])
+                    return_message.status, return_message.processid = nao.signo_o_emergente(self.comandos[i])
 
             return return_message
 
@@ -74,3 +74,15 @@ class Executor(object):
             # Enviar datos por socket (pendiente)
             x = 0
             return True
+
+    def stopTask(self, returned_message):
+
+        if returned_message is not None:
+            if self.connection.robot == "nao":
+                import sys
+                sys.path.insert(0, "../")
+
+                from Nao import Executor
+
+                nao = Executor(self.comandos, self.connection)
+                nao.stopTask(returned_message.processid)

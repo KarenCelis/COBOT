@@ -8,6 +8,7 @@ public class GenericAction implements Serializable {
     private String ActionIconUrl;
     private int[]blocks;
     private boolean displacement;
+    private boolean sounds;
 
     //parameter es el parámetro de tipo cualquiera que se escoge para cada acción, como el diálogo o el destino de la acción, se usa para armar el json.
     private String parameter;
@@ -67,5 +68,13 @@ public class GenericAction implements Serializable {
 
     public void setDisplacement(boolean displacement) {
         this.displacement = displacement;
+    }
+
+    public boolean isSounds() {
+        return sounds;
+    }
+
+    public void setSounds(boolean sounds) {
+        this.sounds = sounds;
     }
 }

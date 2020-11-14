@@ -75,6 +75,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
 
     //Índices de la opción seleccionada para cada acción
     private int[] actionReturns;
+    int actionid=0;
 
     //Variables para la recolección de los datos al momento de ejecutar
     private int LatestActionSelectedId;
@@ -248,7 +249,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
         actionReturns = new int[obra.getScenes()[idEscena - 1].getActions().length];
         Arrays.fill(actionReturns, -1);
         //Se crean tantos tags de botones de acciones como acciones haya y se nombran según su posición
-        actionButtons = new ImageButton[obra.getScenes()[idEscena - 1].getActions().length];
+        actionButtons = new ImageButton[obra.getGenericActions().length];
 
         for (final Action iterator : obra.getScenes()[idEscena - 1].getActions()) {
 
@@ -297,6 +298,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void startActionActivities(int idScene, int idAccion, int idActionGeneric) {
+        actionid = idAccion;
 
         String[] options = obra.getScenes()[idScene - 1].getActions()[idAccion - 1].getDisplayText();
         String[] imageResourceIds;
@@ -340,6 +342,7 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                 blockActions(latestActionId);
             }
             Log.i(TAG2, "nombre del nodo:" + parameter);
+            //Cambiar el parametro de la ubicacion seleccionada por el numero del nodo
             if (obra.getGenericActions()[latestActionId].isDisplacement()) {
                 for (int i = 0; i< obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names().length; i++) {
                     if (obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names()[i].equalsIgnoreCase(parameter)){
@@ -347,8 +350,18 @@ public class CentralActivity extends AppCompatActivity implements View.OnClickLi
                     }
                     Log.i(TAG2, "nombre del arreglo:" + obra.getScenarios()[obra.getScenes()[idEscena-1].getScenario() - 1].getNode_names()[i]);
                 }
+                //Cambiar el parametro del sonido seleccionado por la id del sonido
+            }else if(obra.getGenericActions()[latestActionId].isSounds()){
+                for (int i = 0; i< obra.getScenes()[idEscena-1].getActions()[actionid-1].getDisplayText().length; i++) {
+                    if (obra.getScenes()[idEscena-1].getActions()[actionid-1].getDisplayText()[i].equalsIgnoreCase(parameter)){
+                        parameter = (i+1)+"";
+                    }
+                    Log.i(TAG2, "nombre del arreglo:" + obra.getScenes()[idEscena-1].getActions()[actionid-1].getDisplayText()[i]);
+
+                }
             }else{
                 Log.i(TAG2, "nada:" + parameter);
+                Log.i(TAG2, "nombre de la acción:" + obra.getGenericActions()[latestActionId].getName()+ obra.getGenericActions()[latestActionId].isSounds());
             }
             actionsSelected.put(LatestActionSelectedId, parameter);
             Log.i(TAG2, "Se ha actualizado lo siguiente:" + actionsSelected.get(LatestActionSelectedId));

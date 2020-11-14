@@ -359,7 +359,8 @@
             "id": 3,
             "name": "hablar",
             "ActionIcon": "https://i.imgur.com/da43YyOt.png",
-            "blocks": [5]
+            "blocks": [5],
+            "sounds": 1
         },
         {
             "id": 4,
@@ -371,7 +372,8 @@
             "id": 5,
             "name": "sonido",
             "ActionIcon": "https://i.imgur.com/e3IcMg5s.png",
-            "blocks": [3]
+            "blocks": [3],
+            "sounds": 1
         },
         {
             "id": 6,
@@ -416,6 +418,11 @@
         {
             "id": 2,
             "name": "Mirar la hora",
+            "characterId": [1,2]
+        },
+        {
+            "id": 3,
+            "name": "Pensar",
             "characterId": [1,2]
         }
     ]

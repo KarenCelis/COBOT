@@ -2,6 +2,7 @@
 from naoqi import ALProxy
 import math
 import time
+import os
 
 
 def rotatefront(initpos):
@@ -104,6 +105,32 @@ class Executor(object):
         self.connection = connection
         print "La posición inicial es {} grados".format(self.connection.theta)
 
+    def stopTask(self, identifiers):
+        print 'deteniendo acciones de Nao'
+        moduleproxy = setconnection(self.connection, "ALModule")
+        if moduleproxy is not None:
+            for identifier in identifiers:
+                moduleproxy.stop(identifier)
+            self.applyPosture()
+
+    def applyPosture(self):
+        motionproxy = setconnection(self.connection, "ALRobotPosture")
+        motionproxy.goToPosture('stand', 0.1)
+
+    def setleds(self, color, fadetime):
+        # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
+        ledproxy = setconnection(self.connection, "ALLeds")
+        processid = ledproxy.post.fadeRGB("AllLeds", color, fadetime)
+        return processid
+
+    def setsound(self, audiofile, volume, folder):
+        soundproxy = setconnection(self.connection, "ALAudioPlayer")
+
+        print os.path.abspath(os.getcwd())
+        head, tail = os.path.split(os.path.abspath(os.getcwd()))
+        processid = soundproxy.post.playFile("{}/Sounds/{}/{}".format(head, folder, audiofile), volume, 0.0)
+        return processid
+
     def avanzar(self, command, path):
 
         try:
@@ -111,54 +138,51 @@ class Executor(object):
             motionproxy = setconnection(self.connection, "ALMotion")
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
-            if motionproxy is None:
+            if motionproxy is None or posture_service is None:
                 return False, self.connection.theta
             else:
 
                 posture_service.goToPosture("Stand", 0.01)
 
                 speed = 1
-
-                isleds = False
-                leds = 'red'
-
                 ispitch = False
+                sound = None
                 pitch_angle = math.radians(10.0)
 
                 for parameter in command.parameters:
                     if parameter.parametername == "speed":
                         speed = parameter.values
                     elif parameter.parametername == "ledcolor":
-                        isleds = True
                         leds = parameter.values
+                        self.setleds('red', 5)
+                        print "El color del led para el robot es {}".format(leds)
                     elif parameter.parametername == "HeadPitch":
                         ispitch = True
                         pitch_angle = math.radians(parameter.values)
+                    elif parameter.parametername == "sound":
+                        self.setsound(parameter.values, speed, "Sounds")
+                        sound = parameter.values
 
                 if ispitch:
                     motionproxy.setAngles(["HeadPitch"], [pitch_angle], speed)
 
                 for i in range(len(path) - 1):
+
                     theta_result = gettheta(self.connection.theta, path[i], path[i + 1])
-                    # primero el robot se gira para quedar mirando frente al nodo destino
                     print "¡nao va a girar {} grados".format(theta_result)
-                    # print " que son %s radianes!" % math.radians(theta_result)
 
-                    if isleds:
-                        ledproxy = setconnection(self.connection, "ALLeds")
-                        # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
-                        ledproxy.post.fadeRGB("AllLeds", 'red', 5)
-
-                    # motionproxy.moveInit()
                     processid = motionproxy.post.moveTo(0, 0, math.radians(theta_result))
                     motionproxy.wait(processid, 0)
-                    # luego el robot se mueve en línea recta hacia el nodo destino, al frente es en el eje y del plano
-                    # cartesiano
+                    if sound is not None:
+                        self.setsound(sound, speed, "Sounds")
+
                     processid = motionproxy.moveTo(distance(path[i], path[i + 1]), 0, 0)
                     motionproxy.wait(processid, 0)
+                    if sound is not None:
+                        self.setsound(sound, speed, "Sounds")
+
                     self.connection.theta = self.connection.theta + theta_result
 
-                posture_service.goToPosture('Stand', 0.5)
                 return True, self.connection.theta
 
         except RuntimeError, e:
@@ -167,25 +191,20 @@ class Executor(object):
             print e.message
             return False, self.connection.theta
 
-    def reproducir(self, command):
+    def reproducir_tts(self, command):
 
         try:
 
             speakproxy = setconnection(self.connection, "ALTextToSpeech")
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
-            if speakproxy is None:
+            if speakproxy is None or posture_service is None:
                 return False
             else:
                 posture_service.goToPosture("Stand", 0.01)
-                # Valor por defecto de la velocidad al hablar
                 speed = 100
-                # Valor por defecto del tono de la voz
                 pitch = 0
-                # Diálogo por defecto del robot
                 dialog = "Hola soy un robot actor!"
-                isleds = False
-                leds = 'red'
 
                 for parameter in command.parameters:
                     if parameter.parametername == "speed":
@@ -195,20 +214,58 @@ class Executor(object):
                     elif parameter.parametername == "reproducir":
                         dialog = parameter.values
                     elif parameter.parametername == "ledcolor":
-                        isleds = True
+                        self.setleds('red', 5)
                         leds = parameter.values
-
-                if isleds:
-                    ledproxy = setconnection(self.connection, "ALLeds")
-                    # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
-                    ledproxy.fadeRGB("AllLeds", 'red', 5)
+                        print "El color del led para el robot es {}".format(leds)
 
                 speakproxy.setLanguage("Spanish")
                 speakproxy.setParameter("speed", speed)
                 speakproxy.setParameter("pitchShift", pitch)
 
                 speakproxy.post.say(dialog)
+                posture_service.post.goToPosture("Stand", 0.01)
 
+                return True
+
+        except RuntimeError, e:
+            print "Hubo un error al ejecutar el comando reproducir, por favor revisar los valores ingresados como " \
+                  "parametros "
+            print e.message
+            return False
+
+    def reproducir(self, command):
+        try:
+
+            soundproxy = setconnection(self.connection, "ALAudioPlayer")
+            motionproxy = setconnection(self.connection, "ALMotion")
+            posture_service = setconnection(self.connection, "ALRobotPosture")
+
+            if soundproxy is None or posture_service is None:
+                return False
+            else:
+                posture_service.goToPosture("Stand", 0.01)
+                # Valor por defecto de la velocidad al hablar
+                speed = 1
+                ispitch = False
+                pitch_angle = math.radians(10.0)
+
+                for parameter in command.parameters:
+                    if parameter.parametername == "speed":
+                        speed = parameter.values
+                    elif parameter.parametername == "sound":
+                        self.setsound(parameter.values, speed, "Dialogs")
+                    elif parameter.parametername == "ledcolor":
+                        self.setleds('red', 5)
+                        leds = parameter.values
+                        print "El color del led para el robot es {}".format(leds)
+                    elif parameter.parametername == "HeadPitch":
+                        ispitch = True
+                        pitch_angle = math.radians(parameter.values)
+
+                if ispitch:
+                    motionproxy.setAngles(["HeadPitch"], [pitch_angle], speed)
+
+                posture_service.post.goToPosture("Stand", 0.01)
                 return True
 
         except RuntimeError, e:
@@ -224,17 +281,13 @@ class Executor(object):
             motionproxy = setconnection(self.connection, "ALMotion")
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
-            if motionproxy is None:
+            if motionproxy is None or posture_service is None:
                 return False, self.connection.theta
             else:
 
                 posture_service.goToPosture("Stand", 0.01)
-                # Ángulo de giro por defecto
                 theta_result = 90
                 speed = 1
-
-                isleds = False
-                leds = 'red'
 
                 ispitch = False
                 pitch_angle = math.radians(10.0)
@@ -248,26 +301,25 @@ class Executor(object):
                         else:
                             theta_result = parameter.values[-1]
                     elif parameter.parametername == "ledcolor":
-                        isleds = True
                         leds = parameter.values
+                        self.setleds('red', 5)
+                        print "El color del led para el robot es {}".format(leds)
                     elif parameter.parametername == "HeadPitch":
                         ispitch = True
                         pitch_angle = math.radians(parameter.values)
+                    elif parameter.parametername == "sound":
+                        self.setsound(parameter.values, speed, "Sounds")
 
                 if ispitch:
                     motionproxy.setAngles(["HeadPitch"], [pitch_angle], speed)
 
-                # primero el robot se gira para quedar mirando frente al nodo destino
-                # print "¡nao va a girar %s " % theta_result,
-                # print " que son %s radianes!" % math.radians(theta_result)
-                if isleds:
-                    ledproxy = setconnection(self.connection, "ALLeds")
-                    # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
-                    ledproxy.post.fadeRGB("AllLeds", 'red', 5)
+                print "nao va a girar {} grados" .format(theta_result)
 
                 motionproxy.moveInit()
                 motionproxy.post.moveTo(0, 0, math.radians(theta_result))
+
                 self.connection.theta = rotate(self.connection.theta, theta_result)
+                posture_service.post.goToPosture("Stand", 0.01)
 
             return True, self.connection.theta
 
@@ -281,24 +333,25 @@ class Executor(object):
             motionproxy = setconnection(self.connection, "ALMotion")
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
-            if motionproxy is None:
+            if motionproxy is None or posture_service is None:
                 return False
             else:
-
-                theta_result = 0.0
 
                 names = []
                 angle_lists = []
                 times = []
                 isabsolute = True
 
-                isleds = False
-                leds = 'red'
-
                 posture_service.goToPosture("Stand", 0.01)
+
                 for parameter in command.parameters:
-                    if str.endswith(parameter.parametername.encode(), "_time"):
+
+                    if parameter.parametername == "sound":
+                        self.setsound(parameter.values, 1, "Sounds")
+
+                    elif str.endswith(parameter.parametername.encode(), "_time"):
                         times.append([parameter.values])
+
                     elif parameter.parametername == "HeadYaw":
 
                         if parameter.values == 0:
@@ -310,29 +363,21 @@ class Executor(object):
                         names.append(parameter.parametername.encode())
 
                     elif parameter.parametername == "ledcolor":
-
-                        isleds = True
                         leds = parameter.values
+                        self.setleds('red', 5)
+                        print "El color del led para el robot es {}".format(leds)
 
                     else:
 
                         names.append(parameter.parametername.encode())
                         angle_lists.append([math.radians(parameter.values)])
 
-                # print "¡nao va a girar %s " % theta_result,
-                # print " que son %s radianes!" % math.radians(theta_result)
-
-                if isleds:
-                    ledproxy = setconnection(self.connection, "ALLeds")
-                    # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
-                    ledproxy.post.fadeRGB("AllLeds", 'red', 5)
-
-                print names
-                print angle_lists
-                print times
+                # print names
+                # print angle_lists
+                # print times
 
                 motionproxy.post.angleInterpolation(names, angle_lists, times, isabsolute)
-                posture_service.goToPosture("Stand", 0.01)
+                posture_service.post.goToPosture("Stand", 0.01)
 
                 return True
 
@@ -344,10 +389,11 @@ class Executor(object):
     def signo_o_emergente(self, command):
 
         try:
+            processid = []
             motion_service = setconnection(self.connection, "ALMotion")
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
-            if motion_service is None:
+            if motion_service is None or posture_service is None:
                 return False
             else:
 
@@ -360,19 +406,20 @@ class Executor(object):
                 is_absolute = True
                 dialog = "hola soy un robot actor"
                 isdialog = False
-                isleds = False
-                leds = []
 
                 for parameter in command.parameters:
                     # Si el nombre del parámetro termina con time, entonces ubicar el tiempo en el arreglo paralelo
                     if str.endswith(parameter.parametername.encode(), "_time"):
                         times.append(parameter.values)
                     elif parameter.parametername == "ledcolor":
-                        isleds = True
+                        processid.append(self.setleds('red', 5))
                         leds = parameter.values
+                        print "El color del led para el robot es {}".format(leds)
                     elif parameter.parametername == "reproducir":
                         isdialog = True
                         dialog = parameter.values
+                    elif parameter.parametername == "sound":
+                        processid.append(self.setsound(parameter.values, 1, "Sounds"))
                     else:
                         names.append(parameter.parametername.encode())
                         values_radians = []
@@ -384,28 +431,26 @@ class Executor(object):
                                 values_radians.append(math.radians(parameter.values[i]))
                         angle_lists.append(values_radians)
 
-                motion_service.post.angleInterpolation(names, angle_lists, times, is_absolute)
+                print names
+                print angle_lists
+                print times
+
+                processid.append(motion_service.post.angleInterpolation(names, angle_lists, times, is_absolute))
 
                 if isdialog:
                     speakproxy = setconnection(self.connection, "ALTextToSpeech")
                     speakproxy.setLanguage("Spanish")
                     speakproxy.post.say(dialog.encode())
 
-                if isleds:
-                    ledproxy = setconnection(self.connection, "ALLeds")
-                    # ledproxy.fadeRGB("AllLeds", '#%02x%02x%02x' % (leds[0], leds[1], leds[-1]), 10)
-                    ledproxy.post.fadeRGB("AllLeds", 'red', 5)
+                posture_service.post.goToPosture("Stand", 0.1)
 
-                    # print '#%02x%02x%02x' % (leds[0], leds[1], leds[-1])
-
-                posture_service.goToPosture("Stand", 0.01)
-
-                return True
+                return True, processid
 
         except RuntimeError, e:
-            print "Hubo un error al ejecutar el comando signo, por favor revisar los valores ingresados como parametros"
+            print "Hubo un error al ejecutar el comando signo o emergente, " \
+                  "por favor revisar los valores ingresados como parametros"
             print e.message
-            return False
+            return False, []
 
 
 class Vertex:

@@ -5,6 +5,104 @@ import json
 import GestorDeObra
 import threading
 
+print_lock = threading.Lock()
+
+
+class ThreadedServer(object):
+    def __init__(self, host, port):
+        self.gestores = []
+        self.direcciones = []
+        self.timers = []
+        self.host = host
+        self.port = port
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.sock.bind((self.host, self.port))
+
+    def listen(self):
+        self.sock.listen(5)
+        while True:
+            print "Servidor escuchando"
+            client, address = self.sock.accept()
+            host, port = address
+            if host in self.direcciones:
+                indice = self.direcciones.index(host)
+                print "accediendo al gestor para {}".format(host)
+                threading.Thread(target=self.listenToClient, args=(client, indice)).start()
+            else:
+                self.direcciones.append(host)
+                self.gestores.append(GestorDeObra.Gestor(host))
+                self.timers.append(threading.Timer(25, self.ejecutarsignosdevida, [len(self.gestores)-1]))
+                print "iniciando el gestor de {}".format(host)
+                threading.Thread(target=self.listenToClient, args=(client, len(self.gestores)-1)).start()
+
+            client.settimeout(10)
+            print "Nuevo cliente"
+
+    def listenToClient(self, client, indice):
+
+        try:
+
+            data = client.recv(4096).decode('utf-8')
+            print data
+
+            if not data:
+                print_lock.acquire()
+                print("El contenido del mensaje está vacío, verifica la conexión")
+                print_lock.release()
+            else:
+
+                jdata = json.loads(data)
+                option = 0
+
+                if "code" in jdata:
+                    option = int(json.dumps(jdata["code"]))
+
+                if option != 0:
+                    if "data" in jdata:
+                        data = json.dumps(jdata["data"])
+
+                        if self.timers[indice].is_alive() and (option == 4 or option == 5):
+                            canceltimer(self.timers[indice])
+                            print_lock.acquire()
+                            print "cancelando timer para el gestor {}".format(self.gestores[indice].connection.ip)
+                            print_lock.release()
+                            if self.gestores[indice].momento == GestorDeObra.EJECUTANDO_SIGNOS_DE_VIDA:
+                                print "signos detenidos"
+                                self.gestores[indice].stopTask()
+
+                        result = self.gestores[indice].loadcontent(json.loads(data), option)
+
+                        if self.gestores[indice].momento == GestorDeObra.INACTIVO:
+                            if not self.timers[indice].is_alive():
+                                self.timers[indice] = threading.Timer(25, self.ejecutarsignosdevida, [indice])
+                                starttimer(self.timers[indice])
+                                print_lock.acquire()
+                                print "iniciando timer para el gestor {}".format(self.gestores[indice].connection.ip)
+                                print_lock.release()
+
+                        if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
+                            client.send("acciones ejecutadas exitosamente")
+                        elif result == GestorDeObra.ACCIONES_ENTRANTES_BLOQUEADAS:
+                            client.send("acciones bloqueadas, intente de nuevo")
+
+                    client.send("información enviada")
+                else:
+                    client.send("Servidor conectado")
+            client.close()
+
+        except ValueError as err:
+            print_lock.acquire()
+            print("Ocurrió un error inesperado con el gestor de ", self.gestores[indice].connection.ip)
+            print("error: ", err)
+            print_lock.release()
+
+    def ejecutarsignosdevida(self, indice):
+        self.gestores[indice].sendsingsoflife()
+        self.timers[indice] = threading.Timer(25, self.ejecutarsignosdevida, [indice])
+        if self.gestores[indice].momento == GestorDeObra.INACTIVO:
+            starttimer(self.timers[indice])
+
 
 class Server(object):
     def __init__(self):
@@ -25,6 +123,7 @@ def starttimer(timer):
 
 def canceltimer(timer):
     timer.cancel()
+    timer.join()
 
 
 def main():
@@ -72,10 +171,10 @@ def main():
                         result = servidor.gestores[indice].loadcontent(json.loads(data), option)
 
                         if servidor.gestores[indice].momento == GestorDeObra.INACTIVO:
-                            # if not servidor.timers[indice].is_alive():
-                            servidor.timers[indice] = threading.Timer(10, servidor.ejecutarsignosdevida, [indice])
-                            starttimer(servidor.timers[indice])
-                            print "iniciando timer para el gestor {}".format(servidor.direcciones[indice])
+                            if not servidor.timers[indice].is_alive():
+                                servidor.timers[indice] = threading.Timer(10, servidor.ejecutarsignosdevida, [indice])
+                                starttimer(servidor.timers[indice])
+                                print "iniciando timer para el gestor {}".format(servidor.direcciones[indice])
 
                         if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
                             clientsocket.send("acciones ejecutadas exitosamente")
@@ -106,4 +205,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    ThreadedServer(socket.gethostname(), 1235).listen()

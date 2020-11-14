@@ -205,6 +205,8 @@ public class Reader {
 
             genericActions[i].setBlocks(blocks);
             genericActions[i].setDisplacement(jsonTemp.has("displacement"));
+            genericActions[i].setSounds(jsonTemp.has("sounds"));
+            Log.i(TAG, "sonido: " + jsonTemp.has("sounds"));
         }
 
         SignOfLife[] signOfLife = new SignOfLife[arrayOfLifeSigns.length()];
