@@ -41,6 +41,7 @@ class Gestor(object):
         self.actionexecutor = None
 
         self.data_received = None
+        self.returned_message = None
 
     def loadcontent(self, data_received, option):
 
@@ -204,20 +205,26 @@ class Gestor(object):
         self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
                                                       self.position)
 
-        returned_message = self.actionexecutor.executeactions()
+        self.returned_message = self.actionexecutor.executeactions()
 
-        if returned_message.status:
+        if self.returned_message.status:
             print "acciones ejecutadas correctamente!"
-            self.connection.theta = returned_message.new_theta
+            self.connection.theta = self.returned_message.new_theta
             print "El robot se encuentra mirando hacia el ángulo {}".format(self.connection.theta)
             if self.position is not None:
-                self.position.NodeId = returned_message.new_position
+                self.position.NodeId = self.returned_message.new_position
                 print "El robot se encuentra en el nodo {}".format(self.position.NodeId)
 
         else:
             print "Hubo un error al ejecutar las acciones, verifique la información enviada"
 
         self.momento = INACTIVO
+
+    def stopTask(self):
+        if self.momento == EJECUTANDO_SIGNOS_DE_VIDA:
+            self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
+                                                          self.position)
+            self.actionexecutor.stopTask(self.returned_message)
 
 
 class ConnectionObject(object):
@@ -237,25 +244,27 @@ class EmotionObject(object):
 class ActionObject(object):
     def __init__(self, actionid, value):
         self.actionid = actionid
-        self.value = value
+        print type(value)
+        self.value = value.encode('utf-8')
+        print self.value
 
 
 class EmergentActionObject(object):
     def __init__(self, actionid, name):
         self.actionid = actionid + 1
-        self.name = name
+        self.name = name.encode('utf-8')
 
 
 class SignsOfLifeObject(object):
     def __init__(self, actionid, name):
         self.actionid = actionid
-        self.name = name
+        self.name = name.encode('utf-8')
 
 
 class WorldModelStructureObject(object):
     def __init__(self, scenarioid, name, nodes, adjacencymatrix, node_names, node):
         self.scenarioid = scenarioid
-        self.name = name
+        self.name = name.encode('utf-8')
         self.nodes = nodes
         self.adjacencymatrix = adjacencymatrix
         self.node_names = node_names
@@ -284,3 +293,4 @@ class ExecutorReturn(object):
         self.status = status
         self.new_theta = new_theta
         self.new_position = new_position
+        self.processid = []
