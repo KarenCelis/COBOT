@@ -323,7 +323,7 @@
           "secondary_maping_id": 1
         }
       ],
-      "no_modulation_maping_id": 0
+      "no_modulation_maping_id": 5
     },
     {
       "actionid": 6,
@@ -2092,7 +2092,8 @@
             {"name": 8, "values": "Dialogo2Escena3.wav"},
             {"name": 9, "values": "Dialogo3Escena3.wav"},
             {"name": 10, "values": "Dialogo4Escena3.wav"},
-            {"name": 11, "values": "Dialogo5Escena3.wav"}
+            {"name": 11, "values": "Dialogo5Escena3.wav"},
+            {"name": 11, "values": "Dialogo6Escena3.wav"}
           ]
         }
       ]
@@ -2119,6 +2120,22 @@
               "name": "Hacia la izquierda",
               "values": 90
             }
+          ]
+        }
+      ]
+    },
+    {
+      "actionid": 5,
+      "action": "sonido",
+      "commandname": "reproducir",
+      "parameters": [
+        {
+          "priority": 0,
+          "parameterid": 1,
+          "parametername": "sound",
+          "options": [
+            {"name": 1, "values": "ErrorDeComunicacion.wav"},
+            {"name": 2, "values": "NaveEspacial.wav"}
           ]
         }
       ]

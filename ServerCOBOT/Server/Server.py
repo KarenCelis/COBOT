@@ -22,22 +22,21 @@ class ThreadedServer(object):
     def listen(self):
         self.sock.listen(5)
         while True:
-            print "Servidor escuchando"
+            print "--Servidor escuchando--\n"
             client, address = self.sock.accept()
             host, port = address
             if host in self.direcciones:
                 indice = self.direcciones.index(host)
-                print "accediendo al gestor para {}".format(host)
+                print "Accediendo al gestor de obra del usuario con IP: {}".format(host)
                 threading.Thread(target=self.listenToClient, args=(client, indice)).start()
             else:
                 self.direcciones.append(host)
                 self.gestores.append(GestorDeObra.Gestor(host))
                 self.timers.append(threading.Timer(25, self.ejecutarsignosdevida, [len(self.gestores)-1]))
-                print "iniciando el gestor de {}".format(host)
+                print "Iniciando un nuevo gestor de obra para el usuario con IP {}".format(host)
                 threading.Thread(target=self.listenToClient, args=(client, len(self.gestores)-1)).start()
 
             client.settimeout(10)
-            print "Nuevo cliente"
 
     def listenToClient(self, client, indice):
 
