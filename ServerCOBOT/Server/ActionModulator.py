@@ -156,8 +156,6 @@ class Modulator(object):
                                         for param in no_mod_action.parameters:
 
                                             for option in param.options:
-                                                print "opcion {}".format(type(option.name))
-                                                print "value {}".format(type(accion.value))
 
                                                 if option.name == accion.value:
                                                     moduledparameters.append(
@@ -178,7 +176,7 @@ class Modulator(object):
             # print("-- Gestionando prioridades --")
             # printcontent(self.parameterset)
 
-            print("-- Comandos y parámetros --")
+            print("-- Comandos y parámetros modulados--")
             printcontent(self.parameterset)
             self.setcommands()
 

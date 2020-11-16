@@ -103,7 +103,7 @@ class Executor(object):
     def __init__(self, commands, connection):
         self.commands = commands
         self.connection = connection
-        print "La posición inicial es {} grados".format(self.connection.theta)
+        print "La posición inicial del robot es {} grados".format(self.connection.theta)
 
     def stopTask(self, identifiers):
         print 'deteniendo acciones de Nao'

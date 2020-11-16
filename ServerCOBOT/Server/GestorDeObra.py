@@ -67,7 +67,7 @@ class Gestor(object):
         if "Connection" in self.data_received:
             json_data = json.dumps(self.data_received["Connection"])
             self.connection = ConnectionObject(**json.loads(json_data))
-            print("Robot ip: ", self.connection.ip)
+            print "IP recibida para el robot {}: {}".format(self.connection.ip, self.connection.robot)
 
     def loadsignsoflife(self):
 
@@ -79,7 +79,9 @@ class Gestor(object):
             for sign in self.data_received["SignsOfLife"]:
                 json_data = json.dumps(sign)
                 self.signsoflife.append(SignsOfLifeObject(**json.loads(json_data)))
+                print "Cargado signo de vida {}".format(self.signsoflife[-1].name)
             self.momento = INACTIVO
+            print "El momento del gestor se ha establecido en INACTIVO"
 
     def sendsingsoflife(self):
         # Modular signos de vida
@@ -87,7 +89,7 @@ class Gestor(object):
 
             self.momento = EJECUTANDO_SIGNOS_DE_VIDA
             print_lock.acquire()
-            print "ejecutando signos de vida para {}".format(self.applicationip)
+            print "ejecutando signos de vida para el gestor del usuario con IP {}".format(self.applicationip)
             print_lock.release()
 
             # Se envía solo un valor de los signos de vida y se fija como arreglo ya que el action modulator funciona
@@ -103,12 +105,7 @@ class Gestor(object):
 
             # Ejecutar signos de vida
             self.callexecutor()
-
             self.momento = INACTIVO
-        else:
-            print_lock.acquire()
-            print "ejecutando signos de vida para {}".format(self.applicationip)
-            print_lock.release()
 
     def loadworldmodel(self):
 
@@ -116,7 +113,7 @@ class Gestor(object):
             json_data = json.dumps(self.data_received["scenario"])
             data = json.loads(json_data)
             scenariostructure = WorldModelStructureObject(**json.loads(json_data))
-            print("debug escenario {}".format(scenariostructure.name))
+            print("Cargando el escenario {}".format(scenariostructure.name))
             if "node" in data:
                 nodos = []
                 for nodeiterator in data["node"]:
@@ -128,28 +125,28 @@ class Gestor(object):
         if "position" in self.data_received:
             json_data = json.dumps(self.data_received["position"])
             self.position = PositionObject(**json.loads(json_data))
-            print("debug posicion {}".format(self.position.CharacterId))
+            print("Cargando la posición en el nodo {}".format(self.position.NodeId))
 
     def loadsimpleactions(self):
 
         if "Emotion" in self.data_received:
             json_data = json.dumps(self.data_received["Emotion"])
             self.emocion = EmotionObject(**json.loads(json_data))
-            print("debug emocion {}".format(self.emocion.name))
+            print("Cargando la emoción {}".format(self.emocion.name))
 
         if "Actions" in self.data_received:
 
-            nuevas_acciones = []
+            newactions = []
             for accion in self.data_received["Actions"]:
                 json_data = json.dumps(accion)
-                nuevas_acciones.append(ActionObject(**json.loads(json_data)))
-                print("debug accion de id: {}, value: {}".format(nuevas_acciones[-1].actionid,
-                                                                 nuevas_acciones[-1].value))
+                newactions.append(ActionObject(**json.loads(json_data)))
+                print("Cargando la acción de id: {}, valor: {}".format(newactions[-1].actionid, newactions[-1].value))
 
             if self.isexecutoravailable():
 
                 self.momento = EJECUTANDO_ACCIONES_SIMPLES
-                self.acciones = nuevas_acciones
+                print "El momento del gestor se ha establecido en EJECUTANDO ACCIONES SIMPLES"
+                self.acciones = newactions
                 self.actionmodulator = ActionModulator.Modulator(self.acciones, self.emocion, self.connection.robot)
                 # Se le ordena al action modulator cargar el perfil del robot para acciones simples, por eso se manda
                 # una de ellas para que el modulador compruebe que es una instancia de una acción simple y no una
@@ -170,15 +167,16 @@ class Gestor(object):
         if "Emotion" in self.data_received:
             json_data = json.dumps(self.data_received["Emotion"])
             self.emocion = EmotionObject(**json.loads(json_data))
-            print("debug emocion {}".format(self.emocion.name))
+            print("Cargando la emoción {}".format(self.emocion.name))
 
         if "EmergentAction" in self.data_received:
             json_data = json.dumps(self.data_received["EmergentAction"])
             self.emergentaction.append(EmergentActionObject(**json.loads(json_data)))
-            print("debug accion emergente {}".format(self.emergentaction[-1].actionid))
+            print("Cargando la acción emergente {}".format(self.emergentaction[-1].actionid))
 
             if self.isexecutoravailable():
                 self.momento = EJECUTANDO_ACCION_EMERGENTE
+                print "El momento del gestor se ha establecido en EJECUTANDO ACCION EMERGENTE"
                 self.actionmodulator = ActionModulator.Modulator(self.emergentaction, self.emocion,
                                                                  self.connection.robot)
 
@@ -219,12 +217,14 @@ class Gestor(object):
             print "Hubo un error al ejecutar las acciones, verifique la información enviada"
 
         self.momento = INACTIVO
+        print "El momento del gestor se ha establecido en INACTIVO"
 
     def stopTask(self):
         if self.momento == EJECUTANDO_SIGNOS_DE_VIDA:
             self.actionexecutor = ActionExecutor.Executor(self.actionmodulator.commands, self.connection,
                                                           self.position)
             self.actionexecutor.stopTask(self.returned_message)
+            print "Signos de vida para {} detenidos".format(self.applicationip)
 
 
 class ConnectionObject(object):
