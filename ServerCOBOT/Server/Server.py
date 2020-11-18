@@ -8,6 +8,12 @@ import threading
 print_lock = threading.Lock()
 
 
+def printstring(string):
+    print_lock.acquire()
+    print string
+    print_lock.release()
+
+
 class ThreadedServer(object):
     def __init__(self, host, port):
         self.gestores = []
@@ -18,37 +24,36 @@ class ThreadedServer(object):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((self.host, self.port))
+        print "Enviar datos al servidor de IP {} y puerto {}".format(socket.gethostbyname(host), port)
 
     def listen(self):
-        self.sock.listen(5)
+        self.sock.listen(20)
         while True:
-            print "--Servidor escuchando--\n"
+            printstring("-----Servidor escuchando-----\n")
             client, address = self.sock.accept()
             host, port = address
+            printstring("------Conexión recibida------")
             if host in self.direcciones:
                 indice = self.direcciones.index(host)
-                print "Accediendo al gestor de obra del usuario con IP: {}".format(host)
+                printstring("Accediendo al gestor de obra del usuario con IP: {}\n".format(host))
                 threading.Thread(target=self.listenToClient, args=(client, indice)).start()
             else:
                 self.direcciones.append(host)
                 self.gestores.append(GestorDeObra.Gestor(host))
                 self.timers.append(threading.Timer(25, self.ejecutarsignosdevida, [len(self.gestores)-1]))
-                print "Iniciando un nuevo gestor de obra para el usuario con IP {}".format(host)
+                printstring("Iniciando un nuevo gestor de obra para el usuario con IP {}\n".format(host))
                 threading.Thread(target=self.listenToClient, args=(client, len(self.gestores)-1)).start()
 
-            client.settimeout(10)
+            client.settimeout(180)
 
     def listenToClient(self, client, indice):
 
         try:
 
             data = client.recv(4096).decode('utf-8')
-            print data
 
             if not data:
-                print_lock.acquire()
-                print("El contenido del mensaje está vacío, verifica la conexión")
-                print_lock.release()
+                printstring("El contenido del mensaje está vacío, verifica la conexión")
             else:
 
                 jdata = json.loads(data)
@@ -63,11 +68,9 @@ class ThreadedServer(object):
 
                         if self.timers[indice].is_alive() and (option == 4 or option == 5):
                             canceltimer(self.timers[indice])
-                            print_lock.acquire()
-                            print "cancelando timer para el gestor {}".format(self.gestores[indice].connection.ip)
-                            print_lock.release()
+                            printstring("Cancelando timer para el gestor de {}".format(self.gestores[indice].userip))
                             if self.gestores[indice].momento == GestorDeObra.EJECUTANDO_SIGNOS_DE_VIDA:
-                                print "signos detenidos"
+                                print "Signos detenidos"
                                 self.gestores[indice].stopTask()
 
                         result = self.gestores[indice].loadcontent(json.loads(data), option)
@@ -76,9 +79,7 @@ class ThreadedServer(object):
                             if not self.timers[indice].is_alive():
                                 self.timers[indice] = threading.Timer(25, self.ejecutarsignosdevida, [indice])
                                 starttimer(self.timers[indice])
-                                print_lock.acquire()
-                                print "iniciando timer para el gestor {}".format(self.gestores[indice].connection.ip)
-                                print_lock.release()
+                                printstring("Iniciando timer para el gestor de {}".format(self.gestores[indice].userip))
 
                         if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
                             client.send("acciones ejecutadas exitosamente")
@@ -91,10 +92,8 @@ class ThreadedServer(object):
             client.close()
 
         except ValueError as err:
-            print_lock.acquire()
-            print("Ocurrió un error inesperado con el gestor de ", self.gestores[indice].connection.ip)
-            print("error: ", err)
-            print_lock.release()
+            printstring("Ocurrió un error inesperado con el gestor de {}".format(self.gestores[indice].connection.ip))
+            printstring("error: \n{}".format(err))
 
     def ejecutarsignosdevida(self, indice):
         self.gestores[indice].sendsingsoflife()

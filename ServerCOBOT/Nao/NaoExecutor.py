@@ -394,7 +394,7 @@ class Executor(object):
             posture_service = setconnection(self.connection, "ALRobotPosture")
 
             if motion_service is None or posture_service is None:
-                return False
+                return False, []
             else:
 
                 motion_service.wakeUp()
@@ -431,10 +431,6 @@ class Executor(object):
                                 values_radians.append(math.radians(parameter.values[i]))
                         angle_lists.append(values_radians)
 
-                print names
-                print angle_lists
-                print times
-
                 processid.append(motion_service.post.angleInterpolation(names, angle_lists, times, is_absolute))
 
                 if isdialog:
@@ -442,7 +438,7 @@ class Executor(object):
                     speakproxy.setLanguage("Spanish")
                     speakproxy.post.say(dialog.encode())
 
-                posture_service.post.goToPosture("Stand", 0.1)
+                posture_service.post.goToPosture("Stand", 0.5)
 
                 return True, processid
 
