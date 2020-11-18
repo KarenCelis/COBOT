@@ -66,18 +66,12 @@
                 {
                   "priority": 0,
                   "parametername": "speed",
-                  "values": [
-                    0.50,
-                    1
-                  ]
+                  "values": [0.50, 1]
                 },
                 {
                   "priority": 0,
                   "parametername": "HeadPitch",
-                  "values": [
-                    -10.0,
-                    -15.0
-                  ]
+                  "values": [-10.0, -15.0]
                 },
                 {
                   "priority": 2,
@@ -2093,7 +2087,7 @@
             {"name": 9, "values": "Dialogo3Escena3.wav"},
             {"name": 10, "values": "Dialogo4Escena3.wav"},
             {"name": 11, "values": "Dialogo5Escena3.wav"},
-            {"name": 11, "values": "Dialogo6Escena3.wav"}
+            {"name": 12, "values": "Dialogo6Escena3.wav"}
           ]
         }
       ]

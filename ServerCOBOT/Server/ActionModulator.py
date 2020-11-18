@@ -5,6 +5,17 @@ import RobotProfile
 import GestorDeObra
 import time
 import random
+import json
+
+import threading
+
+print_lock = threading.Lock()
+
+
+def printstring(string):
+    print_lock.acquire()
+    print string
+    print_lock.release()
 
 
 def selectprioritycommand(commands):
@@ -23,15 +34,17 @@ def selectprioritycommand(commands):
 
 def printcontent(parameters):
     for result in parameters:
+        print_lock.acquire()
         if result.values is not None:
-            print("Command: {}".format(result.command), ", parameter name: {}".format(result.parametername),
-                  ", value: {}".format(result.values))
+            print("Comando: {}".format(result.command), ", Nombre del parametro: {}".format(result.parametername),
+                  ", valor(es): {}".format(result.values))
         else:
-            print("Command: {}".format(result.command), ", parameter name: {}".format(result.parametername),
-                  ", value RGB: ("),
+            print("Comando: {}".format(result.command), ", Nombre del parametro: {}".format(result.parametername),
+                  ", valores RGB: ("),
             for rgb in result.rgb_values:
                 print(rgb.values, ", "),
             print(")")
+        print_lock.release()
 
 
 class Modulator(object):
@@ -49,12 +62,15 @@ class Modulator(object):
         self.robotprofile = RobotProfile.RobotProfile.getinstance()
         if isinstance(accion, GestorDeObra.ActionObject):
             RobotProfile.RobotProfile.setmaping(self.robotname)
+            printstring("Cargando mapeo de acciones simples...")
         elif isinstance(accion, GestorDeObra.EmergentActionObject):
             RobotProfile.RobotProfile.setemergent(self.robotname)
+            printstring("Cargando mapeo de signos de vida...")
         elif isinstance(accion, GestorDeObra.SignsOfLifeObject):
             RobotProfile.RobotProfile.setsigns(self.robotname)
+            printstring("Cargando mapeo de acciones emergentes...")
         else:
-            print "No se encontró el tipo de acción enviada"
+            printstring("No se encontró el tipo de acción enviada")
 
     def modulateactions(self):
 
@@ -121,7 +137,8 @@ class Modulator(object):
                                                             for parametro in emocion.parameters:
                                                                 moduledparameters.append(
                                                                     Parameters(secundarios.priority,
-                                                                               parametro.parametername, mapeo.commandname,
+                                                                               parametro.parametername,
+                                                                               mapeo.commandname,
                                                                                self.applyequation(parametro)))
                                                                 self.parameterset.append(moduledparameters[-1])
 
@@ -133,7 +150,8 @@ class Modulator(object):
                                                                 values.append(self.applyequation(rgb))
 
                                                             moduledparameters.append(
-                                                                Parameters(secundarios.priority, sec_params.parametername,
+                                                                Parameters(secundarios.priority,
+                                                                           sec_params.parametername,
                                                                            mapeo.commandname, values))
                                                             self.parameterset.append(moduledparameters[-1])
 
@@ -176,7 +194,7 @@ class Modulator(object):
             # print("-- Gestionando prioridades --")
             # printcontent(self.parameterset)
 
-            print("-- Comandos y parámetros modulados--")
+            printstring("-- Comandos y parámetros modulados--")
             printcontent(self.parameterset)
             self.setcommands()
 
@@ -269,6 +287,10 @@ class Command(object):
         self.commandname = commandname
         self.parameters = parameters
 
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
 
 class Parameters(object):
     def __init__(self, priority, parametername, command, values=None, rgb_values=None):
@@ -277,6 +299,10 @@ class Parameters(object):
         self.values = values
         self.rgb_values = rgb_values
         self.command = command
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class EmotionalInformation(object):
