@@ -107,11 +107,11 @@ class Executor(object):
 
     def stopTask(self, identifiers):
         print 'deteniendo acciones de Nao'
-        moduleproxy = setconnection(self.connection, "ALModule")
-        if moduleproxy is not None:
-            for identifier in identifiers:
-                moduleproxy.stop(identifier)
-            self.applyPosture()
+        motion = setconnection(self.connection, "ALMotion")
+        for identifier in identifiers:
+            if ALProxy.isRunning(motion, identifier):
+                ALProxy.stop(motion, identifier)
+        self.applyPosture()
 
     def applyPosture(self):
         motionproxy = setconnection(self.connection, "ALRobotPosture")

@@ -236,18 +236,7 @@
           ]
         }
       ],
-      "secondary_parameters": [
-        {
-          "priority": 2,
-          "parametername": "ledcolor",
-          "secondary_maping_id": 1
-        },
-        {
-          "priority": 1,
-          "parametername": "armsmovement",
-          "secondary_maping_id": 2
-        }
-      ]
+      "secondary_parameters": []
     },
     {
       "actionid": 4,

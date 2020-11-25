@@ -40,7 +40,7 @@ class ThreadedServer(object):
             else:
                 self.direcciones.append(host)
                 self.gestores.append(GestorDeObra.Gestor(host))
-                self.timers.append(threading.Timer(25, self.ejecutarsignosdevida, [len(self.gestores)-1]))
+                self.timers.append(threading.Timer(18, self.ejecutarsignosdevida, [len(self.gestores)-1]))
                 printstring("Iniciando un nuevo gestor de obra para el usuario con IP {}\n".format(host))
                 threading.Thread(target=self.listenToClient, args=(client, len(self.gestores)-1)).start()
 
@@ -58,6 +58,7 @@ class ThreadedServer(object):
 
                 jdata = json.loads(data)
                 option = 0
+                printstring(jdata)
 
                 if "code" in jdata:
                     option = int(json.dumps(jdata["code"]))
@@ -73,18 +74,26 @@ class ThreadedServer(object):
                                 print "Signos detenidos"
                                 self.gestores[indice].stopTask()
 
-                        result = self.gestores[indice].loadcontent(json.loads(data), option)
-
-                        if self.gestores[indice].momento == GestorDeObra.INACTIVO:
-                            if not self.timers[indice].is_alive():
-                                self.timers[indice] = threading.Timer(25, self.ejecutarsignosdevida, [indice])
-                                starttimer(self.timers[indice])
-                                printstring("Iniciando timer para el gestor de {}".format(self.gestores[indice].userip))
-
-                        if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
-                            client.send("acciones ejecutadas exitosamente")
-                        elif result == GestorDeObra.ACCIONES_ENTRANTES_BLOQUEADAS:
+                        if self.gestores[indice].momento == GestorDeObra.EJECUTANDO_ACCIONES_SIMPLES:
+                            printstring("Ya se están ejecutando acciones, por favor espere a que finalicen")
                             client.send("acciones bloqueadas, intente de nuevo")
+                        elif self.gestores[indice].momento == GestorDeObra.EJECUTANDO_ACCION_EMERGENTE:
+                            printstring("Ya se están ejecutando acciones, por favor espere a que finalicen")
+                            client.send("acciones bloqueadas, intente de nuevo")
+                        else:
+                            result = self.gestores[indice].loadcontent(json.loads(data), option)
+
+                            if self.gestores[indice].momento == GestorDeObra.INACTIVO or \
+                                    self.gestores[indice].momento == GestorDeObra.EJECUTANDO_SIGNOS_DE_VIDA:
+                                if not self.timers[indice].is_alive():
+                                    self.timers[indice] = threading.Timer(18, self.ejecutarsignosdevida, [indice])
+                                    starttimer(self.timers[indice])
+                                    printstring("Iniciando timer para el gestor de {}".format(self.gestores[indice].userip))
+
+                            if result == GestorDeObra.ACCIONES_ENTRANTES_EJECUTADAS:
+                                client.send("acciones ejecutadas exitosamente")
+                            elif result == GestorDeObra.ACCIONES_ENTRANTES_BLOQUEADAS:
+                                client.send("acciones bloqueadas, intente de nuevo")
 
                     client.send("información enviada")
                 else:
@@ -97,8 +106,9 @@ class ThreadedServer(object):
 
     def ejecutarsignosdevida(self, indice):
         self.gestores[indice].sendsingsoflife()
-        self.timers[indice] = threading.Timer(25, self.ejecutarsignosdevida, [indice])
-        if self.gestores[indice].momento == GestorDeObra.INACTIVO:
+        self.timers[indice] = threading.Timer(18, self.ejecutarsignosdevida, [indice])
+        if self.gestores[indice].momento == GestorDeObra.INACTIVO or \
+                self.gestores[indice].momento == GestorDeObra.EJECUTANDO_SIGNOS_DE_VIDA:
             starttimer(self.timers[indice])
 
 
