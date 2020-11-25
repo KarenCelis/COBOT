@@ -95,12 +95,13 @@ class Executor(object):
 
                                 # Ahora el valor del parametro son los nodos que componen la trayectoria
                                 self.posicion = parametro.values
+                                for j in range(len(path)):
+                                    path[j] = path[j].nodeid
                                 parametro.values = path
-
-                printstring("Construyendo archivo json para envío de comandos al sistema del robot")
-                data_wrap = Data(self.comandos)
-                comandos_json = json.dumps(data_wrap.__dict__, lambda o: o.__dict__, indent=4)
-
+                name = self.connection.robot
+                printstring("Construyendo archivo json para envío de comandos al sistema del robot {}".format(name))
+                # comandos_json = json.dumps(data_wrap.__dict__, lambda o: o.__dict__, indent=4)
+                comandos_json = json.dumps([o.dump() for o in self.comandos], indent=4)
                 printstring("Creando socket para el envío de comandos...")
                 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 client_socket.connect((self.connection.ip, self.connection.port))
@@ -143,8 +144,3 @@ class Executor(object):
 
                 nao = Executor(self.comandos, self.connection)
                 nao.stopTask(returned_message.processid)
-
-
-class Data(object):
-    def __init__(self, commands):
-        self.commands = commands

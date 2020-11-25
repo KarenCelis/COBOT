@@ -54,19 +54,20 @@ class Gestor(object):
         self.data_received = data_received
 
         if option == 1:
-            self.loadconnection()
+            return self.loadconnection()
         elif option == 2:
-            self.loadsignsoflife()
+            return self.loadsignsoflife()
         elif option == 3:
-            self.loadworldmodel()
+            return self.loadworldmodel()
         elif option == 4:
-            self.loadsimpleactions()
+            return self.loadsimpleactions()
         elif option == 5:
-            self.loademergentactions()
+            return self.loademergentactions()
         elif option == 6:
-            self.sendsingsoflife()
+            return self.sendsingsoflife()
         else:
             print("opción inválida")
+            return None
 
     def loadconnection(self):
 
@@ -95,7 +96,7 @@ class Gestor(object):
 
             self.momento = EJECUTANDO_SIGNOS_DE_VIDA
             printstring("ejecutando signos de vida para el gestor del usuario con IP {}".format(self.userip))
-
+            printstring("El momento del gestor se ha establecido en EJECUTANDO SIGNOS_DE VIDA")
             # Se envía solo un valor de los signos de vida y se fija como arreglo ya que el action modulator funciona
             # genéricamente para todos los tipos de acción, y las acciones simples pueden ser más de una, por lo que se
             # hace un ciclo y es necesario un arreglo siempre. En este caso, el ciclo se hará sobre una única acción.
@@ -114,7 +115,7 @@ class Gestor(object):
                 printstring("signos de vida ejecutados correctamente")
             else:
                 printstring("hubo un error al ejecutar los signos de vida. Verificar conexion")
-            self.momento = INACTIVO
+            self.momento = EJECUTANDO_SIGNOS_DE_VIDA
 
     def loadworldmodel(self):
 
@@ -224,6 +225,8 @@ class Gestor(object):
 
         else:
             printstring("Hubo un error al ejecutar las acciones, verifique la información enviada")
+            self.momento = INACTIVO
+            printstring("El momento del gestor se ha establecido en INACTIVO")
             return False
 
         self.momento = INACTIVO

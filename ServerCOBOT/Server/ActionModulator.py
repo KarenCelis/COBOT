@@ -3,7 +3,6 @@ from __future__ import division
 
 import RobotProfile
 import GestorDeObra
-import time
 import random
 import json
 
@@ -65,10 +64,10 @@ class Modulator(object):
             printstring("Cargando mapeo de acciones simples...")
         elif isinstance(accion, GestorDeObra.EmergentActionObject):
             RobotProfile.RobotProfile.setemergent(self.robotname)
-            printstring("Cargando mapeo de signos de vida...")
+            printstring("Cargando mapeo de acciones emergentes...")
         elif isinstance(accion, GestorDeObra.SignsOfLifeObject):
             RobotProfile.RobotProfile.setsigns(self.robotname)
-            printstring("Cargando mapeo de acciones emergentes...")
+            printstring("Cargando mapeo de signos de vida...")
         else:
             printstring("No se encontró el tipo de acción enviada")
 
@@ -287,9 +286,11 @@ class Command(object):
         self.commandname = commandname
         self.parameters = parameters
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+    def dump(self):
+        return {"Commands": {
+            'commandname': self.commandname,
+            'Parameters': json.dumps([o.dump() for o in self.parameters], indent=4)
+        }}
 
 
 class Parameters(object):
@@ -300,9 +301,14 @@ class Parameters(object):
         self.rgb_values = rgb_values
         self.command = command
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+    def dump(self):
+        return {
+            'priority': self.priority,
+            'parametername': self.parametername,
+            'values': self.values,
+            'rgb_values': self.rgb_values,
+            'command': self.command
+        }
 
 
 class EmotionalInformation(object):
@@ -310,10 +316,3 @@ class EmotionalInformation(object):
         self.axis = axis
         self.emotion_name = emotion_name
         self.emotion_range = emotion_range
-
-
-if __name__ == "__main__":
-    start_time = time.time()
-    RobotProfile.RobotProfile.getinstance()
-    RobotProfile.RobotProfile.setmaping("nao")
-    print("--- %s seconds ---" % (time.time() - start_time))
